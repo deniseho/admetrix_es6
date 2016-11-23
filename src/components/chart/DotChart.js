@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 
 function DotChartGen() {
     let testData = data;
-
+    
     let h = 500;
     let w = 600;
     let padding = 50;

@@ -2,6 +2,8 @@
 import React, {PropTypes} from 'react';
 import Header from './common/Header';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as loginActions from '../actions/loginActions.js';
 import Login from '../components/login/Login.js';
 import FacebookLogin from 'react-facebook-login';
 
@@ -57,9 +59,10 @@ App.propTypes = {
   // children: PropTypes.object.isRequired, loading: PropTypes.bool.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, dispatch) {
   return {
-    loading: state.ajaxCallsInProgress > 0
+    loading: state.ajaxCallsInProgress > 0,
+    actions: bindActionCreators(loginActions, dispatch)
   };
 }
 

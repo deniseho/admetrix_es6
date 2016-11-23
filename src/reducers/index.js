@@ -6,6 +6,7 @@ import ajaxCallsInProgress from './ajaxStatusReducer';
 const rootReducer = combineReducers({
   courses,
   authors,
+  // login,
   ajaxCallsInProgress
 });
 
