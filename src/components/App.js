@@ -24,13 +24,11 @@ class App extends React.Component {
   }
 
   loginClick() {
-    alert("login");
     this.setState({isLoggedIn: true});
     this.setState({userName: true});
   }
 
   logoutClick() {
-    alert("logout");
     this.setState({isLoggedIn: false});
   }
 
@@ -48,11 +46,8 @@ class App extends React.Component {
           callback={responseFacebook}
           textButton={isLoggedIn ? "facebook 登出" : "facebook 登入"}/> 
           {isLoggedIn ? "使用者登入中" : "使用者登出中"}
-
-          {isLoggedIn ? <Header loading={this.props.loading}/> : ''}
-
-          {isLoggedIn ? this.props.children: ''}
- 
+          
+          {this.props.children}
       </div>
     );
   }

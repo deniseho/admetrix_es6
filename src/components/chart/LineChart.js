@@ -1,5 +1,5 @@
 import React from 'react';
-import data from '../../api/data.js';
+import data from '../../api/monthlySales.js';
 import * as d3 from 'd3';
 
 function LineChartGen() {

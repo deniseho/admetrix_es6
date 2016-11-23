@@ -3,19 +3,19 @@ import data from '../../api/data.js';
 import * as d3 from 'd3';
 
 function DotChartGen() {
-    let monthlySales = data;
+    let testData = data;
 
-    let h = 350;
-    let w = 400;
+    let h = 500;
+    let w = 600;
     let padding = 50;
 
     let lineFun = d3
         .line()
         .x(function (d) {
-            return d.month * 30;
+            return d.CTR * 30;
         })
         .y(function (d) {
-            return h - d.sales;
+            return h - d.CPC;
         });
 
     let svg = d3
@@ -32,8 +32,8 @@ function DotChartGen() {
         .style("opacity", 0);
 
     //scale
-    let xScaleMin = monthlySales[0]['month'];
-    let xScaleMax = monthlySales[monthlySales.length - 1]['month'];
+    let xScaleMin = testData[0]['CTR'];
+    let xScaleMax = testData[testData.length - 1]['CTR'];
 
     let xScale = d3
         .scaleLinear()
@@ -47,8 +47,8 @@ function DotChartGen() {
         .scaleLinear()
         .domain([
             0,
-            d3.max(monthlySales, function (d) {
-                return d.sales;
+            d3.max(testData, function (d) {
+                return d.CPC;
             })
         ])
         .range([
@@ -58,7 +58,7 @@ function DotChartGen() {
 
     let xAxisGen = d3
         .axisBottom(xScale)
-        .ticks(monthlySales.length - 1);
+        .ticks(testData.length - 1);
 
     let yAxisGen = d3
         .axisLeft(yScale)
@@ -78,30 +78,30 @@ function DotChartGen() {
 
     let dots = svg
         .selectAll("circle")
-        .data(monthlySales)
+        .data(testData)
         .enter()
         .append("circle")
         .attr("cx", function (d) {
-            return xScale(d.month);
+            return xScale(d.CTR);
         })
         .attr("cy", function (d) {
-            return yScale(d.sales);
+            return yScale(d.CPC);
         })
         .attr("r", 6)
         .attr("fill", function (d) {
-            if (d.sales < 200) {
+            if (d.CPC < 4) {
                 return '#c1c1c1';
             } else {
                 return 'blue';
             }
         })
-        .attr("class", "circle-" + monthlySales.month)
+        .attr("class", "circle-" + testData.CTR)
         .on("mouseover", function(d){
             tooltip.transition()
                    .duration(100)
                    .style("opacity", .8);
 
-            tooltip.html("銷售額: $" + d.sales)
+            tooltip.html("銷售額: $" + d.CPC)
                    .style("left", (d3.event.pageX - 65) + "px")
                    .style("top", (d3.event.pageY - 65) + "px")
         })
@@ -113,17 +113,17 @@ function DotChartGen() {
 
     let labels = svg
         .selectAll("text")
-        .data(monthlySales)
+        .data(testData)
         .enter()
         .append("text")
         .text(function (d) {
-            return d.sales;
+            return d.CPC;
         })
         .attr("x", function (d) {
-            return (d.month * 30) - 25;
+            return (d.CTR * 30) - 25;
         })
         .attr("y", function (d) {
-            return h - d.sales;
+            return h - d.CPC;
         })
         .attr("font-size", "12px")
         .attr("fill", "#66666")
