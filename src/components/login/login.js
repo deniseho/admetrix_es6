@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router'
+import {Router, Route, Link, browserHistory} from 'react-router'
 import FacebookLogin from 'react-facebook-login';
 
 const responseFacebook = (response) => {
@@ -9,8 +9,12 @@ const responseFacebook = (response) => {
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.loginClick = this.loginClick.bind(this);
-    this.logoutClick = this.logoutClick.bind(this);
+    this.loginClick = this
+      .loginClick
+      .bind(this);
+    this.logoutClick = this
+      .logoutClick
+      .bind(this);
     this.state = {
       isLoggedIn: false
     };
@@ -33,14 +37,19 @@ class Login extends React.Component {
     return (
       <div>
         <FacebookLogin
-            appId="599058140278385"
-            autoLoad={true}
-            fields="name, email, picture"
-            scope = "public_profile, email, user_birthday"
-            onClick={isLoggedIn ? this.logoutClick : this.loginClick}
-            callback={responseFacebook}
-            textButton={isLoggedIn ? "facebook 登出" : "facebook 登入"}/>
-            {isLoggedIn ? "使用者登入中" : "使用者登出中"}
+          appId="599058140278385"
+          autoLoad={true}
+          fields="name, email, picture"
+          scope="public_profile, email, user_birthday"
+          onClick={isLoggedIn
+          ? this.logoutClick
+          : this.loginClick}
+          callback={responseFacebook}
+          textButton={isLoggedIn
+          ? "facebook 登出"
+          : "facebook 登入"}/> {isLoggedIn
+          ? "使用者登入中"
+          : "使用者登出中"}
       </div>
     );
   }

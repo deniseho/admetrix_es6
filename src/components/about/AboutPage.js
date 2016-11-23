@@ -1,21 +1,16 @@
 import React from 'react';
-import { Router, Route, Link, browserHistory } from 'react-router'
-import LineChart from '../chart/LineChart.js';
-import DotChart from '../chart/DotChart.js';
+import {Router, Route, Link, browserHistory} from 'react-router'
+import BasicChart from '../chart/BasicChart.js';
 
 class AboutPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
     return (
-      <div>
-        <DotChart/>
-        <LineChart/>
-      </div>
+        <BasicChart/>
     );
   }
 }

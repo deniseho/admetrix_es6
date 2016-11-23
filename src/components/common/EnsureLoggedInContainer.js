@@ -1,4 +1,5 @@
 import React, {PropType} from 'react';
+
 import {connect} from 'react-redux';
 
 class EnsureLoggedInContainer extends React.Component {
@@ -8,7 +9,9 @@ class EnsureLoggedInContainer extends React.Component {
 
   render() {
       return(
-      <h1>EnsureLoggedInContainer</h1>
+      <div>
+        {this.props.children}
+      </div>
       )
   }
 }
