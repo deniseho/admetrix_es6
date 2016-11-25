@@ -6,18 +6,18 @@ import delay from './delay';
 const authors = [
   {
     id: 'cory-house',
-    firstName: 'Cory',
-    lastName: 'House'
+    firstName: 'CPC',
+    lastName: ''
   },
   {
     id: 'scott-allen',
-    firstName: 'Scott',
-    lastName: 'Allen'
+    firstName: 'CTR',
+    lastName: ''
   },
   {
     id: 'dan-wahlin',
-    firstName: 'Dan',
-    lastName: 'Wahlin'
+    firstName: 'CCC',
+    lastName: ''
   }
 ];
 
