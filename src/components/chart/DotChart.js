@@ -32,8 +32,8 @@ function DotChartGen() {
         .style("opacity", 0);
 
     //scale
-    let xScaleMin = testData[0]['CTR'];
-    let xScaleMax = testData[testData.length - 1]['CTR'];
+    let xScaleMin = 0;
+    let xScaleMax = testData[testData.length - 1]['CTR'] + 2;
 
     let xScale = d3
         .scaleLinear()
@@ -58,7 +58,7 @@ function DotChartGen() {
 
     let xAxisGen = d3
         .axisBottom(xScale)
-        .ticks(testData.length - 1);
+        .ticks(testData.length);
 
     let yAxisGen = d3
         .axisLeft(yScale)
@@ -89,7 +89,7 @@ function DotChartGen() {
         })
         .attr("r", 6)
         .attr("fill", function (d) {
-            if (d.CPC < 4) {
+            if (!d.isUser) {
                 return '#c1c1c1';
             } else {
                 return 'blue';
@@ -101,7 +101,7 @@ function DotChartGen() {
                    .duration(100)
                    .style("opacity", .8);
 
-            tooltip.html("銷售額: $" + d.CPC)
+            tooltip.html("adName:" + d.adName + "<br/>CPC: " + d.CPC + "<br/>CTR:" + d.CTR)
                    .style("left", (d3.event.pageX - 65) + "px")
                    .style("top", (d3.event.pageY - 65) + "px")
         })

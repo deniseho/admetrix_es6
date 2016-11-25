@@ -23,13 +23,7 @@ class CoursesPage extends React.Component {
     const {courses} = this.props;
 
     return (
-      <div>
-        <input type="submit"
-               value="Add Course"
-               className="btn btn-primary"
-               onClick={this.redirectToAddCoursePage}/>
         <CourseList courses={courses}/>
-      </div>
     );
   }
 }
