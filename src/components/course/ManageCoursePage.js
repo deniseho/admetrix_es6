@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
-import {authorsFormattedForDropdown} from '../../selectors/selectors';
+import {chartFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
 
 export class ManageCoursePage extends React.Component {
@@ -74,7 +74,7 @@ export class ManageCoursePage extends React.Component {
   render() {
     return (
       <CourseForm
-        allAuthors={this.props.authors}
+        selctOptions={this.props.selctOptions}
         onChange={this.updateCourseState}
         onSave={this.saveCourse}
         course={this.state.course}
@@ -87,7 +87,7 @@ export class ManageCoursePage extends React.Component {
 
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
-  authors: PropTypes.array.isRequired,
+  selctOptions: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
 
@@ -107,13 +107,22 @@ function mapStateToProps(state, ownProps) {
 
   let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
 
+  let selectOptions = [
+    {
+          id: 'CPC',
+          text: 'CPC'
+      }, {
+          id: 'CTR',
+          text: 'CTR'
+    }];
+
   if (courseId && state.courses.length > 0) {
     course = getCourseById(state.courses, courseId);
   }
 
   return {
     course: course,
-    authors: authorsFormattedForDropdown(state.authors)
+    selctOptions: chartFormattedForDropdown(selectOptions)
   };
 }
 

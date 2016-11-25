@@ -1,8 +1,8 @@
-export function authorsFormattedForDropdown(authors) {
-  return authors.map(author => {
+export function chartFormattedForDropdown(allData) {
+  return allData.map(data => {
     return {
-      value: author.id,
-      text: author.firstName + ' ' + author.lastName
+      value: data.id,
+      text: data.text
     };
   });
 }
