@@ -2,20 +2,38 @@ import React from 'react';
 import data from '../../api/data.js';
 import * as d3 from 'd3';
 
-function DotChartGen() {
+function DotChartGen(xOption, yOption) {
     let testData = data;
-    
+
     let h = 500;
     let w = 600;
     let padding = 50;
 
+    function getXOption(d) {
+        switch (xOption) {
+            case 'CPC':
+                return d.CPC;
+            case 'CTR':
+                return d.CTR;
+        }
+    }
+
+    function getYOption(d) {
+        switch (yOption) {
+            case 'CPC':
+                return d.CPC;
+            case 'CTR':
+                return d.CPC;
+        }
+    }
+
     let lineFun = d3
         .line()
         .x(function (d) {
-            return d.CTR * 30;
+            return getXOption(d) * 30;
         })
         .y(function (d) {
-            return h - d.CPC;
+            return h - getYOption(d);
         });
 
     let svg = d3
@@ -48,7 +66,7 @@ function DotChartGen() {
         .domain([
             0,
             d3.max(testData, function (d) {
-                return d.CPC;
+                return getYOption(d);
             })
         ])
         .range([
@@ -82,10 +100,10 @@ function DotChartGen() {
         .enter()
         .append("circle")
         .attr("cx", function (d) {
-            return xScale(d.CTR);
+            return xScale(getXOption(d));
         })
         .attr("cy", function (d) {
-            return yScale(d.CPC);
+            return yScale(getYOption(d));
         })
         .attr("r", 6)
         .attr("fill", function (d) {
@@ -96,19 +114,19 @@ function DotChartGen() {
             }
         })
         .attr("class", "circle-" + testData.CTR)
-        .on("mouseover", function(d){
-            tooltip.transition()
-                   .duration(100)
-                   .style("opacity", .8);
+        .on("mouseover", function (d) {
+            tooltip
+                .transition()
+                .duration(100)
+                .style("opacity", .8);
 
-            tooltip.html("adName:" + d.adName + "<br/>CPC: " + d.CPC + "<br/>CTR:" + d.CTR)
-                   .style("left", (d3.event.pageX - 65) + "px")
-                   .style("top", (d3.event.pageY - 65) + "px")
+            tooltip.html("adName:" + d.adName + "<br/>CPC: " + getYOption(d) + "<br/>CTR:" + getXOption(d)).style("left", (d3.event.pageX - 65) + "px").style("top", (d3.event.pageY - 65) + "px")
         })
-        .on("mouseout", function(d){
-            tooltip.transition()
-                   .duration(100)
-                   .style("opacity", 0);
+        .on("mouseout", function (d) {
+            tooltip
+                .transition()
+                .duration(100)
+                .style("opacity", 0);
         });
 
     let labels = svg
@@ -117,13 +135,13 @@ function DotChartGen() {
         .enter()
         .append("text")
         .text(function (d) {
-            return d.CPC;
+            return getYOption(d);
         })
         .attr("x", function (d) {
-            return (d.CTR * 30) - 25;
+            return (getXOption(d) * 30) - 25;
         })
         .attr("y", function (d) {
-            return h - d.CPC;
+            return h - getYOption(d);
         })
         .attr("font-size", "12px")
         .attr("fill", "#66666")
@@ -134,29 +152,31 @@ function DotChartGen() {
 class DotChart extends React.Component {
     constructor(props) {
         super(props);
-    }
-
-    componentWillMount() {
+        this.state = {
+            xOption: String,
+            yOption: String
+        }
     }
 
     componentDidMount() {
-        DotChartGen();
+        this
+            .setState({
+                xOption: 'CTR',
+                yOption: 'CPC'
+            }, function () {
+                DotChartGen(this.state.xOption, this.state.yOption)
+            });
+    }
+
+    shouldComponentUpdate() {
+        return false;
     }
 
     render() {
-
         return (
             <div className="dotChart"></div>
         );
     }
 }
-
-// const DotChart = ({data}) => {
-//     console.log({data});
-//     return (
-//         <div>
-//         </div>
-//     );
-// };
 
 export default DotChart;
