@@ -161,8 +161,8 @@ class DotChart extends React.Component {
     componentDidMount() {
         this
             .setState({
-                xOption: 'CTR',
-                yOption: 'CPC'
+                xOption: this.props.xOption,
+                yOption: this.props.yOption,
             }, function () {
                 DotChartGen(this.state.xOption, this.state.yOption)
             });

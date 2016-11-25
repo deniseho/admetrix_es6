@@ -5,6 +5,10 @@ import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
 import {chartFormattedForDropdown} from '../../selectors/selectors';
 import toastr from 'toastr';
+import SelectInput from '../common/SelectInput';
+import DotChart from '../chart/DotChart.js'
+import Uploader from '../common/Uploader.js';
+
 
 export class ManageCoursePage extends React.Component {
   constructor(props, context) {
@@ -12,12 +16,8 @@ export class ManageCoursePage extends React.Component {
 
     this.state = {
       course: Object.assign({}, props.course),
-      errors: {},
-      saving: false
+      errors: {}
     };
-
-    this.updateCourseState = this.updateCourseState.bind(this);
-    this.saveCourse = this.saveCourse.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -27,67 +27,30 @@ export class ManageCoursePage extends React.Component {
     }
   }
 
-  updateCourseState(event) {
-    const field = event.target.name;
-    let course = this.state.course;
-    course[field] = event.target.value;
-    return this.setState({course: course});
+  onChange(e){
+    console.log(e.target.value);  
   }
-
-  courseFormIsValid() {
-    let formIsValid = true;
-    let errors = {};
-
-    if (this.state.course.title.length < 5) {
-      errors.title = 'Title must be at least 5 characters.';
-      formIsValid = false;
-    }
-
-    this.setState({errors: errors});
-    return formIsValid;
-  }
-
-
-  saveCourse(event) {
-    event.preventDefault();
-
-    if (!this.courseFormIsValid()) {
-      return;
-    }
-
-    this.setState({saving: true});
-
-    this.props.actions.saveCourse(this.state.course)
-      .then(() => this.redirect())
-      .catch(error => {
-        toastr.error(error);
-        this.setState({saving: false});
-      });
-  }
-
-  redirect() {
-    this.setState({saving: false});
-    toastr.success('Course saved');
-    this.context.router.push('/courses');
-  }
-
+  
   render() {
     return (
-      <CourseForm
-        selctOptions={this.props.selctOptions}
-        onChange={this.updateCourseState}
-        onSave={this.saveCourse}
-        course={this.state.course}
-        errors={this.state.errors}
-        saving={this.state.saving}
-      />
+    <div>
+       <Uploader/>
+       <SelectInput
+          name=""
+          label="X-options"
+          value={this.props.selectOptions.id}
+          defaultOption="Select"
+          options={this.props.selectOptions}
+          onChange={this.onChange}/>
+        <DotChart xOption={'CTR'} yOption={'CPC'} />
+    </div>
     );
   }
 }
 
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
-  selctOptions: PropTypes.array.isRequired,
+  selectOptions: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
 
@@ -122,7 +85,7 @@ function mapStateToProps(state, ownProps) {
 
   return {
     course: course,
-    selctOptions: chartFormattedForDropdown(selectOptions)
+    selectOptions: chartFormattedForDropdown(selectOptions)
   };
 }
 
