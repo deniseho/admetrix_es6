@@ -1,6 +1,6 @@
 export default {
   authors: [],
   courses: [],
-  // login: false,
+  data: [],
   ajaxCallsInProgress: 0
 };

@@ -144,14 +144,19 @@ class DotChart extends React.Component {
     }
 
     render() {
+
         return (
             <div className="dotChart"></div>
         );
     }
 }
 
-DotChart.defaultProps = {};
-
-DotChart.propTypes = {};
+// const DotChart = ({data}) => {
+//     console.log({data});
+//     return (
+//         <div>
+//         </div>
+//     );
+// };
 
 export default DotChart;

@@ -6,14 +6,5 @@ const data =[
     { CPC: 2, CTR: 8 }
 ];
 
-// class dataApi {
-//     static getData(){
-//         return new Promise((resolve, reject) => {
-//             setTimeout(() => {
-//                 resolve(Object.assign([], authors));
-//             }, delay);
-//         });
-//     }
-// }
 
 export default data;

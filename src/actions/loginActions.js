@@ -1,5 +1,4 @@
 import * as types from './actionTypes';
-import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
 
 export function loginSuccess(isLoggedIn) {
   return { type: types.LOGIN_SUCCESS, isLoggedIn};

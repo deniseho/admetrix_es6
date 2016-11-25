@@ -48,7 +48,7 @@ class App extends React.Component {
           callback={responseFacebook}
           textButton={isLoggedIn ? "facebook 登出" : "facebook 登入"}/> 
           {isLoggedIn ? "使用者登入中" : "使用者登出中"}
-          
+          <Header loading={this.props.loading} />
           {this.props.children}
       </div>
     );
