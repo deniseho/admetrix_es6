@@ -1,8 +1,8 @@
 import expect from 'expect';
-import {authorsFormattedForDropdown} from './selectors';
+import {chartFormattedForDropdown} from './selectors';
 
 describe('Author Selectors', () => {
-  describe('authorsFormattedForDropdown', () => {
+  describe('chartFormattedForDropdown', () => {
     it('should return author data formatted for use in a dropdown', () => {
       const authors = [
         {id: 'cory-house', firstName: 'Cory', lastName: 'House'},
@@ -14,7 +14,7 @@ describe('Author Selectors', () => {
         {value: 'scott-allen', text: 'Scott Allen'}
       ];
 
-      expect(authorsFormattedForDropdown(authors)).toEqual(expected);
+      expect(chartFormattedForDropdown(authors)).toEqual(expected);
     });
   });
 });
