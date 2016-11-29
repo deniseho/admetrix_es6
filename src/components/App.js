@@ -4,7 +4,6 @@ import Header from './common/Header';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as loginActions from '../actions/loginActions.js';
-import Login from '../components/login/Login.js';
 import FacebookLogin from 'react-facebook-login';
 
 const responseFacebook = (response) => {

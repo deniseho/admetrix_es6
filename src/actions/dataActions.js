@@ -1,20 +1,18 @@
-// import * as types from './actionTypes';
-// import dataApi from '../api/mockDataApi';
-// import {beginAjaxCall, ajaxCallError} from './ajaxStatusActions';
+import DataApi from '../api/mockDataApi';
+import * as types from './actionTypes';
+import {beginAjaxCall} from './ajaxStatusActions';
 
+export function loadAllDataSuccess(alldata) {
+  return {type: types.LOAD_ALLDATA_SUCCESS, alldata};
+}
 
-// export function loadDataSuccess(courses) {
-//   return { type: types.LOAD_DATA_SUCCESS, courses};
-// }
-
-
-// export function loadAllData() {
-//   return function(dispatch) {
-//     dispatch(beginAjaxCall());
-//     return dataApi.getAllData().then(data => {
-//       dispatch(loadDataSuccess(data));
-//     }).catch(error => {
-//       throw(error);
-//     });
-//   };
-// }
+export function loadAllData() {
+  return dispatch => {
+    dispatch(beginAjaxCall());
+    return DataApi.getAllData().then(alldata => {
+      dispatch(loadAllDataSuccess(alldata));
+    }).catch(error => {
+      throw(error);
+    });
+  };
+}

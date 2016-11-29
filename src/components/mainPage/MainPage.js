@@ -1,13 +1,16 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import * as courseActions from '../../actions/courseActions';
+import * as dataActions from '../../actions/dataActions';
 import {chartFormattedForDropdown} from '../../selectors/selectors';
-import toastr from 'toastr';
 import SelectInput from '../common/SelectInput';
 import Uploader from '../common/Uploader.js';
 import data from '../../api/data.js';
 import * as d3 from 'd3';
+import AxisX from '../chart/AxisX.js';
+import AxisY from '../chart/AxisY.js';
+import Dots from '../chart/Dots.js';
+import Tooltip from '../chart/Tooltip.js';
 
 function DotChartGen(xOption, yOption) {
   let testData = data;
@@ -59,6 +62,12 @@ function DotChartGen(xOption, yOption) {
     .axisBottom(xScale)
     .ticks(testData.length);
 
+  let xAxis = svg
+    .append("g")
+    .call(xAxisGen)
+    .attr("class", "x-axis")
+    .attr("transform", "translate(0," + (h - padding) + ")");
+
   let yAxisGen = d3
     .axisLeft(yScale)
     .ticks(8);
@@ -68,12 +77,6 @@ function DotChartGen(xOption, yOption) {
     .call(yAxisGen)
     .attr("class", "y-axis")
     .attr("transform", "translate(" + padding + ", 0)");
-
-  let xAxis = svg
-    .append("g")
-    .call(xAxisGen)
-    .attr("class", "x-axis")
-    .attr("transform", "translate(0," + (h - padding) + ")");
 
   let dots = svg
     .selectAll("circle")
@@ -215,29 +218,18 @@ function DotChartUpdate(xOption, yOption) {
     .remove();
 }
 
-export class ManageCoursePage extends React.Component {
+export class MainPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      course: Object.assign({}, props.course),
       xOption: 'CPC',
-      yOption: 'CTR',
-      errors: {}
+      yOption: 'CTR'
     };
 
     this.handleChange = this
       .handleChange
       .bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.course.id != nextProps.course.id) {
-      // Necessary to populate form when existing course is loaded directly.
-      this.setState({
-        course: Object.assign({}, nextProps.course)
-      });
-    }
   }
 
   componentDidMount() {
@@ -254,7 +246,7 @@ export class ManageCoursePage extends React.Component {
     let xOption;
 
     if (this.state.xOption != prevState.xOption) {
-        DotChartUpdate(this.state.xOption, 'CTR')
+      DotChartUpdate(this.state.xOption, 'CTR')
     }
   }
 
@@ -265,49 +257,37 @@ export class ManageCoursePage extends React.Component {
   render() {
     return (
       <div>
-        <Uploader/>
         <SelectInput
           name=""
           label="y-options"
           value={this.props.selectOptions.id}
           options={this.props.selectOptions}
           onChange={this.handleChange}/>
+
+        <svg width={800} height={500}>
+        	<text textAnchor="middle" transform={`translate(400, 494)`}>xOption</text>
+        	<text textAnchor="middle" transform={`translate(14, 250)rotate(-90)`}>yOption</text>
+
+          <AxisX/>
+          <AxisY/>
+          <Dots/>
+        </svg>
         <div className="dotChart"></div>
       </div>
     );
   }
 }
 
-ManageCoursePage.propTypes = {
-  course: PropTypes.object.isRequired,
-  selectOptions: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+MainPage.propTypes = {
+  selectOptions: PropTypes.array.isRequired
+  // actions: PropTypes.object.isRequired
 };
 
-// Pull in the React Router context so router is available on
-// this.context.router.
-ManageCoursePage.contextTypes = {
+MainPage.contextTypes = {
   router: PropTypes.object
 };
 
-function getCourseById(courses, id) {
-  const course = courses.filter(course => course.id == id);
-  if (course) 
-    return course[0]; //since filter returns an array, have to grab the first.
-  return null;
-}
-
 function mapStateToProps(state, ownProps) {
-  const courseId = ownProps.params.id; // from the path `/course/:id`
-
-  let course = {
-    id: '',
-    watchHref: '',
-    title: '',
-    authorId: '',
-    length: '',
-    category: ''
-  };
 
   let selectOptions = [
     {
@@ -319,17 +299,10 @@ function mapStateToProps(state, ownProps) {
     }
   ];
 
-  if (courseId && state.courses.length > 0) {
-    course = getCourseById(state.courses, courseId);
-  }
-
-  return {course: course, selectOptions: chartFormattedForDropdown(selectOptions)};
+  return {selectOptions: chartFormattedForDropdown(selectOptions)}
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(courseActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
+// function mapDispatchToProps(dispatch) {   return {     actions:
+// bindActionCreators(dataActions, dispatch)   }; } export default
+// connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps)(MainPage);
