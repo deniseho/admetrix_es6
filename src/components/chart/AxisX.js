@@ -25,7 +25,8 @@ export class AxisX extends React.Component {
             .bind(this);
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     componentDidUpdate(prevProps, prevState) {}
 

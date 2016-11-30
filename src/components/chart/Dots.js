@@ -7,7 +7,8 @@ export class Dots extends React.Component {
         super(props, context);
 
         this.state = {
-            
+            x: [],
+            y: []
         };
 
         this.handleChange = this
@@ -24,7 +25,6 @@ export class Dots extends React.Component {
     }
 
     componentDidMount() {
-
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -33,7 +33,7 @@ export class Dots extends React.Component {
 
     handleChange() {}
 
-    hangleOnMouseOver() {
+    hangleOnMouseOver(data) {
     }
 
     hangleOnMouseOut() {
@@ -42,7 +42,8 @@ export class Dots extends React.Component {
     render() {
         return(
           <circle cx={510} cy={10} stroke="black" strokeWidth="1" r="6" fill="tomato"
-          onMouseOver={this.hangleOnMouseOver} onMouseOut={this.hangleOnMouseOut}></circle>
+            onMouseOver={this.hangleOnMouseOver(this.props.data)} 
+            onMouseOut={this.hangleOnMouseOut}></circle>
         );
     }
 }

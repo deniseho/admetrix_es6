@@ -254,6 +254,7 @@ export class MainPage extends React.Component {
     this.setState({xOption: e.target.value});
   }
 
+
   render() {
     return (
       <div>
@@ -264,15 +265,16 @@ export class MainPage extends React.Component {
           options={this.props.selectOptions}
           onChange={this.handleChange}/>
 
+        <div className="dotChart"></div>
+
         <svg width={800} height={500}>
         	<text textAnchor="middle" transform={`translate(400, 494)`}>xOption</text>
         	<text textAnchor="middle" transform={`translate(14, 250)rotate(-90)`}>yOption</text>
+          <Dots data={data}/>
 
           <AxisX/>
           <AxisY/>
-          <Dots/>
         </svg>
-        <div className="dotChart"></div>
       </div>
     );
   }
