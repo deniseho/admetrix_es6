@@ -119,7 +119,20 @@ export class MainPage extends React.Component {
       .append("g")
       .call(yAxisGen)
       .attr("class", "y-axis")
-      .attr("transform", "translate(" + padding + ", 0)");
+      .attr("transform", `translate(${padding}, 0)`);
+
+    svg
+    .append("text")
+    .attr("x", w/2)
+    .attr("y", h-5)
+    .attr("txtAnchor", "middle")
+    .text(this.state.xOption)
+
+    svg
+    .append("text")
+    .attr("txtAnchor", "middle")
+    .attr("transform",`translate(15, ${h / 2})rotate(-90)`)
+    .text(this.state.yOption)
 
     let dots = svg
       .selectAll("circle")
@@ -187,6 +200,7 @@ export class MainPage extends React.Component {
           onChange={this.handleYChange}/>
 
         <div className="dotChart"></div>
+
       </div>
     );
   }
@@ -220,108 +234,3 @@ function mapStateToProps(state, ownProps) {
 // bindActionCreators(dataActions, dispatch)   }; } export default
 // connect(mapStateToProps, mapDispatchToProps)(MainPage);
 export default connect(mapStateToProps)(MainPage);
-
-
-
-
-// function DotChartGen(xOption, yOption) {
-//   let data = data;
-
-//   let h = 500;
-//   let w = 800;
-//   let padding = 50;
-
-//   let svg = d3
-//     .select(".dotChart")
-//     .append("svg")
-//     .attr("id", "svg-" + data.adName)
-//     .attr("width", w)
-//     .attr("height", h);
-
-//   //tooltip
-//   var tooltip = d3
-//     .select(".dotChart")
-//     .append("div")
-//     .attr("class", "tooltip")
-//     .style("opacity", 0);
-
-//   //scale
-//   let xScaleMin = 0;
-//   let xScaleMax = data[data.length - 1][xOption] + 2;
-
-//   let xScale = d3
-//     .scaleLinear()
-//     .domain([xScaleMin, xScaleMax])
-//     .range([
-//       padding + 10,
-//       w - padding
-//     ]);
-
-//   let yScale = d3
-//     .scaleLinear()
-//     .domain([
-//       0,
-//       d3.max(data, function (d) {
-//         return d[yOption];
-//       })
-//     ])
-//     .range([
-//       h - padding,
-//       10
-//     ]);
-
-//   let xAxisGen = d3
-//     .axisBottom(xScale)
-//     .ticks(data.length);
-
-//   let xAxis = svg
-//     .append("g")
-//     .call(xAxisGen)
-//     .attr("class", "x-axis")
-//     .attr("transform", "translate(0," + (h - padding) + ")");
-
-//   let yAxisGen = d3
-//     .axisLeft(yScale)
-//     .ticks(8);
-
-//   let yAxis = svg
-//     .append("g")
-//     .call(yAxisGen)
-//     .attr("class", "y-axis")
-//     .attr("transform", "translate(" + padding + ", 0)");
-
-//   let dots = svg
-//     .selectAll("circle")
-//     .data(data)
-//     .enter()
-//     .append("circle")
-//     .attr("cx", function (d) {
-//       return xScale(d[xOption]);
-//     })
-//     .attr("cy", function (d) {
-//       return yScale(d[yOption]);
-//     })
-//     .attr("r", 6)
-//     .attr("fill", function (d) {
-//       if (!d.isUser) {
-//         return '#c1c1c1';
-//       } else {
-//         return 'blue';
-//       }
-//     })
-//     .attr("class", "circle-" + data.CTR)
-//     .on("mouseover", function (d) {
-//       tooltip
-//         .transition()
-//         .duration(100)
-//         .style("opacity", .8);
-
-//       tooltip.html("adName:" + d.adName + "<br/>CPC: " + d[yOption] + "<br/>CTR:" + d[xOption]).style("left", (d3.event.pageX - 65) + "px").style("top", (d3.event.pageY - 65) + "px")
-//     })
-//     .on("mouseout", function (d) {
-//       tooltip
-//         .transition()
-//         .duration(100)
-//         .style("opacity", 0);
-//     });
-// }
