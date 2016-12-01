@@ -8,7 +8,9 @@ import FacebookLogin from 'react-facebook-login';
 
 const responseFacebook = (response) => {
   console.log(response);
+  name = response.name;
 }
+
 
 class App extends React.Component {
   constructor(props) {
@@ -20,13 +22,14 @@ class App extends React.Component {
       .logoutClick
       .bind(this);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      name: String
     };
   }
 
   loginClick() {
     this.setState({isLoggedIn: true});
-    this.setState({userName: true});
+    this.setState({name: this.responseFacebook.name});
   }
 
   logoutClick() {
@@ -46,7 +49,7 @@ class App extends React.Component {
           onClick={isLoggedIn ? this.logoutClick : this.loginClick}
           callback={responseFacebook}
           textButton={isLoggedIn ? "facebook 登出" : "facebook 登入"}/> 
-          {isLoggedIn ? "使用者登入中" : "使用者登出中"}
+          {isLoggedIn ? "歡迎!" : "已登出"}
           <Header loading={this.props.loading} />
           {this.props.children}
       </div>

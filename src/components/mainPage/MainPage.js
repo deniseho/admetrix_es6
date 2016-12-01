@@ -2,16 +2,11 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as dataActions from '../../actions/dataActions';
-import {chartFormattedForDropdown} from '../../selectors/selectors';
+import {AxisDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
 import Uploader from '../common/Uploader.js';
 import Data from '../../api/data.js';
 import * as d3 from 'd3';
-import AxisX from '../chart/AxisX.js';
-import AxisY from '../chart/AxisY.js';
-import Dots from '../chart/Dots.js';
-import Tooltip from '../chart/Tooltip.js';
-
 
 export class MainPage extends React.Component {
   constructor(props, context) {
@@ -22,23 +17,26 @@ export class MainPage extends React.Component {
       yOption: 'CTR'
     };
 
-    this.handleXChange = this.handleXChange.bind(this);
-    this.handleYChange = this.handleYChange.bind(this);
+    this.handleXChange = this
+      .handleXChange
+      .bind(this);
+
+    this.handleYChange = this
+      .handleYChange
+      .bind(this);
   }
 
   componentDidMount() {
-
     let h = 500;
     let w = 800;
     let padding = 50;
 
-    this
-      .setState({
-        xOption: this.state.xOption,
-        yOption: this.state.yOption
-      }, function () {
-        this.DotChartGen(this.state.xOption, this.state.yOption);
-      });
+    this.setState({
+      xOption: this.state.xOption,
+      yOption: this.state.yOption
+    }, function () {
+      this.DotChartGen(this.state.xOption, this.state.yOption);
+    });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -56,7 +54,7 @@ export class MainPage extends React.Component {
   }
 
   DotChartGen(xOption, yOption) {
-    let data = Data;
+    let data = Data.adResults;
 
     let h = 500;
     let w = 800;
@@ -121,18 +119,20 @@ export class MainPage extends React.Component {
       .attr("class", "y-axis")
       .attr("transform", `translate(${padding}, 0)`);
 
+    //xAxis label
     svg
-    .append("text")
-    .attr("x", w/2)
-    .attr("y", h-5)
-    .attr("txtAnchor", "middle")
-    .text(this.state.xOption)
+      .append("text")
+      .attr("x", w / 2)
+      .attr("y", h - 5)
+      .attr("txtAnchor", "middle")
+      .text(this.state.xOption)
 
+    //yAxis label
     svg
-    .append("text")
-    .attr("txtAnchor", "middle")
-    .attr("transform",`translate(15, ${h / 2})rotate(-90)`)
-    .text(this.state.yOption)
+      .append("text")
+      .attr("txtAnchor", "middle")
+      .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
+      .text(this.state.yOption)
 
     let dots = svg
       .selectAll("circle")
@@ -159,11 +159,7 @@ export class MainPage extends React.Component {
           .duration(100)
           .style("opacity", .8);
 
-        tooltip.html("adName:" + d.adName + "<br/>" 
-                    + xOption + ": " + d[xOption] + "<br/>" 
-                    + yOption + ": " + d[yOption])
-                    .style("left", (d3.event.pageX - 65) + "px")
-                    .style("top", (d3.event.pageY - 65) + "px")
+        tooltip.html("adName:" + d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX - 65) + "px").style("top", (d3.event.pageY - 65) + "px")
       })
       .on("mouseout", function (d) {
         tooltip
@@ -173,34 +169,40 @@ export class MainPage extends React.Component {
       })
   }
 
-  DotChartUpdate(){
+  DotChartUpdate() {
     let svg = d3
-      .select(".dotChart")
       .select("#dotChart")
       .remove()
 
     this.DotChartGen(this.state.xOption, this.state.yOption);
   }
-
+  
   render() {
     return (
-      <div>
-        <SelectInput
-          name=""
-          label="x-options"
-          value={this.state.xOption}
-          options={this.props.selectOptions}
-          onChange={this.handleXChange}/>
-
-        <SelectInput
-          name=""
-          label="y-options"
-          value={this.state.yOption}
-          options={this.props.selectOptions}
-          onChange={this.handleYChange}/>
-
+      <div className="container-fluid">
+      <div className="left-menu">
+      </div>
+        <div className="row">
+          <div className="col-md-2">
+            <SelectInput
+              name=""
+              label="x軸"
+              value={this.state.xOption}
+              options={this.props.selectOptions}
+              onChange={this.handleXChange}/>
+          </div>
+          <div className="row">
+            <div className="col-md-2">
+              <SelectInput
+                name=""
+                label="y軸"
+                value={this.state.yOption}
+                options={this.props.selectOptions}
+                onChange={this.handleYChange}/>
+            </div>
+          </div>
+        </div>
         <div className="dotChart"></div>
-
       </div>
     );
   }
@@ -217,17 +219,9 @@ MainPage.contextTypes = {
 
 function mapStateToProps(state, ownProps) {
 
-  let selectOptions = [
-    {
-      id: 'CPC',
-      text: 'CPC'
-    }, {
-      id: 'CTR',
-      text: 'CTR'
-    }
-  ];
+  let axisOptions = Data.axisFilters;
 
-  return {selectOptions: chartFormattedForDropdown(selectOptions)}
+  return {selectOptions: AxisDropdown(axisOptions)}
 }
 
 // function mapDispatchToProps(dispatch) {   return {     actions:
