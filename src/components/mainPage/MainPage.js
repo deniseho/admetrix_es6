@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as dataActions from '../../actions/dataActions';
+import * as axisFilterActions from '../../actions/axisFilterActions.js';
 import {AxisDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
 import Uploader from '../common/Uploader.js';
@@ -28,15 +29,17 @@ export class MainPage extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      xOption: this.state.xOption,
-      yOption: this.state.yOption
-    }, function () {
-    });
+    this
+      .setState({
+        xOption: this.state.xOption,
+        yOption: this.state.yOption
+      }, function () {});
   }
 
-  componentWillReceiveProps(nextProps){
-    this.DotChartGen(nextProps.entireData, this.state.xOption, this.state.yOption);
+  componentWillReceiveProps(nextProps) {
+    if (this.props.entireData != nextProps.entireData) {
+      this.DotChartGen(nextProps.entireData, this.state.xOption, this.state.yOption);
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -178,7 +181,7 @@ export class MainPage extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <Filters/>
+        <Filters entireData={this.props.entireData}/>
         <div className="row">
           <div className="col-md-offset-2 col-md-2">
             <SelectInput
@@ -194,9 +197,7 @@ export class MainPage extends React.Component {
               options={this.props.selectOptions}
               onChange={this.handleYChange}/>
           </div>
-          <div className="col-md-8">
-            <div className="dotChart"></div>
-          </div>
+          <div className="dotChart"></div>
         </div>
       </div>
     );
@@ -214,14 +215,15 @@ MainPage.contextTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  let axisOptions = Data.axisFilters;
+  let axisOptions = state.axisFilters;
 
   return {entireData: state.entireData, selectOptions: AxisDropdown(axisOptions)}
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(dataActions, dispatch)
+    actions: bindActionCreators(dataActions, axisFilterActions, dispatch)
   };
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

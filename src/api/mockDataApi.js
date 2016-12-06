@@ -68,12 +68,30 @@ const entireData = [
     }
 ]
 
+const axisFilters= [
+    {
+        axisValue: "CPC",
+        axisText: "CPC"
+    }, {
+        axisValue: "CTR",
+        axisText: "CTR"
+    }
+]
+
 class DataApi {
     static getEntireData() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(Object.assign([], entireData));
             }, delay);
+        });
+    }
+
+    static getAxisFilters() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(Object.assign([], axisFilters));
+            }, 0);
         });
     }
 }

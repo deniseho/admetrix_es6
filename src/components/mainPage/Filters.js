@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import {ProjectFilterDropdown, 
         AdGroupFilterDropdown, 
         AdFilterDropdown, 
@@ -41,6 +42,13 @@ export class Filters extends React.Component {
             ad: this.state.adName,
             category: this.state.category
         });
+    }
+
+    componentWillReceiveProps(nextProp){        
+        if(this.props.entireData != nextProp.entireData){
+            console.log("filter nextProp: " + 
+            JSON.stringify(nextProp.entireData));
+        }
     }
 
     handleProjectChange(e) {
@@ -94,7 +102,7 @@ export class Filters extends React.Component {
                 <div className="col-md-2">
                     <SelectInput
                         name=""
-                        label="分類"
+                        label="成果類型"
                         value={this.state.category}
                         options={this.props.categoryOptions}
                         onChange={this.handleCategoryChange}/>
@@ -112,7 +120,6 @@ Filters.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-
   let projectOptions = Data.projects;
   let adGroupOptions = Data.adGroups;
   let adOptions = Data.ads;

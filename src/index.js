@@ -4,6 +4,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import configureStore from './store/configureStore';
 import {loadEntireData} from './actions/dataActions.js';
+import {setAxisFilterOptions} from './actions/axisFilterActions.js';
 import {Provider} from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
@@ -12,6 +13,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore();
 store.dispatch(loadEntireData());
+store.dispatch(setAxisFilterOptions());
 
 render(
   <Provider store={store}>
