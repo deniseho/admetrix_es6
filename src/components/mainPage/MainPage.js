@@ -176,33 +176,30 @@ export class MainPage extends React.Component {
 
     this.DotChartGen(this.state.xOption, this.state.yOption);
   }
-  
+
   render() {
     return (
       <div className="container-fluid">
-      <div className="left-menu">
-      </div>
+        <div className="left-menu"></div>
         <div className="row">
-          <div className="col-md-2">
+          <div className="col-md-offset-2 col-md-2">
             <SelectInput
               name=""
               label="x軸"
               value={this.state.xOption}
               options={this.props.selectOptions}
               onChange={this.handleXChange}/>
+            <SelectInput
+              name=""
+              label="y軸"
+              value={this.state.yOption}
+              options={this.props.selectOptions}
+              onChange={this.handleYChange}/>
           </div>
-          <div className="row">
-            <div className="col-md-2">
-              <SelectInput
-                name=""
-                label="y軸"
-                value={this.state.yOption}
-                options={this.props.selectOptions}
-                onChange={this.handleYChange}/>
-            </div>
+          <div className="col-md-8">
+            <div className="dotChart"></div>
           </div>
         </div>
-        <div className="dotChart"></div>
       </div>
     );
   }
