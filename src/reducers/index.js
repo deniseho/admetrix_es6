@@ -1,7 +1,10 @@
 import {combineReducers} from 'redux';
-import dataReducer from '../reducers/dataResucer.js';
+import entireData from '../reducers/dataResucer.js';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 
-const rootReducer = combineReducers({ajaxCallsInProgress, dataReducer});
+const rootReducer = combineReducers({
+    ajaxCallsInProgress, 
+    entireData
+});
 
 export default rootReducer;

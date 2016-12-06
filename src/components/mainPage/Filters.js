@@ -10,7 +10,6 @@ import Data from '../../api/data.js';
 export class Filters extends React.Component {
     constructor(props, context) {
         super(props, context);
-
         this.state = {
             project: "",
             adGroup: "",

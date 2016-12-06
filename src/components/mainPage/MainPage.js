@@ -28,16 +28,15 @@ export class MainPage extends React.Component {
   }
 
   componentDidMount() {
-    let h = 500;
-    let w = 800;
-    let padding = 50;
-
     this.setState({
       xOption: this.state.xOption,
       yOption: this.state.yOption
     }, function () {
-      this.DotChartGen(this.state.xOption, this.state.yOption);
     });
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.DotChartGen(nextProps.entireData, this.state.xOption, this.state.yOption);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -54,9 +53,7 @@ export class MainPage extends React.Component {
     this.setState({yOption: e.target.value});
   }
 
-  DotChartGen(xOption, yOption) {
-    let data = Data.adResults;
-
+  DotChartGen(data, xOption, yOption) {
     let h = 500;
     let w = 800;
     let padding = 50;
@@ -175,7 +172,7 @@ export class MainPage extends React.Component {
       .select("#dotChart")
       .remove()
 
-    this.DotChartGen(this.state.xOption, this.state.yOption);
+    this.DotChartGen(this.props.entireData, this.state.xOption, this.state.yOption);
   }
 
   render() {
@@ -207,6 +204,7 @@ export class MainPage extends React.Component {
 }
 
 MainPage.propTypes = {
+  entireData: PropTypes.array,
   selectOptions: PropTypes.array.isRequired
   // actions: PropTypes.object.isRequired
 };
@@ -216,10 +214,9 @@ MainPage.contextTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  console.log("state: " + JSON.stringify(state));
   let axisOptions = Data.axisFilters;
 
-  return {selectOptions: AxisDropdown(axisOptions)}
+  return {entireData: state.entireData, selectOptions: AxisDropdown(axisOptions)}
 }
 
 function mapDispatchToProps(dispatch) {

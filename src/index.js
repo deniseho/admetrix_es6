@@ -12,8 +12,6 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore();
 store.dispatch(loadEntireData());
-// store.dispatch(loadCourses());
-// store.dispatch(loadAuthors());
 
 render(
   <Provider store={store}>
