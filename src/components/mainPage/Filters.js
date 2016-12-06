@@ -67,7 +67,7 @@ export class Filters extends React.Component {
 
     render() {
         return (
-            <div className="row">
+            <div className="row filters">
                 <div className="col-md-offset-2 col-md-2">
                     <SelectInput
                         name=""

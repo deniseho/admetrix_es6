@@ -10,8 +10,11 @@ a.active {
 }
 
 .header {
-  border-bottom: 1px solid #cccccc;
-  margin: 1em 0;
+}
+
+.filters {
+    border-bottom: 1px solid #cccccc;
+    margin: 1em 0;
 }
 
 .grid line {

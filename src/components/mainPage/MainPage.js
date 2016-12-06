@@ -7,6 +7,7 @@ import SelectInput from '../common/SelectInput';
 import Uploader from '../common/Uploader.js';
 import Data from '../../api/data.js';
 import * as d3 from 'd3';
+import Filters from '../mainPage/Filters.js';
 
 export class MainPage extends React.Component {
   constructor(props, context) {
@@ -41,7 +42,7 @@ export class MainPage extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.xOption != prevState.xOption || this.state.yOption != prevState.yOption) {
-      this.DotChartUpdate(this.state.xOption, this.state.yOption);
+      this.DotChartUpdate();
     }
   }
 
@@ -180,7 +181,7 @@ export class MainPage extends React.Component {
   render() {
     return (
       <div className="container-fluid">
-        <div className="left-menu"></div>
+        <Filters/>
         <div className="row">
           <div className="col-md-offset-2 col-md-2">
             <SelectInput
