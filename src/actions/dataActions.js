@@ -6,7 +6,7 @@ export function loadAllDataSuccess(entireData) {
   return {type: types.LOAD_ENTIRE_SUCCESS, entireData};
 }
 
-export function loadAllData() {
+export function loadEntireData() {
   return dispatch => {
     dispatch(beginAjaxCall());
     return DataApi.getEntireData().then(entireData => {

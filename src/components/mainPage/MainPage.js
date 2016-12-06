@@ -216,13 +216,15 @@ MainPage.contextTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-
+  console.log("state: " + JSON.stringify(state));
   let axisOptions = Data.axisFilters;
 
   return {selectOptions: AxisDropdown(axisOptions)}
 }
 
-// function mapDispatchToProps(dispatch) {   return {     actions:
-// bindActionCreators(dataActions, dispatch)   }; } export default
-// connect(mapStateToProps, mapDispatchToProps)(MainPage);
-export default connect(mapStateToProps)(MainPage);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(dataActions, dispatch)
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
