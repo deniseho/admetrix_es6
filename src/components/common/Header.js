@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import {Link, IndexLink} from 'react-router';
 import LoadingDots from './LoadingDots';
-import {chartFormattedForDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
 import Filters from '../mainPage/Filters.js';
 
