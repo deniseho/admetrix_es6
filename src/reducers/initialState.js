@@ -1,4 +1,4 @@
 export default {
-  allData: [],
+  entireData: [],
   ajaxCallsInProgress: 0
 };
