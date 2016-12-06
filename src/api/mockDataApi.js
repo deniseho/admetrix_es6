@@ -68,7 +68,9 @@ const entireData = [
     }
 ]
 
-const axisFilters= [
+const selfData ={
+axisFilters:
+ [
     {
         axisValue: "CPC",
         axisText: "CPC"
@@ -76,7 +78,17 @@ const axisFilters= [
         axisValue: "CTR",
         axisText: "CTR"
     }
-]
+],
+    projects: [
+        {
+            projId: "projId-01",
+            projName: "projName-01"
+        }, {
+            projId: "projId-02",
+            projName: "projName-02"
+        }
+    ]
+}
 
 class DataApi {
     static getEntireData() {
@@ -90,7 +102,15 @@ class DataApi {
     static getAxisFilters() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(Object.assign([], axisFilters));
+                resolve(Object.assign([], selfData.axisFilters));
+            }, 0);
+        });
+    }
+    
+    static getSelfProjects() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(Object.assign([], selfData.projects));
             }, 0);
         });
     }
