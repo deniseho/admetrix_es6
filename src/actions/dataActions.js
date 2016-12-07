@@ -8,9 +8,10 @@ export function loadEntireDataSucc(entireData) {
 
 
 export function loadEntireData() {
+  let filter = "";
   return dispatch => {
     dispatch(beginAjaxCall());
-    return DataApi.getEntireData("projId-02").then(entireData => {
+    return DataApi.getEntireData(filter).then(entireData => {
       dispatch(loadEntireDataSucc(entireData));
     }).catch(error => {
       throw(error);

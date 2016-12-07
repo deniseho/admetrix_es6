@@ -1,5 +1,11 @@
 export default {
   entireData: [],
-  axisFilters: [],
+  axisOptions: [],
+  dataFilterOptions : {
+    projects: [],
+    adSets: [],
+    ads: [],
+    categories: []
+  },
   ajaxCallsInProgress: 0
 };

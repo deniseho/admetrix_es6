@@ -10,3 +10,4 @@ export default function dataReducer(state = initialState.entireData, action) {
       return state;
   }
 }
+

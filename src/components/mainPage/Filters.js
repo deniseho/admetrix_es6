@@ -5,6 +5,7 @@ import {ProjectFilterDropdown,
         AdSetFilterDropdown, 
         AdFilterDropdown, 
         CategoryFilterDropdown} from '../../selectors/selectors';
+import * as dataFilterActions from '../../actions/dataFilterActions.js';
 import SelectInput from '../common/SelectInput';
 import Data from '../../api/data.js';
 
@@ -120,10 +121,10 @@ Filters.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  let projectOptions = Data.projects;
-  let adSetOptions = Data.adGroups;
-  let adOptions = Data.ads;
-  let categoryOptions = Data.categories;
+  let projectOptions = state.dataFilters.projects;
+  let adSetOptions = state.dataFilters.adSets;
+  let adOptions = state.dataFilters.ads;
+  let categoryOptions = state.dataFilters.categories;
 
   return {
       projectOptions: ProjectFilterDropdown(projectOptions),

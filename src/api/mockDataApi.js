@@ -5,7 +5,7 @@ const entireData = [
         adId: 'adId-01',
         adName: 'adName-01',
         projId: "projId-01",
-        adGroupId: 'adGroupId-02',
+        adSetId: 'adSetId-02',
         isUser: true,
         CPC: 15,
         CTR: 23
@@ -13,7 +13,7 @@ const entireData = [
         adId: 'adId-02',
         adName: 'adName-02',
         projId: "projId-01",
-        adGroupId: 'adGroupId-02',
+        adSetId: 'adSetId-02',
         isUser: false,
         CPC: 4,
         CTR: 7
@@ -21,7 +21,7 @@ const entireData = [
         adId: 'adId-03',
         adName: 'adName-03',
         projId: "projId-01",
-        adGroupId: 'adGroupId-02',
+        adSetId: 'adSetId-02',
         isUser: false,
         CPC: 1,
         CTR: 3
@@ -29,7 +29,7 @@ const entireData = [
         adId: 'adId-04',
         adName: 'adName-04',
         projId: "projId-01",
-        adGroupId: 'adGroupId-02',
+        adSetId: 'adSetId-02',
         isUser: false,
         CPC: 22,
         CTR: 6
@@ -37,7 +37,7 @@ const entireData = [
         adId: 'adId-05',
         adName: 'adName-05',
         projId: "projId-01",
-        adGroupId: 'adGroupId-02',
+        adSetId: 'adSetId-02',
         isUser: false,
         CPC: 14,
         CTR: 5
@@ -45,7 +45,7 @@ const entireData = [
         adId: 'adId-06',
         adName: 'adName-06',
         projId: "projId-01",
-        adGroupId: 'adGroupId-02',
+        adSetId: 'adSetId-02',
         isUser: false,
         CPC: 8,
         CTR: 2
@@ -53,7 +53,7 @@ const entireData = [
         adId: 'adId-07',
         adName: 'adName-07',
         projId: "projId-02",
-        adGroupId: 'adGroupId-02',
+        adSetId: 'adSetId-02',
         isUser: false,
         CPC: 9,
         CTR: 11
@@ -61,24 +61,23 @@ const entireData = [
         adId: 'adId-08',
         adName: 'adName-08',
         projId: "projId-02",
-        adGroupId: 'adGroupId-03',
+        adSetId: 'adSetId-03',
         isUser: false,
         CPC: 21,
         CTR: 22
     }
 ]
 
-const selfData ={
-axisFilters:
- [
-    {
-        axisValue: "CPC",
-        axisText: "CPC"
-    }, {
-        axisValue: "CTR",
-        axisText: "CTR"
-    }
-],
+const selfData = {
+    axisFilters: [
+        {
+            axisValue: "CPC",
+            axisText: "CPC"
+        }, {
+            axisValue: "CTR",
+            axisText: "CTR"
+        }
+    ],
     projects: [
         {
             projId: "projId-01",
@@ -87,6 +86,48 @@ axisFilters:
             projId: "projId-02",
             projName: "projName-02"
         }
+    ],
+    adSets: [
+        {
+            adSetId: 'adSetId-01',
+            adSetName: "adSet-01",
+            projId: "projId-01"
+        }, {
+            adSetId: 'adSetId-02',
+            adSetName: "adSet-02",
+            projId: "projId-01"
+        }, {
+            adSetId: 'adSetId-03',
+            adSetName: "adSet-03",
+            projId: "projId-02"
+        }
+    ],
+    ads: [
+        {
+            adId: 'adId-01',
+            adName: 'adName-01'
+        }, {
+            adId: 'adId-02',
+            adName: 'adName-02'
+        }, {
+            adId: 'adId-03',
+            adName: 'adName-03'
+        }, {
+            adId: 'adId-04',
+            adName: 'adName-04'
+        }
+    ],
+    categories: [
+        {
+            categoryId: "categoryId-01",
+            categoryName: "categoryName-01"
+        }, {
+            categoryId: "categoryId-02",
+            categoryName: "categoryName-02"
+        }, {
+            categoryId: "categoryId-03",
+            categoryName: "categoryName-03"
+        }
     ]
 }
 
@@ -94,7 +135,9 @@ class DataApi {
     static getEntireData(value) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(Object.assign([], entireData.filter(x=>x.projId==value)));
+                resolve(Object.assign([], value == ""
+                    ? entireData
+                    : entireData.filter(x => x.projId == value)));
             }, delay);
         });
     }
@@ -103,15 +146,20 @@ class DataApi {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(Object.assign([], selfData.axisFilters));
-            }, 0);
+            }, delay);
         });
     }
-    
-    static getSelfProjects() {
+
+    static getDataFilters() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(Object.assign([], selfData.projects));
-            }, 0);
+                resolve(Object.assign({}, {
+                    projects: selfData.projects,
+                    adSets: selfData.adSets,
+                    ads: selfData.ads,
+                    categories: selfData.categories
+                }));
+            }, delay);
         });
     }
 }

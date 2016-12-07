@@ -210,9 +210,9 @@ MainPage.propTypes = {
   // actions: PropTypes.object.isRequired
 };
 
-MainPage.contextTypes = {
-  router: PropTypes.object
-};
+// MainPage.contextTypes = {
+//   router: PropTypes.object
+// };
 
 function mapStateToProps(state, ownProps) {
   console.log("mainpage state: " + JSON.stringify(state));
