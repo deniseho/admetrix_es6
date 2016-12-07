@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as dataActions from '../../actions/dataActions';
 import * as dataFilterActions from '../../actions/dataFilterActions';
 import * as selectFilterActions from '../../actions/selectFilterActions';
 import {ProjectFilterDropdown, AdSetFilterDropdown, AdFilterDropdown, CategoryFilterDropdown} from '../../selectors/selectors';
@@ -42,24 +43,23 @@ export class Filters extends React.Component {
             category: this.state.category});
     }
 
-    componentWillReceiveProps(nextProp) {
-        if(this.props.entireData != nextProp.entireData){     
-            console.log("componentWillReceiveProps");
-        }
-    }
+    // componentWillReceiveProps(nextProp) {
+    //     if(this.props.entireData != nextProp.entireData){     
+    //     }
+    // }
 
     componentDidUpdate(prevProps, preState){
-        console.log("state: " + JSON.stringify(this.state));
+        //  console.log("state: " + JSON.stringify(this.state)); 
     }
 
     changeSelectedOptions(){
-        () => this.props.actions.selectOptions({
+        () => this.props.actions.selectFilterOptions({
             project: this.state.project,
             adSet : this.state.adSet,
             ad: this.state.ad,
             category: this.state.category
         })
-        .then(() => {})
+        .then()
         .catch(error => {});
     }
 
@@ -143,7 +143,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(dataFilterActions, selectFilterActions, dispatch)
+        actions: bindActionCreators(dataActions, dataFilterActions, selectFilterActions, dispatch)
     };
 }
 
