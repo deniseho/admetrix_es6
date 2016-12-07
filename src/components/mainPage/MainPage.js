@@ -215,9 +215,8 @@ MainPage.contextTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  let axisOptions = state.axisFilters;
-
-  return {entireData: state.entireData, selectOptions: AxisDropdown(axisOptions)}
+  console.log("mainpage state: " + JSON.stringify(state));
+  return {entireData: state.entireData, selectOptions: AxisDropdown(state.axisFilters)}
 }
 
 function mapDispatchToProps(dispatch) {

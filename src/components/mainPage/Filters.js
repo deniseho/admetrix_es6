@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {ProjectFilterDropdown, 
-        AdGroupFilterDropdown, 
+        AdSetFilterDropdown, 
         AdFilterDropdown, 
         CategoryFilterDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
@@ -13,7 +13,7 @@ export class Filters extends React.Component {
         super(props, context);
         this.state = {
             project: "",
-            adGroup: "",
+            adSet: "",
             ad: "",
             category: ""
         };
@@ -22,8 +22,8 @@ export class Filters extends React.Component {
             .handleProjectChange
             .bind(this);
 
-        this.handleAdGroupChange = this
-            .handleAdGroupChange
+        this.handleAdSetChange = this
+            .handleAdSetChange
             .bind(this);
 
         this.handleAdChange = this
@@ -38,17 +38,17 @@ export class Filters extends React.Component {
     componentDidMount() {
         this.setState({
             project: this.state.project,
-            adGroup: this.state.adGroup,
+            adSet: this.state.adSet,
             ad: this.state.adName,
             category: this.state.category
         });
     }
 
     componentWillReceiveProps(nextProp){        
-        if(this.props.entireData != nextProp.entireData){
-            console.log("filter nextProp: " + 
-            JSON.stringify(nextProp.entireData));
-        }
+        // if(this.props.entireData != nextProp.entireData){
+        //     console.log("filter nextProp: " + 
+        //     JSON.stringify(nextProp.entireData));
+        // }
     }
 
     handleProjectChange(e) {
@@ -56,9 +56,9 @@ export class Filters extends React.Component {
         console.log("project: " + e.target.value);
     }
 
-    handleAdGroupChange(e) {
-        this.setState({adGroup: e.target.value});
-        console.log("adGroup: " + e.target.value);
+    handleAdSetChange(e) {
+        this.setState({adSet: e.target.value});
+        console.log("adSet: " + e.target.value);
     }
 
     handleAdChange(e) {
@@ -87,9 +87,9 @@ export class Filters extends React.Component {
                     <SelectInput
                         name=""
                         label="廣告組合"
-                        value={this.state.adGroup}
-                        options={this.props.adGroupOptions}
-                        onChange={this.handleAdGroupChange}/>
+                        value={this.state.adSet}
+                        options={this.props.adSetOptions}
+                        onChange={this.handleAdSetChange}/>
                 </div>
                 <div className="col-md-2">
                     <SelectInput
@@ -114,20 +114,20 @@ export class Filters extends React.Component {
 
 Filters.propTypes = {
   projectOptions: PropTypes.array,
-  adGroupOptions: PropTypes.array,
+  adSetOptions: PropTypes.array,
   adOptions: PropTypes.array,
   categoryOptions: PropTypes.array
 };
 
 function mapStateToProps(state, ownProps) {
   let projectOptions = Data.projects;
-  let adGroupOptions = Data.adGroups;
+  let adSetOptions = Data.adGroups;
   let adOptions = Data.ads;
   let categoryOptions = Data.categories;
 
   return {
       projectOptions: ProjectFilterDropdown(projectOptions),
-      adGroupOptions: AdGroupFilterDropdown(adGroupOptions),
+      adSetOptions: AdSetFilterDropdown(adSetOptions),
       adOptions: AdFilterDropdown(adOptions),
       categoryOptions: CategoryFilterDropdown(categoryOptions)
     }

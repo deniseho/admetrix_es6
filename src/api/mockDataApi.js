@@ -91,10 +91,10 @@ axisFilters:
 }
 
 class DataApi {
-    static getEntireData() {
+    static getEntireData(value) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(Object.assign([], entireData));
+                resolve(Object.assign([], entireData.filter(x=>x.projId==value)));
             }, delay);
         });
     }

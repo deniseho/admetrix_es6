@@ -16,11 +16,11 @@ export function ProjectFilterDropdown(options) {
   });
 }
 
-export function AdGroupFilterDropdown(options) {
+export function AdSetFilterDropdown(options) {
   return options.map(data => {
     return {
-      value: data.adGroupId,
-      text: data.adGroupName
+      value: data.adSetId,
+      text: data.adSetName
     };
   });
 }
