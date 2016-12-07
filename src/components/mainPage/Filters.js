@@ -1,11 +1,9 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {ProjectFilterDropdown, 
-        AdSetFilterDropdown, 
-        AdFilterDropdown, 
-        CategoryFilterDropdown} from '../../selectors/selectors';
-import * as dataFilterActions from '../../actions/dataFilterActions.js';
+import * as dataFilterActions from '../../actions/dataFilterActions';
+import * as selectFilterActions from '../../actions/selectFilterActions';
+import {ProjectFilterDropdown, AdSetFilterDropdown, AdFilterDropdown, CategoryFilterDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
 import Data from '../../api/data.js';
 
@@ -37,19 +35,12 @@ export class Filters extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            project: this.state.project,
-            adSet: this.state.adSet,
-            ad: this.state.adName,
-            category: this.state.category
-        });
+        this.setState({project: this.state.project, adSet: this.state.adSet, ad: this.state.adName, category: this.state.category});
     }
 
-    componentWillReceiveProps(nextProp){        
-        // if(this.props.entireData != nextProp.entireData){
-        //     console.log("filter nextProp: " + 
-        //     JSON.stringify(nextProp.entireData));
-        // }
+    componentWillReceiveProps(nextProp) {
+        // if(this.props.entireData != nextProp.entireData){     console.log("filter
+        // nextProp: " +     JSON.stringify(nextProp.entireData)); }
     }
 
     handleProjectChange(e) {
@@ -71,7 +62,6 @@ export class Filters extends React.Component {
         this.setState({category: e.target.value});
         console.log("category: " + e.target.value);
     }
-
 
     render() {
         return (
@@ -114,24 +104,27 @@ export class Filters extends React.Component {
 }
 
 Filters.propTypes = {
-  projectOptions: PropTypes.array,
-  adSetOptions: PropTypes.array,
-  adOptions: PropTypes.array,
-  categoryOptions: PropTypes.array
+    projectOptions: PropTypes.array,
+    adSetOptions: PropTypes.array,
+    adOptions: PropTypes.array,
+    categoryOptions: PropTypes.array,
+
+    actions: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
-  let projectOptions = state.dataFilters.projects;
-  let adSetOptions = state.dataFilters.adSets;
-  let adOptions = state.dataFilters.ads;
-  let categoryOptions = state.dataFilters.categories;
-
-  return {
-      projectOptions: ProjectFilterDropdown(projectOptions),
-      adSetOptions: AdSetFilterDropdown(adSetOptions),
-      adOptions: AdFilterDropdown(adOptions),
-      categoryOptions: CategoryFilterDropdown(categoryOptions)
+    return {
+        projectOptions: ProjectFilterDropdown(state.dataFilters.projects),
+        adSetOptions: AdSetFilterDropdown(state.dataFilters.adSets),
+        adOptions: AdFilterDropdown(state.dataFilters.ads),
+        categoryOptions: CategoryFilterDropdown(state.dataFilters.categories)
     }
 }
 
-export default  connect(mapStateToProps)(Filters);
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(dataFilterActions, selectFilterActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filters);

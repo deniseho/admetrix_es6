@@ -132,12 +132,10 @@ const selfData = {
 }
 
 class DataApi {
-    static getEntireData(value) {
+    static getEntireData() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(Object.assign([], value == ""
-                    ? entireData
-                    : entireData.filter(x => x.projId == value)));
+                resolve(Object.assign([], entireData));
             }, delay);
         });
     }
@@ -161,6 +159,19 @@ class DataApi {
                 }));
             }, delay);
         });
+    }
+
+    static selectOptions(selected){
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(Object.assign({}, {
+                    project: selected.project,
+                    adSet: selected.adSet,
+                    ad: selected.ad,
+                    category: selected.category
+                }))
+            })
+        })
     }
 }
 

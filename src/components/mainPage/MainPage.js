@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as dataActions from '../../actions/dataActions';
+import * as dataFilterActions from '../../actions/dataFilterActions';
+import * as selectFilterActions from '../../actions/selectFilterActions';
 import * as axisFilterActions from '../../actions/axisFilterActions.js';
 import {AxisDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
@@ -185,16 +187,16 @@ export class MainPage extends React.Component {
         <div className="row">
           <div className="col-md-offset-2 col-md-2">
             <SelectInput
-              name=""
+              name="xOption"
               label="x軸"
               value={this.state.xOption}
-              options={this.props.selectOptions}
+              options={this.props.axisOptions}
               onChange={this.handleXChange}/>
             <SelectInput
-              name=""
+              name="yOption"
               label="y軸"
               value={this.state.yOption}
-              options={this.props.selectOptions}
+              options={this.props.axisOptions}
               onChange={this.handleYChange}/>
           </div>
           <div className="dotChart"></div>
@@ -206,8 +208,8 @@ export class MainPage extends React.Component {
 
 MainPage.propTypes = {
   entireData: PropTypes.array,
-  selectOptions: PropTypes.array.isRequired
-  // actions: PropTypes.object.isRequired
+  axisOptions: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
 };
 
 // MainPage.contextTypes = {
@@ -216,12 +218,16 @@ MainPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   console.log("mainpage state: " + JSON.stringify(state));
-  return {entireData: state.entireData, selectOptions: AxisDropdown(state.axisFilters)}
+  return {
+    entireData: state.entireData, 
+    axisOptions: AxisDropdown(state.axisFilters)
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(dataActions, axisFilterActions, dispatch)
+    actions: bindActionCreators(dataActions, axisFilterActions, 
+    dataFilterActions, selectFilterActions, dispatch)
   };
 }
 

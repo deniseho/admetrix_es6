@@ -6,12 +6,10 @@ export function loadEntireDataSucc(entireData) {
   return {type: types.LOAD_ENTIRE_SUCCESS, entireData};
 }
 
-
 export function loadEntireData() {
-  let filter = "";
   return dispatch => {
     dispatch(beginAjaxCall());
-    return DataApi.getEntireData(filter).then(entireData => {
+    return DataApi.getEntireData().then(entireData => {
       dispatch(loadEntireDataSucc(entireData));
     }).catch(error => {
       throw(error);

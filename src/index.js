@@ -4,7 +4,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import configureStore from './store/configureStore';
 import {loadEntireData} from './actions/dataActions.js';
-import {setProjectFilterOptions} from './actions/dataFilterActions.js';
+import {setDataFilterOptions} from './actions/dataFilterActions.js';
+import {selectFilterOptions} from './actions/selectFilterActions.js';
 import {setAxisFilterOptions} from './actions/axisFilterActions.js';
 import {Provider} from 'react-redux';
 import { Router, browserHistory } from 'react-router';
@@ -13,9 +14,10 @@ import './styles/styles.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore();
-store.dispatch(loadEntireData());
 store.dispatch(setAxisFilterOptions());
-store.dispatch(setProjectFilterOptions());
+store.dispatch(loadEntireData());
+store.dispatch(setDataFilterOptions());
+store.dispatch(selectFilterOptions());
 
 render(
   <Provider store={store}>
