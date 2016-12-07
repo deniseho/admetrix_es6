@@ -217,7 +217,7 @@ MainPage.propTypes = {
 // };
 
 function mapStateToProps(state, ownProps) {
-  console.log("mainpage state: " + JSON.stringify(state));
+  // console.log("mainpage state: " + JSON.stringify(state));
   return {
     entireData: state.entireData, 
     axisOptions: AxisDropdown(state.axisFilters)

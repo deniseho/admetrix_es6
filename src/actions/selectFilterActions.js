@@ -11,7 +11,7 @@ export function selectFilterOptions() {
         dispatch(beginAjaxCall());
         return DataApi.selectOptions(
                 {
-                    project: "projId-02",
+                    project: "",
                     adSet: "",
                     ad: "",
                     category: ""

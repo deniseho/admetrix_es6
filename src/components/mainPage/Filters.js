@@ -35,32 +35,52 @@ export class Filters extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({project: this.state.project, adSet: this.state.adSet, ad: this.state.adName, category: this.state.category});
+        this.setState({
+            project: this.state.project, 
+            adSet: this.state.adSet, 
+            ad: this.state.adName,
+            category: this.state.category});
     }
 
     componentWillReceiveProps(nextProp) {
-        // if(this.props.entireData != nextProp.entireData){     console.log("filter
-        // nextProp: " +     JSON.stringify(nextProp.entireData)); }
+        if(this.props.entireData != nextProp.entireData){     
+            console.log("componentWillReceiveProps");
+        }
+    }
+
+    componentDidUpdate(prevProps, preState){
+        console.log("state: " + JSON.stringify(this.state));
+    }
+
+    changeSelectedOptions(){
+        () => this.props.actions.selectOptions({
+            project: this.state.project,
+            adSet : this.state.adSet,
+            ad: this.state.ad,
+            category: this.state.category
+        })
+        .then(() => {})
+        .catch(error => {});
     }
 
     handleProjectChange(e) {
         this.setState({project: e.target.value});
-        console.log("project: " + e.target.value);
+        this.changeSelectedOptions();
     }
 
     handleAdSetChange(e) {
         this.setState({adSet: e.target.value});
-        console.log("adSet: " + e.target.value);
+        this.changeSelectedOptions();
     }
 
     handleAdChange(e) {
         this.setState({ad: e.target.value});
-        console.log("ad: " + e.target.value);
+        this.changeSelectedOptions();
     }
 
     handleCategoryChange(e) {
         this.setState({category: e.target.value});
-        console.log("category: " + e.target.value);
+        this.changeSelectedOptions();
     }
 
     render() {

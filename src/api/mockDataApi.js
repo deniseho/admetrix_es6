@@ -170,7 +170,7 @@ class DataApi {
                     ad: selected.ad,
                     category: selected.category
                 }))
-            })
+            }, delay)
         })
     }
 }
