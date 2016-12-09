@@ -15,16 +15,21 @@
     "build:html": "babel-node tools/buildHtml.js",
     "prebuild": "npm-run-all clean-dist test lint build:html",
     "build": "babel-node tools/build.js",
-    "postbuild": "babel-node tools/distServer.js"
+    "postbuild": "babel-node tools/distServer.js",
+    "api": "json-server db.json"
   },
   "author": "Denise Ho",
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "6.8.0",
+    "body-parser": "^1.15.2",
     "bootstrap": "3.3.6",
     "d3": "^4.3.0",
+    "es6-promise": "^4.0.5",
+    "isomorphic-fetch": "^2.2.1",
     "jquery": "2.2.3",
     "json-server": "^0.9.4",
+    "lodash": "^4.17.2",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-facebook-login": "^3.4.0",
@@ -34,7 +39,6 @@
     "react-router": "^2.5.2",
     "react-router-redux": "4.0.4",
     "redux": "3.5.2",
-    // "redux-actions": "^1.1.0",
     "redux-thunk": "2.0.1"
   },
   "devDependencies": {
