@@ -7,6 +7,7 @@ import * as selectFilterActions from '../../actions/selectFilterActions';
 import * as axisFilterActions from '../../actions/axisFilterActions.js';
 import {AxisDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
+import {ProjectFilterDropdown, AdSetFilterDropdown, AdFilterDropdown, CategoryFilterDropdown} from '../../selectors/selectors';
 import Uploader from '../common/Uploader.js';
 import Data from '../../api/data.js';
 import * as d3 from 'd3';
@@ -18,7 +19,12 @@ export class MainPage extends React.Component {
 
     this.state = {
       xOption: 'CPC',
-      yOption: 'CTR'
+      yOption: 'CTR',
+
+      project: "",
+      adSet: "",
+      ad: "",
+      category: ""
     };
 
     this.handleXChange = this
@@ -28,13 +34,34 @@ export class MainPage extends React.Component {
     this.handleYChange = this
       .handleYChange
       .bind(this);
+
+    this.handleProjectChange = this
+      .handleProjectChange
+      .bind(this);
+
+    this.handleAdSetChange = this
+      .handleAdSetChange
+      .bind(this);
+
+    this.handleAdChange = this
+      .handleAdChange
+      .bind(this);
+
+    this.handleCategoryChange = this
+      .handleCategoryChange
+      .bind(this);
   }
 
   componentDidMount() {
     this
       .setState({
         xOption: this.state.xOption,
-        yOption: this.state.yOption
+        yOption: this.state.yOption,
+
+        project: this.state.project,
+        adSet: this.state.adSet,
+        ad: this.state.adName,
+        category: this.state.category
       }, function () {});
   }
 
@@ -180,10 +207,59 @@ export class MainPage extends React.Component {
     this.DotChartGen(this.props.entireData, this.state.xOption, this.state.yOption);
   }
 
+  handleProjectChange(e) {
+    this.setState({project: e.target.value});
+  }
+
+  handleAdSetChange(e) {
+    this.setState({adSet: e.target.value});
+  }
+
+  handleAdChange(e) {
+    this.setState({ad: e.target.value});
+  }
+
+  handleCategoryChange(e) {
+    this.setState({category: e.target.value});
+  }
+
   render() {
     return (
       <div className="container-fluid">
-        <Filters entireData={this.props.entireData}/>
+        <div className="row filters">
+          <div className="col-md-offset-2 col-md-2">
+            <SelectInput
+              name=""
+              label="行銷專案"
+              value={this.state.project}
+              options={this.props.projectOptions}
+              onChange={this.handleProjectChange}/>
+          </div>
+          <div className="col-md-2">
+            <SelectInput
+              name=""
+              label="廣告組合"
+              value={this.state.adSet}
+              options={this.props.adSetOptions}
+              onChange={this.handleAdSetChange}/>
+          </div>
+          <div className="col-md-2">
+            <SelectInput
+              name=""
+              label="廣告名稱"
+              value={this.state.ad}
+              options={this.props.adOptions}
+              onChange={this.handleAdChange}/>
+          </div>
+          <div className="col-md-2">
+            <SelectInput
+              name=""
+              label="成果類型"
+              value={this.state.category}
+              options={this.props.categoryOptions}
+              onChange={this.handleCategoryChange}/>
+          </div>
+        </div>
         <div className="row">
           <div className="col-md-offset-2 col-md-2">
             <SelectInput
@@ -209,25 +285,41 @@ export class MainPage extends React.Component {
 MainPage.propTypes = {
   entireData: PropTypes.array,
   axisOptions: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+
+  projectOptions: PropTypes.array,
+  adSetOptions: PropTypes.array,
+  adOptions: PropTypes.array,
+  categoryOptions: PropTypes.array
 };
 
-// MainPage.contextTypes = {
-//   router: PropTypes.object
-// };
+// MainPage.contextTypes = {   router: PropTypes.object };
 
 function mapStateToProps(state, ownProps) {
-  // console.log("mainpage state: " + JSON.stringify(state));
+  let projectOptions = state.dataFilters.projects;
+  let adSetOptions = state.dataFilters.adSets;
+  let adOptions = state.dataFilters.ads;
+  let categoryOptions = state.dataFilters.categories;
+
   return {
-    entireData: state.entireData, 
-    axisOptions: AxisDropdown(state.axisFilters)
+    entireData: state.entireData,
+    axisOptions: AxisDropdown(state.axisFilters),
+
+    project: state.selectedOptions.project,
+    adSet: state.selectedOptions.adSet,
+    ad: state.selectedOptions.ad,
+    category: state.selectedOptions.category,
+
+    projectOptions: ProjectFilterDropdown(projectOptions),
+    adSetOptions: AdSetFilterDropdown(adSetOptions),
+    adOptions: AdFilterDropdown(adOptions),
+    categoryOptions: CategoryFilterDropdown(categoryOptions)
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(dataActions, axisFilterActions, 
-    dataFilterActions, selectFilterActions, dispatch)
+    actions: bindActionCreators(dataActions, axisFilterActions, dataFilterActions, selectFilterActions, dispatch)
   };
 }
 

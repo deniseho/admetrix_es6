@@ -7,7 +7,9 @@ export function loadEntireDataSucc(entireData) {
 }
 
 export function loadEntireData() {
-  return dispatch => {
+  return function (dispatch, getState) {
+  console.log(getState().selectedOptions);
+    
     dispatch(beginAjaxCall());
     return DataApi.getEntireData().then(entireData => {
       dispatch(loadEntireDataSucc(entireData));

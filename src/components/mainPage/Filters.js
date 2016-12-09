@@ -40,19 +40,20 @@ export class Filters extends React.Component {
             project: this.state.project, 
             adSet: this.state.adSet, 
             ad: this.state.adName,
-            category: this.state.category});
+            category: this.state.category
+        });
     }
 
-    // componentWillReceiveProps(nextProp) {
-    //     if(this.props.entireData != nextProp.entireData){     
-    //     }
-    // }
+    componentWillReceiveProps(nextProp) {
+        console.log("this.props: " + JSON.stringify(this.props))
+    }
 
     componentDidUpdate(prevProps, preState){
         //  console.log("state: " + JSON.stringify(this.state)); 
     }
 
     changeSelectedOptions(){
+        //todo: 把targetvalue傳給selectFilterOptions action func
         () => this.props.actions.selectFilterOptions({
             project: this.state.project,
             adSet : this.state.adSet,
@@ -61,11 +62,13 @@ export class Filters extends React.Component {
         })
         .then()
         .catch(error => {});
+        console.log("state : " + this.state.project);
     }
 
     handleProjectChange(e) {
         this.setState({project: e.target.value});
-        this.changeSelectedOptions();
+        this.changeSelectedOptions(e.target.value);
+        console.log("project e.target.value: " + e.target.value);
     }
 
     handleAdSetChange(e) {
@@ -133,11 +136,23 @@ Filters.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
+    console.log("state: " + JSON.stringify(state.selectedOptions));
+
+    let projectOptions = state.dataFilters.projects;
+    let adSetOptions = state.dataFilters.adSets;
+    let adOptions = state.dataFilters.ads;
+    let categoryOptions = state.dataFilters.categories;
+
     return {
-        projectOptions: ProjectFilterDropdown(state.dataFilters.projects),
-        adSetOptions: AdSetFilterDropdown(state.dataFilters.adSets),
-        adOptions: AdFilterDropdown(state.dataFilters.ads),
-        categoryOptions: CategoryFilterDropdown(state.dataFilters.categories)
+        project: state.selectedOptions.project,
+        adSet: state.selectedOptions.adSet,
+        ad: state.selectedOptions.ad,
+        category: state.selectedOptions.category,
+
+        projectOptions: ProjectFilterDropdown(projectOptions),
+        adSetOptions: AdSetFilterDropdown(adSetOptions),
+        adOptions: AdFilterDropdown(adOptions),
+        categoryOptions: CategoryFilterDropdown(categoryOptions)
     }
 }
 

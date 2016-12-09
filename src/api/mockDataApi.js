@@ -162,13 +162,16 @@ class DataApi {
     }
 
     static selectOptions(selected){
+        console.log("selected: " + JSON.stringify(selected))
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                resolve(Object.assign({}, {
-                    project: selected.project,
-                    adSet: selected.adSet,
-                    ad: selected.ad,
-                    category: selected.category
+                resolve( 
+                    Object.assign({}, {
+                    // project: "projId-02",
+                    project: "",
+                    adSet: "",
+                    ad: "",
+                    category: ""
                 }))
             }, delay)
         })

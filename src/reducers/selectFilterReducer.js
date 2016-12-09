@@ -5,7 +5,7 @@ export default function selectFilterReducer(
     state = initialState.selectedOptions, action) {
   switch (action.type) {
     case types.SELECT_FILTER_OPTIONS_SUCCESS:
-      return action.selectedOptions;
+      return Object.assign({}, state, {selectedOptions: action.selectedOptions});
 
     default:
       return state;

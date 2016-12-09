@@ -7,11 +7,12 @@ export function selectFilterOptionsSucc(selectedOptions) {
 }
 
 export function selectFilterOptions(selected) {
-    console.log("selected: " + JSON.stringify(selected));
     return dispatch => {
+    console.log("selected: " + JSON.stringify(selected));
         dispatch(beginAjaxCall());
         return DataApi.selectOptions({selected})
             .then(selectedOptions => {
+                 console.log("selectedOptions: " + JSON.stringify(selectedOptions));
                 dispatch(selectFilterOptionsSucc(selectedOptions));
             })
             .catch(error => {
