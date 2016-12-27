@@ -73,7 +73,7 @@ export class MainPage extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.xOption != prevState.xOption || this.state.yOption != prevState.yOption) {
-      this.DotChartUpdate();
+      this.DotChartUpdate(this.state.project);
     }
   }
 
@@ -105,12 +105,13 @@ export class MainPage extends React.Component {
       .style("opacity", 0);
 
     //scale
-    let xScaleMin = 0;
-    let xScaleMax = data[data.length - 1][xOption] + 2;
-
     let xScale = d3
       .scaleLinear()
-      .domain([xScaleMin, xScaleMax])
+      .domain([0, 
+        d3.max(data, function (d) {
+          return d[xOption];
+        })
+      ])
       .range([
         padding + 10,
         w - padding
@@ -199,16 +200,19 @@ export class MainPage extends React.Component {
       })
   }
 
-  DotChartUpdate() {
+  DotChartUpdate(proj) {
     let svg = d3
       .select("#dotChart")
       .remove()
-
-    this.DotChartGen(this.props.entireData, this.state.xOption, this.state.yOption);
+      console.log(this.props.entireData);
+    let data = this.props.entireData.filter(x=>x.projId == proj);
+      console.log(data);
+    this.DotChartGen(data, this.state.xOption, this.state.yOption);
   }
 
   handleProjectChange(e) {
     this.setState({project: e.target.value});
+    this.DotChartUpdate(e.target.value) ;
   }
 
   handleAdSetChange(e) {

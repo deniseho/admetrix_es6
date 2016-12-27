@@ -14,7 +14,7 @@
             "adSetId": "adSetId-02",
             "isUser": true,
             "CPC": 15,
-            "CTR": 23
+            "CTR": 21
         },
         {
             "adId": "adId-02",
@@ -75,7 +75,7 @@
             "adName": "adName-08",
             "projId": "projId-02",
             "adSetId": "adSetId-03",
-            "isUser": false,
+            "isUser": true,
             "CPC": 21,
             "CTR": 22
         }
