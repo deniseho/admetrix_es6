@@ -62,16 +62,17 @@ export class MainPage extends React.Component {
         adSet: this.state.adSet,
         ad: this.state.adName,
         category: this.state.category
-      }, function () {
-        
-      });
+      }, function () {});
   }
 
   componentWillReceiveProps(nextProps) {
-      // let initProj = Object.keys(nextProps.projectOptions).map(x=> nextProps.projectOptions[x].value)[0];
-      console.log(JSON.stringify(nextProps));
-    if (this.props.entireData != nextProps.entireData) {
-       this.DotChartGen(nextProps.entireData.filter(x=>x.projId==nextProps.projectOptions[0].value), this.state.xOption, this.state.yOption);
+    // let initProj = Object
+    //   .keys(nextProps.projectOptions)
+    //   .map(x => nextProps.projectOptions[x].value)[0];
+
+    if (this.props.entireData !== nextProps.entireData) {
+      // this.DotChartGen(nextProps.entireData.filter(x => x.projId == nextProps.projectOptions[0].value), this.state.xOption, this.state.yOption);
+      this.DotChartGen(nextProps.entireData, this.state.xOption, this.state.yOption);
     }
   }
 
@@ -79,14 +80,6 @@ export class MainPage extends React.Component {
     if (this.state.xOption != prevState.xOption || this.state.yOption != prevState.yOption) {
       this.DotChartUpdate(this.state.project);
     }
-  }
-
-  handleXChange(e) {
-    this.setState({xOption: e.target.value});
-  }
-
-  handleYChange(e) {
-    this.setState({yOption: e.target.value});
   }
 
   DotChartGen(data, xOption, yOption) {
@@ -111,7 +104,8 @@ export class MainPage extends React.Component {
     //scale
     let xScale = d3
       .scaleLinear()
-      .domain([0, 
+      .domain([
+        0,
         d3.max(data, function (d) {
           return d[xOption];
         })
@@ -152,19 +146,43 @@ export class MainPage extends React.Component {
       .append("g")
       .call(yAxisGen)
       .attr("class", "y-axis")
-      .attr("transform", `translate(${padding}, 0)`);
+      .attr("transform", "translate(" + (padding+10) + ", 0)");
+
+    let xAxisSubGen = d3
+       .axisBottom(xScale)
+       .tickFormat("")
+       .tickSize(-h + padding, 0)
+       .ticks(data.length);
+
+    svg.append("g")
+    .attr("class", "subgrid")
+    .attr("transform", "translate(0," + (h-padding) + ")")
+    .call(xAxisSubGen)
+
+    let yAxisSubGen = d3
+      .axisLeft(yScale)
+      .tickFormat("")
+      .tickSize(-w + (padding*2), 0)
+      .ticks(8);
+
+    svg.append("g")
+    .attr("class", "subgrid")
+    .attr("transform", "translate(" + (padding+10) + ", 0)")
+    .call(yAxisSubGen)
 
     //xAxis label
     svg
       .append("text")
       .attr("x", w / 2)
       .attr("y", h - 5)
+      .attr("class", "xAxisLabel")
       .attr("txtAnchor", "middle")
       .text(this.state.xOption)
 
     //yAxis label
     svg
       .append("text")
+      .attr("class", "yAxisLabel")
       .attr("txtAnchor", "middle")
       .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
       .text(this.state.yOption)
@@ -194,7 +212,7 @@ export class MainPage extends React.Component {
           .duration(100)
           .style("opacity", .8);
 
-        tooltip.html("adName:" + d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX - 65) + "px").style("top", (d3.event.pageY - 65) + "px")
+        tooltip.html(d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX - 65) + "px").style("top", (d3.event.pageY - 65) + "px")
       })
       .on("mouseout", function (d) {
         tooltip
@@ -209,13 +227,25 @@ export class MainPage extends React.Component {
       .select("#dotChart")
       .remove()
 
-    let data = this.props.entireData.filter(x=>x.projId == proj);
+    let data = this
+      .props
+      .entireData;
+      // .filter(x => x.projId == proj);
+      
     this.DotChartGen(data, this.state.xOption, this.state.yOption);
+  }
+
+  handleXChange(e) {
+    this.setState({xOption: e.target.value});
+  }
+
+  handleYChange(e) {
+    this.setState({yOption: e.target.value});
   }
 
   handleProjectChange(e) {
     this.setState({project: e.target.value});
-    this.DotChartUpdate(e.target.value) ;
+    this.DotChartUpdate(e.target.value);
   }
 
   handleAdSetChange(e) {
@@ -248,7 +278,8 @@ export class MainPage extends React.Component {
               label="廣告組合"
               value={this.state.adSet}
               options={this.props.adSetOptions}
-              onChange={this.handleAdSetChange}/>
+              onChange={this.handleAdSetChange}>
+              </SelectInput>
           </div>
           <div className="col-md-2">
             <SelectInput
@@ -256,7 +287,8 @@ export class MainPage extends React.Component {
               label="廣告名稱"
               value={this.state.ad}
               options={this.props.adOptions}
-              onChange={this.handleAdChange}/>
+              onChange={this.handleAdChange}>
+              </SelectInput>
           </div>
           <div className="col-md-2">
             <SelectInput
@@ -264,7 +296,8 @@ export class MainPage extends React.Component {
               label="成果類型"
               value={this.state.category}
               options={this.props.categoryOptions}
-              onChange={this.handleCategoryChange}/>
+              onChange={this.handleCategoryChange}>
+              </SelectInput>
           </div>
         </div>
         <div className="row">
@@ -312,10 +345,8 @@ function mapStateToProps(state, ownProps) {
     entireData: state.entireData,
     axisOptions: AxisDropdown(state.axisFilters),
 
-    // project: state.selectedOptions.project,
-    // adSet: state.selectedOptions.adSet,
-    // ad: state.selectedOptions.ad,
-    // category: state.selectedOptions.category,
+    // project: state.selectedOptions.project, adSet: state.selectedOptions.adSet,
+    // ad: state.selectedOptions.ad, category: state.selectedOptions.category,
 
     projectOptions: ProjectFilterDropdown(projectOptions),
     adSetOptions: AdSetFilterDropdown(adSetOptions),

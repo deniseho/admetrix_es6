@@ -11,7 +11,7 @@ import {Provider} from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 import './styles/styles.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/react-bootstrap-theme-switcher/themes/paper/bootstrap.css';
 
 const store = configureStore();
 store.dispatch(setAxisFilterOptions());

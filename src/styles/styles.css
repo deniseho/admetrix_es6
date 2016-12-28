@@ -5,31 +5,16 @@
   margin: 0 auto;
 }
 
-a.active {
-  color: orange;
-}
-
-.header {
-}
-
 .filters {
     border-bottom: 1px solid #cccccc;
-    margin: 1em 0;
-}
-
-.grid line {
-  stroke-opacity: 0.7;
-  shape-rendering: crispEdges;
-}
-
-.grid path {
-  stroke-width: 0;
+    margin: 1em 0 2em 0;
 }
 
 div.tooltip {
     position: absolute;
     max-width: 200px;
     height: auto;
+    margin-top: -3.8em;
     padding: 10px 12px;
     background-color: black;
     color:#fff;
@@ -43,4 +28,21 @@ div.tooltip {
     font-family: 微軟正黑體, sans-serif;
     font-size: 9px;
 }
+
+.xAxisLabel,.yAxisLabel{
+  fill:#004B97 ;
+}
+
+.grid line {
+  shape-rendering: crispEdges;
+}
+
+.subgrid {
+  stroke-opacity: 0.25;
+}
+
+.domain, .tick line{
+  stroke: lightgrey;
+}
+
 
