@@ -140,7 +140,7 @@ export class MainPage extends React.Component {
 
     let yAxisGen = d3
       .axisLeft(yScale)
-      .ticks(8);
+      .ticks(data.length);
 
     let yAxis = svg
       .append("g")
@@ -163,7 +163,7 @@ export class MainPage extends React.Component {
       .axisLeft(yScale)
       .tickFormat("")
       .tickSize(-w + (padding*2), 0)
-      .ticks(8);
+      .ticks(data.length);
 
     svg.append("g")
     .attr("class", "subgrid")
