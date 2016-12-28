@@ -6,11 +6,10 @@ export function selectFilterOptionsSucc(selectedOptions) {
     return {type: types.SELECT_FILTER_OPTIONS_SUCCESS, selectedOptions};
 }
 
-export function selectFilterOptions(selected) {
+export function selectFilterOptions() {
     return dispatch => {
-    console.log("selected: " + JSON.stringify(selected));
         dispatch(beginAjaxCall());
-        return DataApi.selectOptions({selected})
+        return DataApi.selectOptions()
             .then(selectedOptions => {
                  console.log("selectedOptions: " + JSON.stringify(selectedOptions));
                 dispatch(selectFilterOptionsSucc(selectedOptions));

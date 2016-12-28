@@ -62,12 +62,16 @@ export class MainPage extends React.Component {
         adSet: this.state.adSet,
         ad: this.state.adName,
         category: this.state.category
-      }, function () {});
+      }, function () {
+        
+      });
   }
 
   componentWillReceiveProps(nextProps) {
+      // let initProj = Object.keys(nextProps.projectOptions).map(x=> nextProps.projectOptions[x].value)[0];
+      console.log(JSON.stringify(nextProps));
     if (this.props.entireData != nextProps.entireData) {
-      this.DotChartGen(nextProps.entireData, this.state.xOption, this.state.yOption);
+       this.DotChartGen(nextProps.entireData.filter(x=>x.projId==nextProps.projectOptions[0].value), this.state.xOption, this.state.yOption);
     }
   }
 
@@ -204,9 +208,8 @@ export class MainPage extends React.Component {
     let svg = d3
       .select("#dotChart")
       .remove()
-      console.log(this.props.entireData);
+
     let data = this.props.entireData.filter(x=>x.projId == proj);
-      console.log(data);
     this.DotChartGen(data, this.state.xOption, this.state.yOption);
   }
 
@@ -309,10 +312,10 @@ function mapStateToProps(state, ownProps) {
     entireData: state.entireData,
     axisOptions: AxisDropdown(state.axisFilters),
 
-    project: state.selectedOptions.project,
-    adSet: state.selectedOptions.adSet,
-    ad: state.selectedOptions.ad,
-    category: state.selectedOptions.category,
+    // project: state.selectedOptions.project,
+    // adSet: state.selectedOptions.adSet,
+    // ad: state.selectedOptions.ad,
+    // category: state.selectedOptions.category,
 
     projectOptions: ProjectFilterDropdown(projectOptions),
     adSetOptions: AdSetFilterDropdown(adSetOptions),

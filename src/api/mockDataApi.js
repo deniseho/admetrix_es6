@@ -109,6 +109,7 @@ class DataApi {
     }
 
     static selectOptions(selected) {
+        console.log("getAxisFilters:" + this.getAxisFilters().dataFilters);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(Object.assign({}, {
