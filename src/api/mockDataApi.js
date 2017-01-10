@@ -49,9 +49,7 @@ class DataApi {
                     .then((data) => {
                         resolve(Object.assign({}, {
                             projects: data.projects,
-                            adSets: data.adSets,
-                            ads: data.ads,
-                            categories: data.categories
+                            ads: data.ads
                         }))
                     })
             })

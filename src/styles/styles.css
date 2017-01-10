@@ -45,4 +45,6 @@ div.tooltip {
   stroke: lightgrey;
 }
 
-
+.filter-label {
+  color:#c2c2c2;
+}

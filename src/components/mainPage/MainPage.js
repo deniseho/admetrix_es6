@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as dataActions from '../../actions/dataActions';
+import * as userDataActions from '../../actions/userDataActions';
 import * as dataFilterActions from '../../actions/dataFilterActions';
 import * as selectFilterActions from '../../actions/selectFilterActions';
 import * as axisFilterActions from '../../actions/axisFilterActions.js';
@@ -9,9 +10,7 @@ import {AxisDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
 import {ProjectFilterDropdown, AdSetFilterDropdown, AdFilterDropdown, CategoryFilterDropdown} from '../../selectors/selectors';
 import Uploader from '../common/Uploader.js';
-import Data from '../../api/data.js';
 import * as d3 from 'd3';
-import Filters from '../mainPage/Filters.js';
 
 export class MainPage extends React.Component {
   constructor(props, context) {
@@ -22,9 +21,7 @@ export class MainPage extends React.Component {
       yOption: 'CTR',
 
       project: props.project,
-      adSet: "",
       ad: "",
-      category: "",
 
       entireData: []
     };
@@ -41,16 +38,8 @@ export class MainPage extends React.Component {
       .handleProjectChange
       .bind(this);
 
-    this.handleAdSetChange = this
-      .handleAdSetChange
-      .bind(this);
-
     this.handleAdChange = this
       .handleAdChange
-      .bind(this);
-
-    this.handleCategoryChange = this
-      .handleCategoryChange
       .bind(this);
   }
 
@@ -61,39 +50,36 @@ export class MainPage extends React.Component {
         yOption: this.state.yOption,
 
         project: this.state.project,
-        adSet: this.state.adSet,
         ad: this.state.adName,
-        category: this.state.category,
 
-        entireData : this.state.entireData
+        entireData : this.state.entireData,
+        userData: this.state.userData
       }, function () {});
   }
 
   componentWillReceiveProps(nextProps) {
-    // let initProj = Object
-    //   .keys(nextProps.projectOptions)
-    //   .map(x => nextProps.projectOptions[x].value)[0];
-    
     if (this.props.entireData !== nextProps.entireData) {
-      // this.DotChartGen(nextProps.entireData.filter(x => x.projId == nextProps.projectOptions[0].value), this.state.xOption, this.state.yOption);
-      
       this.setState({"entireData": nextProps.entireData}, function(){
-          // this.DotChartGen(this.state.entireData.filter(x=>x.projId==this.state.project), this.state.xOption, this.state.yOption);
           this.DotChartGen(this.state.entireData, this.state.xOption, this.state.yOption);
+      });
+    }
+
+    if (this.props.userData !== nextProps.userData) {
+      this.setState({"userData": nextProps.userData}, function(){
       });
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.xOption != prevState.xOption || this.state.yOption != prevState.yOption) {
-      this.DotChartUpdate(this.state.project);
+      this.DotChartUpdate();
     }
   }
 
   DotChartGen(data, xOption, yOption) {
     let h = 500;
     let w = 800;
-    let padding = 50;
+    let padding = 60;
 
     let svg = d3
       .select(".dotChart")
@@ -103,23 +89,24 @@ export class MainPage extends React.Component {
       .attr("height", h);
 
     //tooltip
-    var tooltip = d3
+    let tooltip = d3
       .select(".dotChart")
       .append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
 
+    let xOptionMax = d3.max(data, function(d){ return d[xOption]});
+    let xOptionMin = d3.min(data, function(d){ return d[xOption]});
+    let yOptionMax = d3.max(data, function(d){ return d[yOption]});
+    let yOptionMin = d3.min(data, function(d){ return d[yOption]});
+    
+    let xOptionUnit = (xOptionMax-xOptionMin)/data.length;
+    let yOptionUnit = (yOptionMax-yOptionMin)/data.length;
+
     //scale
     let xScale = d3
       .scaleLinear()
-      .domain([
-        d3.min(data, function (d) {
-          return d[xOption] - 0.002;
-        }),
-        d3.max(data, function (d) {
-          return d[xOption] + 0.002;
-        })
-      ])
+      .domain([xOptionMin-xOptionUnit, xOptionMax+xOptionUnit])
       .range([
         padding + 10,
         w - padding
@@ -127,14 +114,7 @@ export class MainPage extends React.Component {
 
     let yScale = d3
       .scaleLinear()
-      .domain([
-        d3.min(data, function (d) {
-          return d[yOption] - 0.5;
-        }),
-        d3.max(data, function (d) {
-          return d[yOption] + 0.5;
-        })
-      ])
+      .domain([yOptionMin-yOptionUnit, yOptionMax+yOptionUnit])
       .range([
         h - padding,
         10
@@ -186,7 +166,7 @@ export class MainPage extends React.Component {
     svg
       .append("text")
       .attr("x", w / 2)
-      .attr("y", h - 5)
+      .attr("y", h - 10)
       .attr("class", "xAxisLabel")
       .attr("txtAnchor", "middle")
       .text(this.state.xOption)
@@ -212,11 +192,6 @@ export class MainPage extends React.Component {
       .data(data)
       .enter()
       .append("circle")
-      .attr("class", function(d){
-        if(d.isUser){
-          return "isUser";
-        }
-      })
       .attr("cx", function (d) {
         return xScale(d[xOption]);
       })
@@ -252,17 +227,14 @@ export class MainPage extends React.Component {
       .select("#dotChart")
       .remove()
 
-    let data = this.state.entireData.filter(x => x.projId == this.state.project);
-      
-    this.DotChartGen(data, this.state.xOption, this.state.yOption);
+    this.DotChartGen(this.state.entireData, this.state.xOption, this.state.yOption);
   }
 
-  DotChartFilterUpdate(proj) {
+  DotChartUserUpdate() {
     let svg = d3
       .select("#dotChart")
       .remove()
 
-    //let data = this.state.entireData.filter(x => x.projId == proj);
     let data = this.state.entireData;
       
     this.DotChartGen(data, this.state.xOption, this.state.yOption);
@@ -278,26 +250,17 @@ export class MainPage extends React.Component {
 
   handleProjectChange(e) {
     this.setState({project: e.target.value});
-    this.DotChartFilterUpdate(e.target.value);
-  }
-
-  handleAdSetChange(e) {
-    this.setState({adSet: e.target.value});
   }
 
   handleAdChange(e) {
     this.setState({ad: e.target.value});
   }
 
-  handleCategoryChange(e) {
-    this.setState({category: e.target.value});
-  }
-
   render() {
     return (
       <div className="container-fluid">
         <div className="row filters">
-          <div className="col-md-offset-2 col-md-2">
+          <div className="col-md-offset-4 col-md-2">
             <SelectInput
               name=""
               label="行銷專案"
@@ -305,22 +268,13 @@ export class MainPage extends React.Component {
               options={this.props.projectOptions}
               onChange={this.handleProjectChange}/>
           </div>
-          <div className="col-md-2">
+          <div className="col-md-4">
             <SelectInput
               name=""
               label="廣告名稱"
               value={this.state.ad}
               options={this.props.adOptions}
               onChange={this.handleAdChange}>
-              </SelectInput>
-          </div>
-          <div className="col-md-2">
-            <SelectInput
-              name=""
-              label="成果類型"
-              value={this.state.category}
-              options={this.props.categoryOptions}
-              onChange={this.handleCategoryChange}>
               </SelectInput>
           </div>
         </div>
@@ -352,38 +306,31 @@ MainPage.propTypes = {
   actions: PropTypes.object.isRequired,
 
   projectOptions: PropTypes.array,
-  adSetOptions: PropTypes.array,
-  adOptions: PropTypes.array,
-  categoryOptions: PropTypes.array
+  adOptions: PropTypes.array
 };
 
 // MainPage.contextTypes = { router: PropTypes.object };
 
 function mapStateToProps(state, ownProps) {
   let projectOptions = state.dataFilters.projects;
-  let adSetOptions = state.dataFilters.adSets;
   let adOptions = state.dataFilters.ads;
-  let categoryOptions = state.dataFilters.categories;
 
   return {
     entireData: state.entireData,
+    userData: state.userData,
     axisOptions: AxisDropdown(state.axisFilters),
 
     project: state.selectedOptions.project, 
-    adSet: state.selectedOptions.adSet,
     ad: state.selectedOptions.ad, 
-    category: state.selectedOptions.category,
 
     projectOptions: ProjectFilterDropdown(projectOptions),
-    adSetOptions: AdSetFilterDropdown(adSetOptions),
-    adOptions: AdFilterDropdown(adOptions),
-    categoryOptions: CategoryFilterDropdown(categoryOptions)
+    adOptions: AdFilterDropdown(adOptions)
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(dataActions, axisFilterActions, dataFilterActions, selectFilterActions, dispatch)
+    actions: bindActionCreators(dataActions, userDataActions, axisFilterActions, dataFilterActions, selectFilterActions, dispatch)
   };
 }
 

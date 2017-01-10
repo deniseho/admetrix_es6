@@ -3,12 +3,10 @@ export default {
   axisOptions: [],
   dataFilterOptions: {
     projects: [],
-    adSets: [],
-    ads: [],
-    categories: []
+    ads: []
   },
   selectedOptions: {
-    project: "projId-01",
+    project: "",
     adSet: "",
     ad: "",
     category: ""

@@ -11,7 +11,6 @@ export function selectFilterOptions() {
         dispatch(beginAjaxCall());
         return DataApi.selectOptions()
             .then(selectedOptions => {
-                 console.log("selectedOptions: " + JSON.stringify(selectedOptions));
                 dispatch(selectFilterOptionsSucc(selectedOptions));
             })
             .catch(error => {
