@@ -6,7 +6,17 @@
         "name": "",
         "picture": ""
     },
-    "entireData":[
+    "userProjects": [
+        {
+            "projId": "projId-01",
+            "projName": "1107_愛麗絲專案"
+        },
+        {
+            "projId": "projId-02",
+            "projName": "1107_旗山馬＿最後報名"
+        }
+    ],
+    "entireData": [
         {
             "adId": "adId-01",
             "adName": "adName-01",
@@ -14,7 +24,7 @@
             "adSetId": "adSetId-02",
             "isUser": true,
             "CPC": 0.015,
-            "CTR": 8.2,
+            "CTR": 10.2,
             "resultType": "post_engagement"
         },
         {
@@ -88,67 +98,38 @@
             "resultType": "link_click"
         }
     ],
-    "selfData":{
-        "axisFilters": [
+    "userData": [
         {
-            "axisValue": "CPC",
-            "axisText": "CPC"
-        }, {
-            "axisValue": "CTR",
-            "axisText": "CTR"
-        }
-    ],
-    "projects": [
+            "adId": "6055151371814",
+            "adName": "貼文：「」 - 貼文互動",
+            "projectId": "6055151364614",
+            "CPC": 0.029578,
+            "CTR": 8.409321,
+            "resultType": "post_engagement"
+        },
         {
-            "projId": "projId-01",
-            "projName": "1107_愛麗絲專案"
-        }, {
-            "projId": "projId-02",
-            "projName": "1107_旗山馬＿最後報名"
-        }
-    ],
-    "adSets": [
+            "adId": "6055142199014",
+            "adName": "1107_旗山馬＿最後報名貼文＿嘉義以北",
+            "projectId": "6055142198614",
+            "CPC": 0.030725,
+            "CTR": 7.51634,
+            "resultType": "post_engagement"
+        },
         {
-            "adSetId": "adSetId-01",
-            "adSetName": "1107_愛麗絲專案_古典樂迷",
-            "projId": "projId-01"
-        }, {
-            "adSetId": "adSetId-02",
-            "adSetName": "",
-            "projId": "projId-02"
-        }, {
-            "adSetId": "adSetId-03",
-            "adSetName": "",
-            "projId": "projId-02"
-        }, {
-            "adSetId": "adSetId-04",
-            "adSetName": "",
-            "projId": "projId-02"
-        }
-    ],
-    "ads": [
+            "adId": "6055142198414",
+            "adName": "1107_旗山馬＿最後報名貼文＿台南以南",
+            "projectId": "6055151364614",
+            "CPC": 0.031149,
+            "CTR": 7.505963,
+            "resultType": "post_engagement"
+        },
         {
-            "adId": "adId-01",
-            "adName": "貼文：「」 - 貼文互動"
-        }, {
-            "adId": "adId-02",
-            "adName": "1107_旗山馬＿最後報名＿嘉義以北"
-        }, {
-            "adId": "adId-03",
-            "adName": "1107_旗山馬＿最後報名＿台南以南"
-        }, {
-            "adId": "adId-04",
-            "adName": "1107_旗山馬_最後報名_未繳費名單"
-        }
-    ],
-    "categories": [
-        {
-            "categoryId": "categoryId-01",
-            "categoryName": "post_engagement"
-        }, {
-            "categoryId": "categoryId-02",
-            "categoryName": "link_click"
+            "adId": "6055142939014",
+            "adName": "1107_旗山馬＿最後報名貼文＿未繳費名單",
+            "projectId": "6055151364614",
+            "CPC": 0.103846,
+            "CTR": 9.489051,
+            "resultType": "post_engagement"
         }
     ]
-    }
 }

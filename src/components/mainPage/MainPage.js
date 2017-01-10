@@ -21,10 +21,12 @@ export class MainPage extends React.Component {
       xOption: 'CPC',
       yOption: 'CTR',
 
-      project: "",
+      project: props.project,
       adSet: "",
       ad: "",
-      category: ""
+      category: "",
+
+      entireData: []
     };
 
     this.handleXChange = this
@@ -61,7 +63,9 @@ export class MainPage extends React.Component {
         project: this.state.project,
         adSet: this.state.adSet,
         ad: this.state.adName,
-        category: this.state.category
+        category: this.state.category,
+
+        entireData : this.state.entireData
       }, function () {});
   }
 
@@ -69,10 +73,14 @@ export class MainPage extends React.Component {
     // let initProj = Object
     //   .keys(nextProps.projectOptions)
     //   .map(x => nextProps.projectOptions[x].value)[0];
-
+    
     if (this.props.entireData !== nextProps.entireData) {
       // this.DotChartGen(nextProps.entireData.filter(x => x.projId == nextProps.projectOptions[0].value), this.state.xOption, this.state.yOption);
-      this.DotChartGen(nextProps.entireData, this.state.xOption, this.state.yOption);
+      
+      this.setState({"entireData": nextProps.entireData}, function(){
+          // this.DotChartGen(this.state.entireData.filter(x=>x.projId==this.state.project), this.state.xOption, this.state.yOption);
+          this.DotChartGen(this.state.entireData, this.state.xOption, this.state.yOption);
+      });
     }
   }
 
@@ -105,9 +113,11 @@ export class MainPage extends React.Component {
     let xScale = d3
       .scaleLinear()
       .domain([
-        0,
+        d3.min(data, function (d) {
+          return d[xOption] - 0.002;
+        }),
         d3.max(data, function (d) {
-          return d[xOption];
+          return d[xOption] + 0.002;
         })
       ])
       .range([
@@ -118,9 +128,11 @@ export class MainPage extends React.Component {
     let yScale = d3
       .scaleLinear()
       .domain([
-        0,
+        d3.min(data, function (d) {
+          return d[yOption] - 0.5;
+        }),
         d3.max(data, function (d) {
-          return d[yOption];
+          return d[yOption] + 0.5;
         })
       ])
       .range([
@@ -152,7 +164,7 @@ export class MainPage extends React.Component {
        .axisBottom(xScale)
        .tickFormat("")
        .tickSize(-h + padding, 0)
-       .ticks(data.length);
+       .ticks(data.length*2);
 
     svg.append("g")
     .attr("class", "subgrid")
@@ -163,7 +175,7 @@ export class MainPage extends React.Component {
       .axisLeft(yScale)
       .tickFormat("")
       .tickSize(-w + (padding*2), 0)
-      .ticks(data.length);
+      .ticks(data.length*2);
 
     svg.append("g")
     .attr("class", "subgrid")
@@ -187,11 +199,24 @@ export class MainPage extends React.Component {
       .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
       .text(this.state.yOption)
 
+    let dot = svg
+      .append("circle")
+      .attr("cx", xScale(0.02))
+      .attr("cy", yScale(8))
+      .attr("r", 6)
+      .attr("fill", "red")
+
+
     let dots = svg
       .selectAll("circle")
       .data(data)
       .enter()
       .append("circle")
+      .attr("class", function(d){
+        if(d.isUser){
+          return "isUser";
+        }
+      })
       .attr("cx", function (d) {
         return xScale(d[xOption]);
       })
@@ -222,15 +247,23 @@ export class MainPage extends React.Component {
       })
   }
 
-  DotChartUpdate(proj) {
+  DotChartUpdate() {
     let svg = d3
       .select("#dotChart")
       .remove()
 
-    let data = this
-      .props
-      .entireData;
-      // .filter(x => x.projId == proj);
+    let data = this.state.entireData.filter(x => x.projId == this.state.project);
+      
+    this.DotChartGen(data, this.state.xOption, this.state.yOption);
+  }
+
+  DotChartFilterUpdate(proj) {
+    let svg = d3
+      .select("#dotChart")
+      .remove()
+
+    //let data = this.state.entireData.filter(x => x.projId == proj);
+    let data = this.state.entireData;
       
     this.DotChartGen(data, this.state.xOption, this.state.yOption);
   }
@@ -245,7 +278,7 @@ export class MainPage extends React.Component {
 
   handleProjectChange(e) {
     this.setState({project: e.target.value});
-    this.DotChartUpdate(e.target.value);
+    this.DotChartFilterUpdate(e.target.value);
   }
 
   handleAdSetChange(e) {
@@ -271,15 +304,6 @@ export class MainPage extends React.Component {
               value={this.state.project}
               options={this.props.projectOptions}
               onChange={this.handleProjectChange}/>
-          </div>
-          <div className="col-md-2">
-            <SelectInput
-              name=""
-              label="廣告組合"
-              value={this.state.adSet}
-              options={this.props.adSetOptions}
-              onChange={this.handleAdSetChange}>
-              </SelectInput>
           </div>
           <div className="col-md-2">
             <SelectInput
@@ -333,7 +357,7 @@ MainPage.propTypes = {
   categoryOptions: PropTypes.array
 };
 
-// MainPage.contextTypes = {   router: PropTypes.object };
+// MainPage.contextTypes = { router: PropTypes.object };
 
 function mapStateToProps(state, ownProps) {
   let projectOptions = state.dataFilters.projects;
@@ -345,8 +369,10 @@ function mapStateToProps(state, ownProps) {
     entireData: state.entireData,
     axisOptions: AxisDropdown(state.axisFilters),
 
-    // project: state.selectedOptions.project, adSet: state.selectedOptions.adSet,
-    // ad: state.selectedOptions.ad, category: state.selectedOptions.category,
+    project: state.selectedOptions.project, 
+    adSet: state.selectedOptions.adSet,
+    ad: state.selectedOptions.ad, 
+    category: state.selectedOptions.category,
 
     projectOptions: ProjectFilterDropdown(projectOptions),
     adSetOptions: AdSetFilterDropdown(adSetOptions),

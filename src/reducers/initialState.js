@@ -8,10 +8,11 @@ export default {
     categories: []
   },
   selectedOptions: {
-    project: "",
+    project: "projId-01",
     adSet: "",
     ad: "",
     category: ""
   },
   ajaxCallsInProgress: 0
 };
+
