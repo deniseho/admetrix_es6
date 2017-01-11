@@ -51,15 +51,18 @@ export class MainPage extends React.Component {
         project: this.state.project,
         ad: this.state.ad,
 
-        entireData : this.state.entireData
+        entireData: this.state.entireData
       }, function () {});
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.entireData !== nextProps.entireData) {
-      this.setState({"entireData": nextProps.entireData}, function(){
+      this
+        .setState({
+          "entireData": nextProps.entireData
+        }, function () {
           this.DotChartGen(this.state.entireData, this.state.xOption, this.state.yOption, this.state.ad);
-      });
+        });
     }
   }
 
@@ -70,7 +73,7 @@ export class MainPage extends React.Component {
   }
 
   DotChartGen(data, xOption, yOption, selectedAd) {
-    let h = 600;
+    let h = 500;
     let w = 1000;
     let padding = 70;
 
@@ -88,26 +91,39 @@ export class MainPage extends React.Component {
       .attr("class", "tooltip")
       .style("opacity", 0);
 
-    let xOptionMax = d3.max(data, function(d){ return d[xOption]});
-    let xOptionMin = d3.min(data, function(d){ return d[xOption]});
-    let yOptionMax = d3.max(data, function(d){ return d[yOption]});
-    let yOptionMin = d3.min(data, function(d){ return d[yOption]});
-    
-    let xOptionUnit = (xOptionMax-xOptionMin)/data.length;
-    let yOptionUnit = (yOptionMax-yOptionMin)/data.length;
+    let xOptionMax = d3.max(data, function (d) {
+      return d[xOption]
+    });
+    let xOptionMin = d3.min(data, function (d) {
+      return d[xOption]
+    });
+    let yOptionMax = d3.max(data, function (d) {
+      return d[yOption]
+    });
+    let yOptionMin = d3.min(data, function (d) {
+      return d[yOption]
+    });
+
+    let xOptionUnit = (xOptionMax - xOptionMin) / data.length;
+    let yOptionUnit = (yOptionMax - yOptionMin) / data.length;
 
     //scale
     let xScale = d3
       .scaleLinear()
-      .domain([xOptionMin-xOptionUnit, xOptionMax+xOptionUnit])
+      .domain([
+        xOptionMin - xOptionUnit,
+        xOptionMax + xOptionUnit
+      ])
       .range([
-        padding,
-        w - padding
+        padding, w - padding
       ]);
 
     let yScale = d3
       .scaleLinear()
-      .domain([yOptionMin-yOptionUnit, yOptionMax+yOptionUnit])
+      .domain([
+        yOptionMin - yOptionUnit,
+        yOptionMax + yOptionUnit
+      ])
       .range([
         h - padding,
         0
@@ -127,7 +143,7 @@ export class MainPage extends React.Component {
     let yAxisGen = d3
       .axisLeft(yScale)
       .tickPadding(10)
-      .ticks(data.length*2);
+      .ticks(data.length * 2);
 
     let yAxis = svg
       .append("g")
@@ -136,26 +152,28 @@ export class MainPage extends React.Component {
       .attr("transform", "translate(" + padding + ", 0)");
 
     let xAxisSubGen = d3
-       .axisBottom(xScale)
-       .tickFormat("")
-       .tickSize(-h + padding, 0)
-       .ticks(data.length*2);
+      .axisBottom(xScale)
+      .tickFormat("")
+      .tickSize(-h + padding, 0)
+      .ticks(data.length * 2);
 
-    svg.append("g")
-    .attr("class", "subgrid")
-    .attr("transform", "translate(0," + (h-padding) + ")")
-    .call(xAxisSubGen)
+    svg
+      .append("g")
+      .attr("class", "subgrid")
+      .attr("transform", "translate(0," + (h - padding) + ")")
+      .call(xAxisSubGen)
 
     let yAxisSubGen = d3
       .axisLeft(yScale)
       .tickFormat("")
-      .tickSize(-w + (padding*2), 0)
-      .ticks(data.length*2);
+      .tickSize(-w + (padding * 2), 0)
+      .ticks(data.length * 2);
 
-    svg.append("g")
-    .attr("class", "subgrid")
-    .attr("transform", "translate(" + padding + ", 0)")
-    .call(yAxisSubGen)
+    svg
+      .append("g")
+      .attr("class", "subgrid")
+      .attr("transform", "translate(" + padding + ", 0)")
+      .call(yAxisSubGen)
 
     //xAxis label
     svg
@@ -173,7 +191,7 @@ export class MainPage extends React.Component {
       .attr("txtAnchor", "middle")
       .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
       .text(this.state.yOption)
-    
+
     let dots = svg
       .append("g")
       .selectAll("circle")
@@ -188,14 +206,23 @@ export class MainPage extends React.Component {
       })
       .attr("r", 5)
       .attr("fill", function (d) {
-        if (d.adId===selectedAd) {
+        if (d.adId === selectedAd) {
           return '#396DD5';
         } else {
           return '#c1c1c1';
         }
       })
       .attr("stroke", function (d) {
-        if (d.adId===selectedAd)  {
+        if (d.adId === selectedAd) {
+          svg
+            .selectAll("circle")
+            .sort(function (a, b) {
+              if (a.id != d.id) 
+                return -1;
+              else 
+                return 1;
+              }
+            );
           return 'blue';
         } else {
           return '#A0A0A0';
@@ -203,6 +230,17 @@ export class MainPage extends React.Component {
       })
       .attr("stroke-width", 2)
       .on("mouseover", function (d) {
+
+        svg
+          .selectAll("circle")
+          .sort(function (a, b) {
+            if (a.id != d.id) 
+              return -1;
+            else 
+              return 1;
+            }
+          );
+
         tooltip
           .transition()
           .duration(100)
@@ -217,7 +255,6 @@ export class MainPage extends React.Component {
           .style("opacity", 0);
       })
   }
-  
 
   DotChartUpdate() {
     let svg = d3
@@ -240,9 +277,12 @@ export class MainPage extends React.Component {
   }
 
   handleAdChange(e) {
-    this.setState({ad: e.target.value}, function(){
-        this.DotChartUpdate() 
-    });
+    this
+      .setState({
+        ad: e.target.value
+      }, function () {
+        this.DotChartUpdate()
+      });
   }
 
   render() {
@@ -263,8 +303,7 @@ export class MainPage extends React.Component {
               label="廣告名稱"
               value={this.state.ad}
               options={this.props.adOptions}
-              onChange={this.handleAdChange}>
-              </SelectInput>
+              onChange={this.handleAdChange}></SelectInput>
           </div>
         </div>
         <div className="row">
@@ -308,8 +347,8 @@ function mapStateToProps(state, ownProps) {
     entireData: state.entireData,
     axisOptions: AxisDropdown(state.axisFilters),
 
-    project: state.selectedOptions.project, 
-    ad: state.selectedOptions.ad, 
+    project: state.selectedOptions.project,
+    ad: state.selectedOptions.ad,
 
     projectOptions: ProjectFilterDropdown(projectOptions),
     adOptions: AdFilterDropdown(adOptions)
