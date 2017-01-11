@@ -11,32 +11,40 @@
             "adId": "6055151371814",
             "adName": "貼文：「」 - 貼文互動",
             "projectId": "6055151364614",
-            "CPC": 0.029578,
-            "CTR": 8.409321,
+            "CPC_all": 0.029578,
+            "CTR_all": 8.409321,
+            "CPC_link": 4.91,
+            "CTR_link": 0.050659,
             "resultType": "post_engagement"
         },
         {
             "adId": "6055142199014",
             "adName": "1107_旗山馬＿最後報名貼文＿嘉義以北",
             "projectId": "6055142198614",
-            "CPC": 0.030725,
-            "CTR": 7.51634,
+            "CPC_all": 0.030725,
+            "CTR_all": 7.51634,
+            "CPC_link": 0.141333,
+            "CTR_link": 1.633987,
             "resultType": "post_engagement"
         },
         {
             "adId": "6055142198414",
             "adName": "1107_旗山馬＿最後報名貼文＿台南以南",
             "projectId": "6055151364614",
-            "CPC": 0.031149,
-            "CTR": 7.505963,
+            "CPC_all": 0.039126,
+            "CTR_all": 8.24685,
+            "CPC_link": 0.156535,
+            "CTR_link": 1.546515,
             "resultType": "post_engagement"
         },
         {
             "adId": "6055142939014",
             "adName": "1107_旗山馬＿最後報名貼文＿未繳費名單",
             "projectId": "6055151364614",
-            "CPC": 0.03,
-            "CTR": 9.4,
+            "CPC_all": 0.031149,
+            "CTR_all": 7.505963,
+            "CPC_link": 0.172373,
+            "CTR_link": 1.356361,
             "resultType": "post_engagement"
         },
         {
@@ -45,8 +53,10 @@
             "projId": "projId-01",
             "adSetId": "adSetId-02",
             "isUser": false,
-            "CPC": 0.015,
-            "CTR": 8.2,
+            "CPC_all": 0.015,
+            "CTR_all": 8.2,
+            "CPC_link": 0.073939,
+            "CTR_link": 2.08993,
             "resultType": "post_engagement"
         },
         {
@@ -54,8 +64,10 @@
             "adName": "adName-02",
             "projId": "projId-01",
             "isUser": false,
-            "CPC": 0.024,
-            "CTR": 7.6,
+            "CPC_all": 0.024,
+            "CTR_all": 7.6,
+            "CPC_link": 0.083789,
+            "CTR_link": 1.795841,
             "resultType": "post_engagement"
         },
         {
@@ -63,8 +75,10 @@
             "adName": "adName-03",
             "projId": "projId-01",
             "isUser": false,
-            "CPC": 0.031,
-            "CTR": 8.3,
+            "CPC_all": 0.031,
+            "CTR_all": 8.3,
+            "CPC_link": 0.077795,
+            "CTR_link": 2.123701,
             "resultType": "post_engagement"
         },
         {
@@ -72,8 +86,10 @@
             "adName": "adName-04",
             "projId": "projId-01",
             "isUser": false,
-            "CPC": 0.022,
-            "CTR": 7.8,
+            "CPC_all": 0.022,
+            "CTR_all": 7.8,
+            "CPC_link": 0.136667,
+            "CTR_link": 1.149425,
             "resultType": "post_engagement"
         },
         {
@@ -81,8 +97,10 @@
             "adName": "adName-05",
             "projId": "projId-01",
             "isUser": false,
-            "CPC": 0.0345,
-            "CTR": 5.8,
+            "CPC_all": 0.0345,
+            "CTR_all": 5.8,
+            "CPC_link": 0.092714,
+            "CTR_link": 1.600366,
             "resultType": "post_engagement"
         },
         {
@@ -90,8 +108,10 @@
             "adName": "adName-06",
             "projId": "projId-01",
             "isUser": false,
-            "CPC": 0.021,
-            "CTR": 6.9,
+            "CPC_all": 0.021,
+            "CTR_all": 6.9,
+            "CPC_link": 0.091528,
+            "CTR_link": 1.725791,
             "resultType": "post_engagement"
         },
         {
@@ -99,8 +119,10 @@
             "adName": "adName-07",
             "projId": "projId-02",
             "isUser": false,
-            "CPC": 0.03,
-            "CTR": 9.5,
+            "CPC_all": 0.03,
+            "CTR_all": 9.5,
+            "CPC_link": 0.108151,
+            "CTR_link": 1.386785,
             "resultType": "post_engagement"
         },
         {
@@ -108,19 +130,28 @@
             "adName": "adName-08",
             "projId": "projId-02",
             "isUser": false,
-            "CPC": 0.012,
-            "CTR": 6,
+            "CPC_all": 0.012,
+            "CTR_all": 6,
+            "CPC_link": 0.087606,
+            "CTR_link": 1.848477,
             "resultType": "post_engagement"
         }
     ],
     "selfData":{
         "axisFilters": [
         {
-            "axisValue": "CPC",
-            "axisText": "CPC"
+            "axisValue": "CPC_all",
+            "axisText": "CPC(全部)"
         }, {
-            "axisValue": "CTR",
-            "axisText": "CTR"
+            "axisValue": "CTR_all",
+            "axisText": "CTR(全部)"
+        },
+         {
+            "axisValue": "CPC_link",
+            "axisText": "CPC(連結)"
+        }, {
+            "axisValue": "CTR_link",
+            "axisText": "CTR(連結)"
         }
     ],
     "projects": [

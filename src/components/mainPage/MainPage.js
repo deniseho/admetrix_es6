@@ -16,8 +16,8 @@ export class MainPage extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      xOption: 'CPC',
-      yOption: 'CTR',
+      xOption: 'CPC_all',
+      yOption: 'CTR_all',
 
       project: "6055151364614",
       ad: "6055151371814",
@@ -73,8 +73,8 @@ export class MainPage extends React.Component {
   }
 
   DotChartGen(data, xOption, yOption, selectedAd) {
-    let h = 500;
-    let w = 1000;
+    let h = 600;
+    let w = 1100;
     let padding = 70;
 
     let svg = d3
@@ -207,14 +207,7 @@ export class MainPage extends React.Component {
       .attr("r", 5)
       .attr("fill", function (d) {
         if (d.adId === selectedAd) {
-          return '#396DD5';
-        } else {
-          return '#c1c1c1';
-        }
-      })
-      .attr("stroke", function (d) {
-        if (d.adId === selectedAd) {
-          svg
+           svg
             .selectAll("circle")
             .sort(function (a, b) {
               if (a.id != d.id) 
@@ -223,9 +216,16 @@ export class MainPage extends React.Component {
                 return 1;
               }
             );
+          return '#396DD5';
+        } else {
+          return '#E0E0E0';
+        }
+      })
+      .attr("stroke", function (d) {
+        if (d.adId === selectedAd) {
           return 'blue';
         } else {
-          return '#A0A0A0';
+          return '#c1c1c1';
         }
       })
       .attr("stroke-width", 2)
