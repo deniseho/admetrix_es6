@@ -12,21 +12,21 @@
 
 div.tooltip {
     position: absolute;
-    max-width: 200px;
+    max-width: 100%;
     height: auto;
     margin-top: -3.8em;
-    padding: 10px 12px;
+    padding: 10px;
     background-color: black;
     color:#fff;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
     -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     pointer-events: none; /* MUI IMPORTANTE! */
     font-family: 微軟正黑體, sans-serif;
-    font-size: 9px;
+    font-size: 8px;
 }
 
 .xAxisLabel,.yAxisLabel{
@@ -48,3 +48,4 @@ div.tooltip {
 .filter-label {
   color:#c2c2c2;
 }
+

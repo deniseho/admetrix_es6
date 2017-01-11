@@ -15,13 +15,12 @@ import * as d3 from 'd3';
 export class MainPage extends React.Component {
   constructor(props, context) {
     super(props, context);
-
     this.state = {
       xOption: 'CPC',
       yOption: 'CTR',
 
-      project: props.project,
-      ad: "",
+      project: "6055151364614",
+      ad: "6055151371814",
 
       entireData: []
     };
@@ -50,22 +49,16 @@ export class MainPage extends React.Component {
         yOption: this.state.yOption,
 
         project: this.state.project,
-        ad: this.state.adName,
+        ad: this.state.ad,
 
-        entireData : this.state.entireData,
-        userData: this.state.userData
+        entireData : this.state.entireData
       }, function () {});
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.entireData !== nextProps.entireData) {
       this.setState({"entireData": nextProps.entireData}, function(){
-          this.DotChartGen(this.state.entireData, this.state.xOption, this.state.yOption);
-      });
-    }
-
-    if (this.props.userData !== nextProps.userData) {
-      this.setState({"userData": nextProps.userData}, function(){
+          this.DotChartGen(this.state.entireData, this.state.xOption, this.state.yOption, this.state.ad);
       });
     }
   }
@@ -76,7 +69,7 @@ export class MainPage extends React.Component {
     }
   }
 
-  DotChartGen(data, xOption, yOption) {
+  DotChartGen(data, xOption, yOption, selectedAd) {
     let h = 500;
     let w = 800;
     let padding = 60;
@@ -178,16 +171,13 @@ export class MainPage extends React.Component {
       .attr("txtAnchor", "middle")
       .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
       .text(this.state.yOption)
-
-    let dot = svg
-      .append("circle")
-      .attr("cx", xScale(0.02))
-      .attr("cy", yScale(8))
-      .attr("r", 6)
-      .attr("fill", "red")
-
-
+    
+       this.GenDots(svg, data, xScale, yScale, xOption, yOption, selectedAd);
+  }
+  
+  GenDots(svg, data, xScale, yScale, xOption, yOption, selectedAd){
     let dots = svg
+      .append("g")
       .selectAll("circle")
       .data(data)
       .enter()
@@ -198,14 +188,22 @@ export class MainPage extends React.Component {
       .attr("cy", function (d) {
         return yScale(d[yOption]);
       })
-      .attr("r", 6)
+      .attr("r", 5)
       .attr("fill", function (d) {
-        if (!d.isUser) {
-          return '#c1c1c1';
+        if (d.adId===selectedAd) {
+          return '#396DD5';
         } else {
-          return 'blue';
+          return '#c1c1c1';
         }
       })
+      .attr("stroke", function (d) {
+        if (d.adId===selectedAd)  {
+          return 'blue';
+        } else {
+          return '#A0A0A0';
+        }
+      })
+      .attr("stroke-width", 2)
       .on("mouseover", function (d) {
         tooltip
           .transition()
@@ -220,24 +218,14 @@ export class MainPage extends React.Component {
           .duration(100)
           .style("opacity", 0);
       })
-  }
+}
 
   DotChartUpdate() {
     let svg = d3
       .select("#dotChart")
       .remove()
 
-    this.DotChartGen(this.state.entireData, this.state.xOption, this.state.yOption);
-  }
-
-  DotChartUserUpdate() {
-    let svg = d3
-      .select("#dotChart")
-      .remove()
-
-    let data = this.state.entireData;
-      
-    this.DotChartGen(data, this.state.xOption, this.state.yOption);
+    this.DotChartGen(this.state.entireData, this.state.xOption, this.state.yOption, this.state.ad);
   }
 
   handleXChange(e) {
@@ -253,7 +241,9 @@ export class MainPage extends React.Component {
   }
 
   handleAdChange(e) {
-    this.setState({ad: e.target.value});
+    this.setState({ad: e.target.value}, function(){
+        DotChartUpdate() 
+    });
   }
 
   render() {
@@ -317,7 +307,6 @@ function mapStateToProps(state, ownProps) {
 
   return {
     entireData: state.entireData,
-    userData: state.userData,
     axisOptions: AxisDropdown(state.axisFilters),
 
     project: state.selectedOptions.project, 
@@ -330,7 +319,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(dataActions, userDataActions, axisFilterActions, dataFilterActions, selectFilterActions, dispatch)
+    actions: bindActionCreators(dataActions, axisFilterActions, dataFilterActions, selectFilterActions, dispatch)
   };
 }
 
