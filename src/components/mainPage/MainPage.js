@@ -70,9 +70,9 @@ export class MainPage extends React.Component {
   }
 
   DotChartGen(data, xOption, yOption, selectedAd) {
-    let h = 500;
+    let h = 600;
     let w = 1000;
-    let padding = 60;
+    let padding = 70;
 
     let svg = d3
       .select(".dotChart")
@@ -101,7 +101,7 @@ export class MainPage extends React.Component {
       .scaleLinear()
       .domain([xOptionMin-xOptionUnit, xOptionMax+xOptionUnit])
       .range([
-        padding + 10,
+        padding,
         w - padding
       ]);
 
@@ -110,11 +110,12 @@ export class MainPage extends React.Component {
       .domain([yOptionMin-yOptionUnit, yOptionMax+yOptionUnit])
       .range([
         h - padding,
-        10
+        0
       ]);
 
     let xAxisGen = d3
       .axisBottom(xScale)
+      .tickPadding(10)
       .ticks(data.length);
 
     let xAxis = svg
@@ -125,13 +126,14 @@ export class MainPage extends React.Component {
 
     let yAxisGen = d3
       .axisLeft(yScale)
-      .ticks(data.length);
+      .tickPadding(10)
+      .ticks(data.length*2);
 
     let yAxis = svg
       .append("g")
       .call(yAxisGen)
       .attr("class", "y-axis")
-      .attr("transform", "translate(" + (padding+10) + ", 0)");
+      .attr("transform", "translate(" + padding + ", 0)");
 
     let xAxisSubGen = d3
        .axisBottom(xScale)
@@ -152,7 +154,7 @@ export class MainPage extends React.Component {
 
     svg.append("g")
     .attr("class", "subgrid")
-    .attr("transform", "translate(" + (padding+10) + ", 0)")
+    .attr("transform", "translate(" + padding + ", 0)")
     .call(yAxisSubGen)
 
     //xAxis label
@@ -172,7 +174,7 @@ export class MainPage extends React.Component {
       .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
       .text(this.state.yOption)
     
-          let dots = svg
+    let dots = svg
       .append("g")
       .selectAll("circle")
       .data(data)

@@ -29,6 +29,10 @@ div.tooltip {
     font-size: 8px;
 }
 
+.x-axis .tick line, .y-axis .tick line{
+  stroke:#c2c2c2;
+}
+
 .xAxisLabel,.yAxisLabel{
   fill:#004B97 ;
 }
@@ -38,14 +42,21 @@ div.tooltip {
 }
 
 .subgrid {
-  stroke-opacity: 0.4;
+  stroke-opacity: 0.8;
 }
 
-.domain, .tick line{
-  stroke: lightgrey;
+.tick line{
+  stroke: #F1F9FA;
+}
+
+.domain{
+  stroke: #c2c2c2;
 }
 
 .filter-label {
   color:#c2c2c2;
 }
 
+#dotChart {
+  padding-top: .5em;
+}

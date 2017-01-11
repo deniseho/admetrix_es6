@@ -33,7 +33,6 @@ class Login extends React.Component {
     const isLoggedIn = this.state.isLoggedIn;
     const loginName = JSON.parse(localStorage.getItem("admatrixAuth")).name;
     const loginPicture = JSON.parse(localStorage.getItem("admatrixAuth")).picture.data.url;
-    console.log(isLoggedIn);
     
     return (
       <div>
