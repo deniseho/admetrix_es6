@@ -71,7 +71,7 @@ export class MainPage extends React.Component {
 
   DotChartGen(data, xOption, yOption, selectedAd) {
     let h = 500;
-    let w = 800;
+    let w = 1000;
     let padding = 60;
 
     let svg = d3
@@ -172,11 +172,7 @@ export class MainPage extends React.Component {
       .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
       .text(this.state.yOption)
     
-       this.GenDots(svg, data, xScale, yScale, xOption, yOption, selectedAd);
-  }
-  
-  GenDots(svg, data, xScale, yScale, xOption, yOption, selectedAd){
-    let dots = svg
+          let dots = svg
       .append("g")
       .selectAll("circle")
       .data(data)
@@ -218,7 +214,8 @@ export class MainPage extends React.Component {
           .duration(100)
           .style("opacity", 0);
       })
-}
+  }
+  
 
   DotChartUpdate() {
     let svg = d3
@@ -242,7 +239,7 @@ export class MainPage extends React.Component {
 
   handleAdChange(e) {
     this.setState({ad: e.target.value}, function(){
-        DotChartUpdate() 
+        this.DotChartUpdate() 
     });
   }
 
@@ -269,7 +266,7 @@ export class MainPage extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-offset-2 col-md-2">
+          <div className="col-md-offset-1 col-md-2">
             <SelectInput
               name="xOption"
               label="x軸"
