@@ -144,7 +144,7 @@ export class MainPage extends React.Component {
     let yAxisGen = d3
       .axisLeft(yScale)
       .tickPadding(10)
-      .ticks(data.length * 2);
+      .ticks(data.length);
 
     let yAxis = svg
       .append("g")
@@ -160,7 +160,7 @@ export class MainPage extends React.Component {
 
     svg
       .append("g")
-      .attr("class", "subgrid")
+      .attr("class", "xSubgrid")
       .attr("transform", "translate(0," + (h - padding) + ")")
       .call(xAxisSubGen)
 
@@ -168,11 +168,11 @@ export class MainPage extends React.Component {
       .axisLeft(yScale)
       .tickFormat("")
       .tickSize(-w + (padding * 2), 0)
-      .ticks(data.length * 2);
+      .ticks(data.length);
 
     svg
       .append("g")
-      .attr("class", "subgrid")
+      .attr("class", "ySubgrid")
       .attr("transform", "translate(" + padding + ", 0)")
       .call(yAxisSubGen)
 
@@ -193,6 +193,34 @@ export class MainPage extends React.Component {
       .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
       .text(this.state.yOption)
 
+
+    var hoverLineGroup = svg
+      .append("g")
+      .attr("class", "hover-line");
+
+    var hoverLine = hoverLineGroup
+      .append("line")
+      .attr("x1", 0)
+      .attr("x2", 0)
+      .attr("y1", 0)
+      .attr("y2", h - padding);
+    hoverLine.style("opacity", 1e-6);
+
+    d3
+      .select('#dotChart')
+      .on("mousemove", function () {
+        var x = d3.mouse(this)[0];
+        hoverLine
+          .attr("x1", x)
+          .attr("x2", x)
+          .style("opacity", 1);
+      })
+      .on("mouseout", function () {
+        hoverLine.style("opacity", 1e-6);
+      });
+
+
+
     let dots = svg
       .append("g")
       .selectAll("circle")
@@ -209,8 +237,9 @@ export class MainPage extends React.Component {
       .attr("fill", function (d) {
         if (d.adId === selectedAd) {
 
-        d3
-          .select(this).moveToFront();
+          d3
+            .select(this)
+            .moveToFront();
 
           return '#005AB5';
         } else {
@@ -247,7 +276,7 @@ export class MainPage extends React.Component {
           .duration(100)
           .style("opacity", .8);
 
-        tooltip.html(d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX - 65) + "px").style("top", (d3.event.pageY - 65) + "px")
+        tooltip.html(d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX + 20) + "px").style("top", (d3.event.pageY) + "px")
       })
       .on("mouseout", function (d) {
 
@@ -349,7 +378,7 @@ MainPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   let projectOptions = state.dataFilters.projects;
   let adOptions = state.dataFilters.ads;
-console.log(state.axisFilters)
+  console.log(state.axisFilters)
   return {
     entireData: state.entireData,
     axisOptions: AxisDropdown(state.axisFilters),

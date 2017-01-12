@@ -15,7 +15,7 @@
             "CTR_all": 8.409321,
             "CPC_link": 4.91,
             "CTR_link": 0.050659,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "6055142199014",
@@ -25,7 +25,7 @@
             "CTR_all": 7.51634,
             "CPC_link": 0.141333,
             "CTR_link": 1.633987,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "6055142198414",
@@ -35,7 +35,7 @@
             "CTR_all": 8.24685,
             "CPC_link": 0.156535,
             "CTR_link": 1.546515,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "6055142939014",
@@ -45,7 +45,7 @@
             "CTR_all": 7.505963,
             "CPC_link": 0.172373,
             "CTR_link": 1.356361,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "adId-01",
@@ -57,7 +57,7 @@
             "CTR_all": 8.2,
             "CPC_link": 0.073939,
             "CTR_link": 2.08993,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "adId-02",
@@ -68,7 +68,7 @@
             "CTR_all": 7.6,
             "CPC_link": 0.083789,
             "CTR_link": 1.795841,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "adId-03",
@@ -79,7 +79,7 @@
             "CTR_all": 8.3,
             "CPC_link": 0.077795,
             "CTR_link": 2.123701,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "adId-04",
@@ -90,7 +90,7 @@
             "CTR_all": 7.8,
             "CPC_link": 0.136667,
             "CTR_link": 1.149425,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "adId-05",
@@ -101,7 +101,7 @@
             "CTR_all": 5.8,
             "CPC_link": 0.092714,
             "CTR_link": 1.600366,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "adId-06",
@@ -112,7 +112,7 @@
             "CTR_all": 6.9,
             "CPC_link": 0.091528,
             "CTR_link": 1.725791,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "adId-07",
@@ -123,7 +123,7 @@
             "CTR_all": 9.5,
             "CPC_link": 0.108151,
             "CTR_link": 1.386785,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "adId-08",
@@ -134,7 +134,7 @@
             "CTR_all": 6,
             "CPC_link": 0.087606,
             "CTR_link": 1.848477,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         }
     ],
     "selfData":{
@@ -172,6 +172,24 @@
             "axisText": "CTR(連結)"
         }
     ],
+    "actionTypes":[
+        {
+            "axisValue": "post_engagement",
+            "axisText": "Post Engagement"
+        },
+        {
+            "axisValue": "link_click",
+            "axisText": "Link Click"
+        },
+                {
+            "axisValue": "video_view",
+            "axisText": "Video View"
+        },
+        {
+            "axisValue": "offsite_conversion",
+            "axisText": "Offsite Conversion"
+        }
+    ],
     "projects": [
         {
             "projId": "6055151364614",
@@ -188,7 +206,7 @@
             "projectId": "6055151364614",
             "CPC": 0.029578,
             "CTR": 8.409321,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "6055142199014",
@@ -196,7 +214,7 @@
             "projectId": "6055142198614",
             "CPC": 0.030725,
             "CTR": 7.51634,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "6055142198414",
@@ -204,7 +222,7 @@
             "projectId": "6055151364614",
             "CPC": 0.031149,
             "CTR": 7.505963,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         },
         {
             "adId": "6055142939014",
@@ -212,7 +230,7 @@
             "projectId": "6055151364614",
             "CPC": 0.03,
             "CTR": 9.4,
-            "resultType": "post_engagement"
+            "actionType": "post_engagement"
         }
     ]
     }
