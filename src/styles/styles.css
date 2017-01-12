@@ -20,9 +20,9 @@ div.tooltip {
     height: auto;
     margin-top: -3.8em;
     padding: 5px 8px;
-    background-color: black;
-    color:#fff;
-    opacity: 0.7;
+    background-color: rgba(255,255,255,0.5);
+    color: #005AB5;
+    border: 3px solid #005AB5;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -32,6 +32,10 @@ div.tooltip {
     pointer-events: none;
     font-family: 微軟正黑體, sans-serif;
     font-size: 8px;
+}
+
+circle:hover{
+  cursor: pointer;
 }
 
 .x-axis .tick line, .y-axis .tick line{

@@ -277,7 +277,6 @@ export class MainPage extends React.Component {
           })
           .attr("r", 6)
           .attr("stroke-width", 3)
-          .attr("cursor", "pointer");
 
         tooltip
           .transition()
