@@ -23,6 +23,8 @@ export class MainPage extends React.Component {
       project: "6055151364614",
       ad: "6055151371814",
 
+      month: "2016-11",
+
       entireData: []
     };
 
@@ -32,6 +34,10 @@ export class MainPage extends React.Component {
 
     this.handleYChange = this
       .handleYChange
+      .bind(this);
+
+    this.handleMonthChange = this
+      .handleMonthChange
       .bind(this);
 
     this.handleProjectChange = this
@@ -51,6 +57,8 @@ export class MainPage extends React.Component {
 
         project: this.state.project,
         ad: this.state.ad,
+
+        month: this.state.month,
 
         entireData: this.state.entireData
       }, function () {});
@@ -308,6 +316,10 @@ export class MainPage extends React.Component {
     this.setState({yOption: e.target.value});
   }
 
+  handleMonthChange(e) {
+    this.setState({month: e.target.value});
+  }
+
   handleProjectChange(e) {
     this.setState({project: e.target.value});
   }
@@ -325,7 +337,15 @@ export class MainPage extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row filters">
-          <div className="col-md-offset-4 col-md-2">
+        <div className="col-md-offset-4 col-md-2">
+            <SelectInput
+              name=""
+              label="月份"
+              value={this.state.month}
+              options={this.props.projectOptions}
+              onChange={this.handleMonthChange}/>
+          </div>
+          <div className="col-md-2">
             <SelectInput
               name=""
               label="行銷專案"
@@ -333,7 +353,7 @@ export class MainPage extends React.Component {
               options={this.props.projectOptions}
               onChange={this.handleProjectChange}/>
           </div>
-          <div className="col-md-4">
+          <div className="col-md-3">
             <SelectInput
               name=""
               label="廣告名稱"
@@ -348,13 +368,13 @@ export class MainPage extends React.Component {
               name="xOption"
               label="x軸"
               value={this.state.xOption}
-              options={this.props.axisOptions}
+              options={this.props.xAxisOptions}
               onChange={this.handleXChange}/>
             <SelectInput
               name="yOption"
               label="y軸"
               value={this.state.yOption}
-              options={this.props.axisOptions}
+              options={this.props.yAxisOptions}
               onChange={this.handleYChange}/>
           </div>
           <div className="dotChart"></div>
@@ -378,13 +398,15 @@ MainPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   let projectOptions = state.dataFilters.projects;
   let adOptions = state.dataFilters.ads;
-  console.log(state.axisFilters)
+
   return {
     entireData: state.entireData,
-    axisOptions: AxisDropdown(state.axisFilters),
 
     project: state.selectedOptions.project,
     ad: state.selectedOptions.ad,
+
+    xAxisOptions: AxisDropdown(state.axisFilters.filter(x=>x.axis=="x")),
+    yAxisOptions: AxisDropdown(state.axisFilters.filter(x=>x.axis=="y")),
 
     projectOptions: ProjectFilterDropdown(projectOptions),
     adOptions: AdFilterDropdown(adOptions)
