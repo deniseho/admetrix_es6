@@ -41,18 +41,6 @@ class DataApi {
         });
     }
 
-    static getYAxisFilters() {
-        return new Promise((resolve, reject) => {
-            fetch('http://localhost:3000/selfData').then((response) => {
-                response
-                    .json()
-                    .then((data) => {
-                        resolve(Object.assign([], data.yAxisFilters));
-                    })
-            })
-        });
-    }
-
     static getDataFilters() {
         return new Promise((resolve, reject) => {
             fetch('http://localhost:3000/selfData').then((response) => {

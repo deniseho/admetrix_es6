@@ -15,16 +15,17 @@ div.tooltip {
     max-width: 100%;
     height: auto;
     margin-top: -3.8em;
-    padding: 10px;
+    padding: 5px 8px;
     background-color: black;
     color:#fff;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    opacity: 0.7;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
     -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
     box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-    pointer-events: none; /* MUI IMPORTANTE! */
+    pointer-events: none;
     font-family: 微軟正黑體, sans-serif;
     font-size: 8px;
 }
@@ -42,15 +43,16 @@ div.tooltip {
 }
 
 .subgrid {
-  stroke-opacity: 1;
+  stroke-opacity: 0.7;
 }
 
 .tick line{
-  stroke: #EAF6F7;
+  stroke: #D2E9FF;
 }
 
 .domain{
-  stroke: #c2c2c2;
+  /*stroke: #c2c2c2;*/
+  stroke: none;
 }
 
 .filter-label {

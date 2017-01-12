@@ -11,6 +11,7 @@ import SelectInput from '../common/SelectInput';
 import {ProjectFilterDropdown, AdFilterDropdown} from '../../selectors/selectors';
 import Uploader from '../common/Uploader.js';
 import * as d3 from 'd3';
+require('d3-extended')(d3);
 
 export class MainPage extends React.Component {
   constructor(props, context) {
@@ -207,28 +208,15 @@ export class MainPage extends React.Component {
       .attr("r", 5)
       .attr("fill", function (d) {
         if (d.adId === selectedAd) {
-           svg
-            .selectAll("circle")
-            .sort(function (a, b) {
-              if (a.id != d.id) 
-                return -1;
-              else 
-                return 1;
-              }
-            );
-          return '#396DD5';
+
+        d3
+          .select(this).moveToFront();
+
+          return '#005AB5';
         } else {
           return '#E0E0E0';
         }
       })
-      .attr("stroke", function (d) {
-        if (d.adId === selectedAd) {
-          return 'blue';
-        } else {
-          return '#c1c1c1';
-        }
-      })
-      .attr("stroke-width", 2)
       .on("mouseover", function (d) {
 
         svg
@@ -241,6 +229,19 @@ export class MainPage extends React.Component {
             }
           );
 
+        d3
+          .select(this)
+          .attr("stroke", function (d) {
+            if (d.adId === selectedAd) {
+              return '#ACD6FF';
+            } else {
+              return '#c1c1c1';
+            }
+          })
+          .attr("r", 6)
+          .attr("stroke-width", 3)
+          .attr("cursor", "pointer");
+
         tooltip
           .transition()
           .duration(100)
@@ -249,6 +250,12 @@ export class MainPage extends React.Component {
         tooltip.html(d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX - 65) + "px").style("top", (d3.event.pageY - 65) + "px")
       })
       .on("mouseout", function (d) {
+
+        d3
+          .select(this)
+          .attr("stroke-width", 0)
+          .attr("r", 5);
+
         tooltip
           .transition()
           .duration(100)
@@ -342,7 +349,7 @@ MainPage.propTypes = {
 function mapStateToProps(state, ownProps) {
   let projectOptions = state.dataFilters.projects;
   let adOptions = state.dataFilters.ads;
-
+console.log(state.axisFilters)
   return {
     entireData: state.entireData,
     axisOptions: AxisDropdown(state.axisFilters),
