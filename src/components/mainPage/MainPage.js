@@ -8,7 +8,7 @@ import * as selectFilterActions from '../../actions/selectFilterActions';
 import * as axisFilterActions from '../../actions/axisFilterActions.js';
 import {AxisDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
-import {ProjectFilterDropdown, AdSetFilterDropdown, AdFilterDropdown, CategoryFilterDropdown} from '../../selectors/selectors';
+import {ProjectFilterDropdown, AdFilterDropdown} from '../../selectors/selectors';
 import Uploader from '../common/Uploader.js';
 import * as d3 from 'd3';
 

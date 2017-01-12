@@ -16,29 +16,12 @@ export function ProjectFilterDropdown(options) {
   });
 }
 
-export function AdSetFilterDropdown(options) {
-  return options.map(data => {
-    return {
-      value: data.adSetId,
-      text: data.adSetName
-    };
-  });
-}
 
 export function AdFilterDropdown(options) {
   return options.map(data => {
     return {
       value: data.adId,
       text: data.adName
-    };
-  });
-}
-
-export function CategoryFilterDropdown(options) {
-  return options.map(data => {
-    return {
-      value: data.categoryId,
-      text: data.categoryName
     };
   });
 }

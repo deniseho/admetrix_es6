@@ -7,7 +7,7 @@ import {loadEntireData} from './actions/dataActions.js';
 import {loadUserData} from './actions/userDataActions.js';
 import {setDataFilterOptions} from './actions/dataFilterActions.js';
 import {selectFilterOptions} from './actions/selectFilterActions.js';
-import {setAxisFilterOptions} from './actions/axisFilterActions.js';
+import {setAxisFilterOptions, setYAxisFilterOptions} from './actions/axisFilterActions.js';
 import {Provider} from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
@@ -16,6 +16,7 @@ import '../node_modules/react-bootstrap-theme-switcher/themes/paper/bootstrap.cs
 
 const store = configureStore();
 store.dispatch(setAxisFilterOptions());
+store.dispatch(setYAxisFilterOptions());
 store.dispatch(loadEntireData());
 store.dispatch(loadUserData());
 store.dispatch(setDataFilterOptions());

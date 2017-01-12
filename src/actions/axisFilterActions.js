@@ -16,3 +16,18 @@ export function setAxisFilterOptions(){
     })
   }
 }
+
+export function setYAxisFilterOptionsSucc(yAxisOptions) {
+  return {type: types.SET_YAXIS_FILTER_OPTIONS_SUCCESS, yAxisOptions};
+}
+
+export function setYAxisFilterOptions(){
+  return dispatch => {
+    dispatch(beginAjaxCall());
+    return DataApi.getAxisFilters().then(yAxisOptions => {
+      dispatch(setYAxisFilterOptionsSucc(yAxisOptions));
+    }).catch(error => {
+      throw(error);
+    })
+  }
+}

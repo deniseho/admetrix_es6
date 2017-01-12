@@ -6,6 +6,9 @@ export default function axisFilterReducer(state = initialState.axisOptions, acti
     case types.SET_AXIS_FILTER_OPTIONS_SUCCESS:
       return action.axisOptions;
 
+    case types.SET_YAXIS_FILTER_OPTIONS_SUCCESS:
+      return action.yAxisOptions;
+
     default:
       return state;
   }
