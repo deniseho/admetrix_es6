@@ -7,7 +7,14 @@ export default {
     "id": localAuth.id,
     "name": localAuth.name,
     "picture":localAuth.picture
-  },
+  },  
+  // login : {
+  //   "accessToken": "",
+  //   "email": "",
+  //   "id": "",
+  //   "name": "",
+  //   "picture": ""
+  // },
   entireData : [],
   axisOptions : [],
   dataFilterOptions : {

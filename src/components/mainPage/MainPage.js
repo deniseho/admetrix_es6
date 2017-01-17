@@ -2,9 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as dataActions from '../../actions/dataActions';
-import * as userDataActions from '../../actions/userDataActions';
 import * as dataFilterActions from '../../actions/dataFilterActions';
-import * as selectFilterActions from '../../actions/selectFilterActions';
 import * as axisFilterActions from '../../actions/axisFilterActions.js';
 import {AxisDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
@@ -417,26 +415,23 @@ MainPage.propTypes = {
 // MainPage.contextTypes = { router: PropTypes.object };
 
 function mapStateToProps(state, ownProps) {
-  let projectOptions = state.dataFilters.projects;
-  let adOptions = state.dataFilters.ads;
-
   return {
     entireData: state.entireData,
 
-    project: state.selectedOptions.project,
-    ad: state.selectedOptions.ad,
+    project: state.dataFilters.projects[0],
+    ad: state.dataFilters.ads[0],
 
     xAxisOptions: AxisDropdown(state.axisFilters.filter(x => x.axis == "x")),
     yAxisOptions: AxisDropdown(state.axisFilters.filter(x => x.axis == "y")),
 
-    projectOptions: ProjectFilterDropdown(projectOptions),
-    adOptions: AdFilterDropdown(adOptions)
+    projectOptions: ProjectFilterDropdown(state.dataFilters.projects),
+    adOptions: AdFilterDropdown(state.dataFilters.ads)
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(dataActions, axisFilterActions, dataFilterActions, selectFilterActions, dispatch)
+    actions: bindActionCreators(dataActions, axisFilterActions, dataFilterActions, dispatch)
   };
 }
 
