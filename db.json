@@ -1,230 +1,224 @@
 {
-    "login": {
-        "accessToken": "",
-        "email": "",
-        "id": "",
-        "name": "",
-        "picture": ""
+  "login": {},
+  "entireData": [
+    {
+      "adId": "6055151371814",
+      "adName": "貼文：「」 - 貼文互動",
+      "projectId": "6055151364614",
+      "CPC_all": 0.029578,
+      "CTR_all": 8.409321,
+      "CPC_link": 4.91,
+      "CTR_link": 0.050659,
+      "actionType": "post_engagement"
     },
-    "entireData": [
-        {
-            "adId": "6055151371814",
-            "adName": "貼文：「」 - 貼文互動",
-            "projectId": "6055151364614",
-            "CPC_all": 0.029578,
-            "CTR_all": 8.409321,
-            "CPC_link": 4.91,
-            "CTR_link": 0.050659,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "6055142199014",
-            "adName": "1107_旗山馬＿最後報名貼文＿嘉義以北",
-            "projectId": "6055142198614",
-            "CPC_all": 0.030725,
-            "CTR_all": 7.51634,
-            "CPC_link": 0.141333,
-            "CTR_link": 1.633987,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "6055142198414",
-            "adName": "1107_旗山馬＿最後報名貼文＿台南以南",
-            "projectId": "6055151364614",
-            "CPC_all": 0.039126,
-            "CTR_all": 8.24685,
-            "CPC_link": 0.156535,
-            "CTR_link": 1.546515,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "6055142939014",
-            "adName": "1107_旗山馬＿最後報名貼文＿未繳費名單",
-            "projectId": "6055151364614",
-            "CPC_all": 0.031149,
-            "CTR_all": 7.505963,
-            "CPC_link": 0.172373,
-            "CTR_link": 1.356361,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "adId-01",
-            "adName": "adName-01",
-            "projId": "projId-01",
-            "adSetId": "adSetId-02",
-            "isUser": false,
-            "CPC_all": 0.015,
-            "CTR_all": 8.2,
-            "CPC_link": 0.073939,
-            "CTR_link": 2.08993,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "adId-02",
-            "adName": "adName-02",
-            "projId": "projId-01",
-            "isUser": false,
-            "CPC_all": 0.024,
-            "CTR_all": 7.6,
-            "CPC_link": 0.083789,
-            "CTR_link": 1.795841,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "adId-03",
-            "adName": "adName-03",
-            "projId": "projId-01",
-            "isUser": false,
-            "CPC_all": 0.031,
-            "CTR_all": 8.3,
-            "CPC_link": 0.077795,
-            "CTR_link": 2.123701,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "adId-04",
-            "adName": "adName-04",
-            "projId": "projId-01",
-            "isUser": false,
-            "CPC_all": 0.022,
-            "CTR_all": 7.8,
-            "CPC_link": 0.136667,
-            "CTR_link": 1.149425,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "adId-05",
-            "adName": "adName-05",
-            "projId": "projId-01",
-            "isUser": false,
-            "CPC_all": 0.0345,
-            "CTR_all": 5.8,
-            "CPC_link": 0.092714,
-            "CTR_link": 1.600366,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "adId-06",
-            "adName": "adName-06",
-            "projId": "projId-01",
-            "isUser": false,
-            "CPC_all": 0.021,
-            "CTR_all": 6.9,
-            "CPC_link": 0.091528,
-            "CTR_link": 1.725791,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "adId-07",
-            "adName": "adName-07",
-            "projId": "projId-02",
-            "isUser": false,
-            "CPC_all": 0.03,
-            "CTR_all": 9.5,
-            "CPC_link": 0.108151,
-            "CTR_link": 1.386785,
-            "actionType": "post_engagement"
-        },
-        {
-            "adId": "adId-08",
-            "adName": "adName-08",
-            "projId": "projId-02",
-            "isUser": false,
-            "CPC_all": 0.012,
-            "CTR_all": 6,
-            "CPC_link": 0.087606,
-            "CTR_link": 1.848477,
-            "actionType": "post_engagement"
-        }
-    ],
-    "selfData": {
-        "axisFilters": [
-            {
-                "axisValue": "CPC_all",
-                "axisText": "CPC(全部)",
-                "axis": "x"
-            },
-            {
-                "axisValue": "CTR_all",
-                "axisText": "CTR(全部)",
-                "axis": "y"
-            },
-            {
-                "axisValue": "CPC_link",
-                "axisText": "CPC(連結)",
-                "axis": "x"
-            },
-            {
-                "axisValue": "CTR_link",
-                "axisText": "CTR(連結)",
-                "axis": "y"
-            }
-        ],
-        "actionTypes": [
-            {
-                "axisValue": "post_engagement",
-                "axisText": "Post Engagement"
-            },
-            {
-                "axisValue": "link_click",
-                "axisText": "Link Click"
-            },
-            {
-                "axisValue": "video_view",
-                "axisText": "Video View"
-            },
-            {
-                "axisValue": "offsite_conversion",
-                "axisText": "Offsite Conversion"
-            }
-        ],
-        "projects": [
-            {
-                "projId": "6055151364614",
-                "projName": "1107_愛麗絲專案",
-                "startDate": "2016-05-13",
-                "endDate": "2016-11-10"
-            },
-            {
-                "projId": "6055142199014",
-                "projName": "1107_旗山馬＿最後報名",
-                "startDate": "2016-05-13",
-                "endDate": "2016-11-10"
-            }
-        ],
-        "ads": [
-            {
-                "adId": "6055151371814",
-                "adName": "貼文：「」 - 貼文互動",
-                "projectId": "6055151364614",
-                "CPC": 0.029578,
-                "CTR": 8.409321,
-                "actionType": "post_engagement"
-            },
-            {
-                "adId": "6055142199014",
-                "adName": "1107_旗山馬＿最後報名貼文＿嘉義以北",
-                "projectId": "6055142198614",
-                "CPC": 0.030725,
-                "CTR": 7.51634,
-                "actionType": "post_engagement"
-            },
-            {
-                "adId": "6055142198414",
-                "adName": "1107_旗山馬＿最後報名貼文＿台南以南",
-                "projectId": "6055151364614",
-                "CPC": 0.031149,
-                "CTR": 7.505963,
-                "actionType": "post_engagement"
-            },
-            {
-                "adId": "6055142939014",
-                "adName": "1107_旗山馬＿最後報名貼文＿未繳費名單",
-                "projectId": "6055151364614",
-                "CPC": 0.03,
-                "CTR": 9.4,
-                "actionType": "post_engagement"
-            }
-        ]
+    {
+      "adId": "6055142199014",
+      "adName": "1107_旗山馬＿最後報名貼文＿嘉義以北",
+      "projectId": "6055142198614",
+      "CPC_all": 0.030725,
+      "CTR_all": 7.51634,
+      "CPC_link": 0.141333,
+      "CTR_link": 1.633987,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "6055142198414",
+      "adName": "1107_旗山馬＿最後報名貼文＿台南以南",
+      "projectId": "6055151364614",
+      "CPC_all": 0.039126,
+      "CTR_all": 8.24685,
+      "CPC_link": 0.156535,
+      "CTR_link": 1.546515,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "6055142939014",
+      "adName": "1107_旗山馬＿最後報名貼文＿未繳費名單",
+      "projectId": "6055151364614",
+      "CPC_all": 0.031149,
+      "CTR_all": 7.505963,
+      "CPC_link": 0.172373,
+      "CTR_link": 1.356361,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "adId-01",
+      "adName": "adName-01",
+      "projId": "projId-01",
+      "adSetId": "adSetId-02",
+      "isUser": false,
+      "CPC_all": 0.015,
+      "CTR_all": 8.2,
+      "CPC_link": 0.073939,
+      "CTR_link": 2.08993,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "adId-02",
+      "adName": "adName-02",
+      "projId": "projId-01",
+      "isUser": false,
+      "CPC_all": 0.024,
+      "CTR_all": 7.6,
+      "CPC_link": 0.083789,
+      "CTR_link": 1.795841,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "adId-03",
+      "adName": "adName-03",
+      "projId": "projId-01",
+      "isUser": false,
+      "CPC_all": 0.031,
+      "CTR_all": 8.3,
+      "CPC_link": 0.077795,
+      "CTR_link": 2.123701,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "adId-04",
+      "adName": "adName-04",
+      "projId": "projId-01",
+      "isUser": false,
+      "CPC_all": 0.022,
+      "CTR_all": 7.8,
+      "CPC_link": 0.136667,
+      "CTR_link": 1.149425,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "adId-05",
+      "adName": "adName-05",
+      "projId": "projId-01",
+      "isUser": false,
+      "CPC_all": 0.0345,
+      "CTR_all": 5.8,
+      "CPC_link": 0.092714,
+      "CTR_link": 1.600366,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "adId-06",
+      "adName": "adName-06",
+      "projId": "projId-01",
+      "isUser": false,
+      "CPC_all": 0.021,
+      "CTR_all": 6.9,
+      "CPC_link": 0.091528,
+      "CTR_link": 1.725791,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "adId-07",
+      "adName": "adName-07",
+      "projId": "projId-02",
+      "isUser": false,
+      "CPC_all": 0.03,
+      "CTR_all": 9.5,
+      "CPC_link": 0.108151,
+      "CTR_link": 1.386785,
+      "actionType": "post_engagement"
+    },
+    {
+      "adId": "adId-08",
+      "adName": "adName-08",
+      "projId": "projId-02",
+      "isUser": false,
+      "CPC_all": 0.012,
+      "CTR_all": 6,
+      "CPC_link": 0.087606,
+      "CTR_link": 1.848477,
+      "actionType": "post_engagement"
     }
+  ],
+  "selfData": {
+    "axisFilters": [
+      {
+        "axisValue": "CPC_all",
+        "axisText": "CPC(全部)",
+        "axis": "x"
+      },
+      {
+        "axisValue": "CTR_all",
+        "axisText": "CTR(全部)",
+        "axis": "y"
+      },
+      {
+        "axisValue": "CPC_link",
+        "axisText": "CPC(連結)",
+        "axis": "x"
+      },
+      {
+        "axisValue": "CTR_link",
+        "axisText": "CTR(連結)",
+        "axis": "y"
+      }
+    ],
+    "actionTypes": [
+      {
+        "axisValue": "post_engagement",
+        "axisText": "Post Engagement"
+      },
+      {
+        "axisValue": "link_click",
+        "axisText": "Link Click"
+      },
+      {
+        "axisValue": "video_view",
+        "axisText": "Video View"
+      },
+      {
+        "axisValue": "offsite_conversion",
+        "axisText": "Offsite Conversion"
+      }
+    ],
+    "projects": [
+      {
+        "projId": "6055151364614",
+        "projName": "1107_愛麗絲專案",
+        "startDate": "2016-05-13",
+        "endDate": "2016-11-10"
+      },
+      {
+        "projId": "6055142199014",
+        "projName": "1107_旗山馬＿最後報名",
+        "startDate": "2016-05-13",
+        "endDate": "2016-11-10"
+      }
+    ],
+    "ads": [
+      {
+        "adId": "6055151371814",
+        "adName": "貼文：「」 - 貼文互動",
+        "projectId": "6055151364614",
+        "CPC": 0.029578,
+        "CTR": 8.409321,
+        "actionType": "post_engagement"
+      },
+      {
+        "adId": "6055142199014",
+        "adName": "1107_旗山馬＿最後報名貼文＿嘉義以北",
+        "projectId": "6055142198614",
+        "CPC": 0.030725,
+        "CTR": 7.51634,
+        "actionType": "post_engagement"
+      },
+      {
+        "adId": "6055142198414",
+        "adName": "1107_旗山馬＿最後報名貼文＿台南以南",
+        "projectId": "6055151364614",
+        "CPC": 0.031149,
+        "CTR": 7.505963,
+        "actionType": "post_engagement"
+      },
+      {
+        "adId": "6055142939014",
+        "adName": "1107_旗山馬＿最後報名貼文＿未繳費名單",
+        "projectId": "6055151364614",
+        "CPC": 0.03,
+        "CTR": 9.4,
+        "actionType": "post_engagement"
+      }
+    ]
+  }
 }

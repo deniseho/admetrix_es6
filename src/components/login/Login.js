@@ -1,11 +1,14 @@
-// This component handles the App template used on every page.
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as loginActions from '../../actions/loginActions';
 import FacebookLogin from 'react-facebook-login';
+import {browserHistory} from 'react-router';
 
 const responseFacebook = (response) => {
   localStorage.setItem("admatrixAuth", JSON.stringify(response));
-  console.log(response);
 }
+
 
 class Login extends React.Component {
   constructor(props) {
@@ -17,28 +20,26 @@ class Login extends React.Component {
       .logoutClick
       .bind(this);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: props.fbResponse.accessToken ? true : false
     };
   }
 
+
+
   loginClick() {
     this.setState({isLoggedIn: true});
+    browserHistory.push('/mainPage');
   }
 
   logoutClick() {
     this.setState({isLoggedIn: false});
+    localStorage.removeItem("admatrixAuth")
   }
 
   render() {
     const isLoggedIn = this.state.isLoggedIn;
-    const loginName = JSON
-      .parse(localStorage.getItem("admatrixAuth"))
-      .name;
-    const loginPicture = JSON
-      .parse(localStorage.getItem("admatrixAuth"))
-      .picture
-      .data
-      .url;
+    const loginName = this.props.fbResponse.name;
+    const loginPicture = this.props.fbResponse.picture.data.url;
 
     return (
       <div>
@@ -68,4 +69,16 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+function mapStateToProps(state, ownProps){
+  return {
+    fbResponse: state.fbResponse
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(loginActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

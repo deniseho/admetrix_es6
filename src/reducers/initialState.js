@@ -1,16 +1,24 @@
+let localAuth = JSON.parse(localStorage.getItem("admatrixAuth"))
+
 export default {
-  entireData: [],
-  axisOptions: [],
-  dataFilterOptions: {
+  login : {
+    "accessToken": localAuth.accessToken,
+    "email": localAuth.email,
+    "id": localAuth.id,
+    "name": localAuth.name,
+    "picture":localAuth.picture
+  },
+  entireData : [],
+  axisOptions : [],
+  dataFilterOptions : {
     projects: [],
     ads: []
   },
-  selectedOptions: {
+  selectedOptions : {
     project: "",
     adSet: "",
     ad: "",
     category: ""
   },
-  ajaxCallsInProgress: 0
+  ajaxCallsInProgress : 0
 };
-

@@ -3,6 +3,21 @@ import fetch from 'isomorphic-fetch'
 require('es6-promise').polyfill();
 
 class DataApi {
+    static fbLogin(localAuth) {
+        localAuth = Object.assign({}, localAuth);
+        //todo: send localAuth to server
+
+        return new Promise((resolve, reject) => {
+            fetch('http://localhost:3000/login').then((response) => {
+                response
+                    .json()
+                    .then((data) => {
+                        resolve(localAuth)
+                    })
+            })
+        })
+    }
+
     static getEntireData() {
         return new Promise((resolve, reject) => {
             fetch('http://localhost:3000/entireData').then((response) => {
@@ -74,9 +89,7 @@ class DataApi {
                 response
                     .json()
                     .then((data) => {
-                        resolve(Object.assign({}, {
-                            project: data.projects[0].projId
-                        }))
+                        resolve(Object.assign({}, {project: data.projects[0].projId}))
                     })
             })
         })
