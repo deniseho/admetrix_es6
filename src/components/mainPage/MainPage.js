@@ -16,7 +16,7 @@ require('d3-extended')(d3);
 export class MainPage extends React.Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
+    let initData = {
       xOption: 'CPC_all',
       yOption: 'CTR_all',
 
@@ -26,6 +26,18 @@ export class MainPage extends React.Component {
       month: "2016-11",
 
       entireData: []
+    };
+
+    this.state = {
+      xOption: initData.xOption,
+      yOption: initData.yOption,
+
+      project: initData.project,
+      ad: initData.ad,
+
+      month: initData.month,
+
+      entireData: initData.entireData
     };
 
     this.handleXChange = this
@@ -50,18 +62,17 @@ export class MainPage extends React.Component {
   }
 
   componentDidMount() {
-    this
-      .setState({
-        xOption: this.state.xOption,
-        yOption: this.state.yOption,
+    this.setState({
+      xOption: this.state.xOption,
+      yOption: this.state.yOption,
 
-        project: this.state.project,
-        ad: this.state.ad,
+      project: this.state.project,
+      ad: this.state.ad,
 
-        month: this.state.month,
+      month: this.state.month,
 
-        entireData: this.state.entireData
-      }, function () {});
+      entireData: this.state.entireData
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,7 +93,7 @@ export class MainPage extends React.Component {
   }
 
   DotChartGen(data, xOption, yOption, selectedAd) {
-    let h = 600;
+    let h = 700;
     let w = 1100;
     let padding = 70;
 
@@ -201,7 +212,6 @@ export class MainPage extends React.Component {
       .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
       .text(this.state.yOption)
 
-
     var hoverLineGroup = svg
       .append("g")
       .attr("class", "hover-line");
@@ -218,16 +228,16 @@ export class MainPage extends React.Component {
       .select('#dotChart')
       .on("mousemove", function () {
         var x = d3.mouse(this)[0];
-        hoverLine
-          .attr("x1", x)
-          .attr("x2", x)
-          .style("opacity", 1);
+        if (x >= padding && x <= w - padding) {
+          hoverLine
+            .attr("x1", x)
+            .attr("x2", x)
+            .style("opacity", 1);
+        }
       })
       .on("mouseout", function () {
         hoverLine.style("opacity", 1e-6);
       });
-
-
 
     let dots = svg
       .append("g")
@@ -283,7 +293,7 @@ export class MainPage extends React.Component {
           .duration(100)
           .style("opacity", .8);
 
-        tooltip.html(d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX + 20) + "px").style("top", (d3.event.pageY) + "px")
+        tooltip.html(d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX-350) + "px").style("top", (d3.event.pageY-160) + "px")
       })
       .on("mouseout", function (d) {
 
@@ -308,6 +318,7 @@ export class MainPage extends React.Component {
   }
 
   handleXChange(e) {
+    console.log(e.target)
     this.setState({xOption: e.target.value});
   }
 
@@ -336,47 +347,57 @@ export class MainPage extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row filters">
-        <div className="col-md-offset-4 col-md-2">
-            <SelectInput
-              name=""
-              label="月份"
-              value={this.state.month}
-              options={this.props.projectOptions}
-              onChange={this.handleMonthChange}/>
-          </div>
-          <div className="col-md-2">
-            <SelectInput
-              name=""
-              label="行銷專案"
-              value={this.state.project}
-              options={this.props.projectOptions}
-              onChange={this.handleProjectChange}/>
+          <div className="col-md-offset-4 col-md-2">
+              <SelectInput
+                name=""
+                label="月份"
+                value={this.state.month}
+                options={this.props.projectOptions}
+                onChange={this.handleMonthChange}/>
           </div>
           <div className="col-md-3">
-            <SelectInput
-              name=""
-              label="廣告名稱"
-              value={this.state.ad}
-              options={this.props.adOptions}
-              onChange={this.handleAdChange}></SelectInput>
+              <SelectInput
+                name=""
+                label="成果類型"
+                value={this.state.month}
+                options={this.props.projectOptions}
+                onChange={this.handleMonthChange}/>
           </div>
         </div>
         <div className="row">
-          <div className="col-md-offset-1 col-md-2">
-            <SelectInput
-              name="xOption"
-              label="x軸"
-              value={this.state.xOption}
-              options={this.props.xAxisOptions}
-              onChange={this.handleXChange}/>
-            <SelectInput
-              name="yOption"
-              label="y軸"
-              value={this.state.yOption}
-              options={this.props.yAxisOptions}
-              onChange={this.handleYChange}/>
+          <div className="col-md-3">
+            <div className="well">
+              <SelectInput
+                name=""
+                label="行銷專案"
+                value={this.state.project}
+                options={this.props.projectOptions}
+                onChange={this.handleProjectChange}/>
+              <SelectInput
+                name=""
+                label="廣告名稱"
+                value={this.state.ad}
+                options={this.props.adOptions}
+                onChange={this.handleAdChange}/>
+            </div>
+            <div className="well">
+              <SelectInput
+                name="xOption"
+                label="x軸"
+                value={this.state.xOption}
+                options={this.props.xAxisOptions}
+                onChange={this.handleXChange}/>
+              <SelectInput
+                name="yOption"
+                label="y軸"
+                value={this.state.yOption}
+                options={this.props.yAxisOptions}
+                onChange={this.handleYChange}/>
+            </div>
           </div>
-          <div className="dotChart"></div>
+          <div className="col-md-9">
+            <div className="dotChart"></div>
+          </div>
         </div>
       </div>
     );
@@ -385,7 +406,8 @@ export class MainPage extends React.Component {
 
 MainPage.propTypes = {
   entireData: PropTypes.array,
-  axisOptions: PropTypes.array.isRequired,
+  xAxisOptions: PropTypes.array.isRequired,
+  yAxisOptions: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
 
   projectOptions: PropTypes.array,
@@ -404,8 +426,8 @@ function mapStateToProps(state, ownProps) {
     project: state.selectedOptions.project,
     ad: state.selectedOptions.ad,
 
-    xAxisOptions: AxisDropdown(state.axisFilters.filter(x=>x.axis=="x")),
-    yAxisOptions: AxisDropdown(state.axisFilters.filter(x=>x.axis=="y")),
+    xAxisOptions: AxisDropdown(state.axisFilters.filter(x => x.axis == "x")),
+    yAxisOptions: AxisDropdown(state.axisFilters.filter(x => x.axis == "y")),
 
     projectOptions: ProjectFilterDropdown(projectOptions),
     adOptions: AdFilterDropdown(adOptions)

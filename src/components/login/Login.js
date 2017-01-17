@@ -31,9 +31,15 @@ class Login extends React.Component {
 
   render() {
     const isLoggedIn = this.state.isLoggedIn;
-    const loginName = JSON.parse(localStorage.getItem("admatrixAuth")).name;
-    const loginPicture = JSON.parse(localStorage.getItem("admatrixAuth")).picture.data.url;
-    
+    const loginName = JSON
+      .parse(localStorage.getItem("admatrixAuth"))
+      .name;
+    const loginPicture = JSON
+      .parse(localStorage.getItem("admatrixAuth"))
+      .picture
+      .data
+      .url;
+
     return (
       <div>
         <FacebookLogin
@@ -41,11 +47,22 @@ class Login extends React.Component {
           autoLoad={true}
           fields="name, email, picture"
           scope="public_profile, email, user_birthday"
-          onClick={isLoggedIn ? this.logoutClick : this.loginClick}
+          onClick={isLoggedIn
+          ? this.logoutClick
+          : this.loginClick}
           callback={responseFacebook}
-          textButton={isLoggedIn ? "facebook 登出" : "facebook 登入"}/> 
-          <img src= {isLoggedIn ? loginPicture :""} />
-          {isLoggedIn ? loginName + " 歡迎!" : "已登出"}
+          textButton={isLoggedIn
+          ? " 登出"
+          : " 登入"}
+          cssClass={isLoggedIn
+          ? "btn"
+          : "btn primary"}
+           icon="fa-facebook"/>
+        <img src={isLoggedIn
+          ? loginPicture
+          : ""}/> {isLoggedIn
+          ? loginName + " 歡迎!"
+          : "已登出"}
       </div>
     );
   }

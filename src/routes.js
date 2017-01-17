@@ -1,13 +1,38 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import App from './components/App';
-import EnsureLoggedInContainer from './components/common/EnsureLoggedInContainer.js';
-import MainPage from './components/mainPage/MainPage'; 
+import MainPage from './components/mainPage/MainPage';
+import Login from './components/login/Login.js';
+import Homepage from './components/common/HomePage.js';
 
-export default(
-  <Route path="/" component={App}>
-    <Route component={EnsureLoggedInContainer}>
-      <IndexRoute component={MainPage}/>
+const routes = (
+  <Route component={App}>
+    <Route path='mainPage' component={MainPage}/>
+  </Route>
+);
+
+const basicRoutes = (
+  <Route>
+    <Route path='login' component={Login}/>
+  </Route>
+);
+
+const combinedRoutes = (
+  <Route>
+    <Route>
+      {routes}
+    </Route>
+    <Route>
+      {basicRoutes}
     </Route>
   </Route>
 );
+
+export default(
+  <Route>
+    <Route path='/' component={Homepage}/>
+      <Route>
+        {combinedRoutes}
+      </Route>
+  </Route>
+)

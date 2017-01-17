@@ -22,6 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "6.8.0",
+    "bless": "^3.0.3",
     "body-parser": "^1.15.2",
     "bootstrap": "3.3.6",
     "d3": "^4.3.0",
@@ -31,6 +32,7 @@
     "jquery": "2.2.3",
     "json-server": "^0.9.4",
     "lodash": "^4.17.2",
+    "node-sass": "^4.3.0",
     "react": "^15.0.2",
     "react-bootstrap-theme-switcher": "^1.0.6",
     "react-dom": "^15.0.2",
