@@ -19,13 +19,9 @@ export default {
   axisOptions : [],
   dataFilterOptions : {
     projects: [],
-    ads: []
-  },
-  selectedOptions : {
-    project: "",
-    adSet: "",
-    ad: "",
-    category: ""
+    ads: [],
+    actionTypes: [],
+    monthes: []
   },
   ajaxCallsInProgress : 0
 };

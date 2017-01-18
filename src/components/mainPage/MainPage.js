@@ -4,12 +4,13 @@ import {bindActionCreators} from 'redux';
 import * as dataActions from '../../actions/dataActions';
 import * as dataFilterActions from '../../actions/dataFilterActions';
 import * as axisFilterActions from '../../actions/axisFilterActions.js';
-import {AxisDropdown} from '../../selectors/selectors';
 import SelectInput from '../common/SelectInput';
-import {ProjectFilterDropdown, AdFilterDropdown} from '../../selectors/selectors';
+import {AxisDropdown, ProjectFilterDropdown, AdFilterDropdown, ActionTypeFilterDropdown, MonthFilterDropdown} from '../../selectors/selectors';
 import Uploader from '../common/Uploader.js';
 import * as d3 from 'd3';
 require('d3-extended')(d3);
+import Login from '../login/Login.js'
+
 
 export class MainPage extends React.Component {
   constructor(props, context) {
@@ -22,6 +23,7 @@ export class MainPage extends React.Component {
       ad: "6055151371814",
 
       month: "2016-11",
+      actionType: "post_engagement",
 
       entireData: []
     };
@@ -34,6 +36,7 @@ export class MainPage extends React.Component {
       ad: initData.ad,
 
       month: initData.month,
+      actionType: initData.actionType,
 
       entireData: initData.entireData
     };
@@ -50,6 +53,10 @@ export class MainPage extends React.Component {
       .handleMonthChange
       .bind(this);
 
+    this.handleActionTypeChange = this
+      .handleActionTypeChange
+      .bind(this);
+
     this.handleProjectChange = this
       .handleProjectChange
       .bind(this);
@@ -59,7 +66,7 @@ export class MainPage extends React.Component {
       .bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({
       xOption: this.state.xOption,
       yOption: this.state.yOption,
@@ -68,6 +75,7 @@ export class MainPage extends React.Component {
       ad: this.state.ad,
 
       month: this.state.month,
+      actionType: this.state.actionType,
 
       entireData: this.state.entireData
     })
@@ -200,7 +208,7 @@ export class MainPage extends React.Component {
       .attr("y", h - 10)
       .attr("class", "xAxisLabel")
       .attr("txtAnchor", "middle")
-      .text(this.state.xOption)
+      .text(this.AxisMapping(this.state.xOption))
 
     //yAxis label
     svg
@@ -208,7 +216,7 @@ export class MainPage extends React.Component {
       .attr("class", "yAxisLabel")
       .attr("txtAnchor", "middle")
       .attr("transform", `translate(15, ${h / 2})rotate(-90)`)
-      .text(this.state.yOption)
+      .text(this.AxisMapping(this.state.yOption))
 
     var hoverLineGroup = svg
       .append("g")
@@ -220,6 +228,7 @@ export class MainPage extends React.Component {
       .attr("x2", 0)
       .attr("y1", 0)
       .attr("y2", h - padding);
+      
     hoverLine.style("opacity", 1e-6);
 
     d3
@@ -307,6 +316,18 @@ export class MainPage extends React.Component {
       })
   }
 
+//=======================todo: axisMapping==============================
+  AxisMapping(option){
+    if(option==='CPC_link')
+      return 'CPC(連結)';
+    else if(option==='CPC_all')
+      return 'CPC(全部)';
+    else if(option==='CTR_link')
+      return 'CTR(連結)';
+    else if(option==='CTR_all')
+      return 'CTR(全部)';
+  }
+
   DotChartUpdate() {
     let svg = d3
       .select("#dotChart")
@@ -316,7 +337,6 @@ export class MainPage extends React.Component {
   }
 
   handleXChange(e) {
-    console.log(e.target)
     this.setState({xOption: e.target.value});
   }
 
@@ -330,6 +350,10 @@ export class MainPage extends React.Component {
 
   handleProjectChange(e) {
     this.setState({project: e.target.value});
+  }
+
+  handleActionTypeChange(e) {
+    this.setState({actionType: e.target.value});
   }
 
   handleAdChange(e) {
@@ -350,16 +374,16 @@ export class MainPage extends React.Component {
                 name=""
                 label="月份"
                 value={this.state.month}
-                options={this.props.projectOptions}
+                options={this.props.monthOptions}
                 onChange={this.handleMonthChange}/>
           </div>
           <div className="col-md-3">
               <SelectInput
                 name=""
                 label="成果類型"
-                value={this.state.month}
-                options={this.props.projectOptions}
-                onChange={this.handleMonthChange}/>
+                value={this.state.actionType}
+                options={this.props.actionTypeOptions}
+                onChange={this.handleActionTypeChange}/>
           </div>
         </div>
         <div className="row">
@@ -415,6 +439,7 @@ MainPage.propTypes = {
 // MainPage.contextTypes = { router: PropTypes.object };
 
 function mapStateToProps(state, ownProps) {
+  console.log(state.dataFilters)
   return {
     entireData: state.entireData,
 
@@ -425,7 +450,10 @@ function mapStateToProps(state, ownProps) {
     yAxisOptions: AxisDropdown(state.axisFilters.filter(x => x.axis == "y")),
 
     projectOptions: ProjectFilterDropdown(state.dataFilters.projects),
-    adOptions: AdFilterDropdown(state.dataFilters.ads)
+    monthOptions: MonthFilterDropdown(state.dataFilters.monthes),
+
+    adOptions: AdFilterDropdown(state.dataFilters.ads),
+    actionTypeOptions: ActionTypeFilterDropdown(state.dataFilters.actionTypes)
   }
 }
 

@@ -21,10 +21,9 @@ class Login extends React.Component {
       .bind(this);
     this.state = {
       isLoggedIn: props.fbResponse.accessToken ? true : false
+      // isLoggedIn: false
     };
   }
-
-
 
   loginClick() {
     this.setState({isLoggedIn: true});
@@ -33,7 +32,8 @@ class Login extends React.Component {
 
   logoutClick() {
     this.setState({isLoggedIn: false});
-    localStorage.removeItem("admatrixAuth")
+    localStorage.removeItem("admatrixAuth");
+    browserHistory.push('/');
   }
 
   render() {

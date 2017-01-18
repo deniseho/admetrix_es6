@@ -25,3 +25,21 @@ export function AdFilterDropdown(options) {
     };
   });
 }
+
+export function ActionTypeFilterDropdown(options) {
+  return options.map(data => {
+    return {
+      value: data.actionTypeValue,
+      text: data.actionTypeText
+    };
+  });
+}
+
+export function MonthFilterDropdown(options) {
+  return options.map(data => {
+    return {
+      value: data.monthId,
+      text: data.monthText
+    };
+  });
+}

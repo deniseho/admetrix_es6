@@ -131,8 +131,8 @@
       "actionType": "post_engagement"
     }
   ],
-  "selfData": {
-    "axisFilters": [
+  "filtersOptions": {
+    "axes": [
       {
         "axisValue": "CPC_all",
         "axisText": "CPC(全部)",
@@ -156,20 +156,20 @@
     ],
     "actionTypes": [
       {
-        "axisValue": "post_engagement",
-        "axisText": "Post Engagement"
+        "actionTypeValue": "post_engagement",
+        "actionTypeText": "Post Engagement"
       },
       {
-        "axisValue": "link_click",
-        "axisText": "Link Click"
+        "actionTypeValue": "link_click",
+        "actionTypeText": "Link Click"
       },
       {
-        "axisValue": "video_view",
-        "axisText": "Video View"
+        "actionTypeValue": "video_view",
+        "actionTypeText": "Video View"
       },
       {
-        "axisValue": "offsite_conversion",
-        "axisText": "Offsite Conversion"
+        "actionTypeValue": "offsite_conversion",
+        "actionTypeText": "Offsite Conversion"
       }
     ],
     "projects": [
@@ -186,37 +186,59 @@
         "endDate": "2016-11-10"
       }
     ],
+    "monthes": [
+      {
+        "monthId": "201605",
+        "monthText": "2016-05"
+      },
+      {
+        "monthId": "201606",
+        "monthText": "2016-06"
+      },
+      {
+        "monthId": "201607",
+        "monthText": "2016-07"
+      },
+      {
+        "monthId": "201608",
+        "monthText": "2016-08"
+      },
+      {
+        "monthId": "201609",
+        "monthText": "2016-09"
+      },
+      {
+        "monthId": "201610",
+        "monthText": "2016-10"
+      },
+      {
+        "monthId": "201611",
+        "monthText": "2016-11"
+      }
+    ],
     "ads": [
       {
         "adId": "6055151371814",
         "adName": "貼文：「」 - 貼文互動",
         "projectId": "6055151364614",
-        "CPC": 0.029578,
-        "CTR": 8.409321,
         "actionType": "post_engagement"
       },
       {
         "adId": "6055142199014",
         "adName": "1107_旗山馬＿最後報名貼文＿嘉義以北",
         "projectId": "6055142198614",
-        "CPC": 0.030725,
-        "CTR": 7.51634,
         "actionType": "post_engagement"
       },
       {
         "adId": "6055142198414",
         "adName": "1107_旗山馬＿最後報名貼文＿台南以南",
         "projectId": "6055151364614",
-        "CPC": 0.031149,
-        "CTR": 7.505963,
         "actionType": "post_engagement"
       },
       {
         "adId": "6055142939014",
         "adName": "1107_旗山馬＿最後報名貼文＿未繳費名單",
         "projectId": "6055151364614",
-        "CPC": 0.03,
-        "CTR": 9.4,
         "actionType": "post_engagement"
       }
     ]

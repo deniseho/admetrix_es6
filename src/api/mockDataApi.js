@@ -31,38 +31,13 @@ class DataApi {
         });
     }
 
-    static getUserData() {
-        return new Promise((resolve, reject) => {
-            fetch('http://localhost:3000/selfData').then((response) => {
-                response
-                    .json()
-                    .then((data) => {
-                        resolve(Object.assign([], data.ads));
-                    }, delay);
-            })
-
-        });
-    }
-
     static getAxisFilters() {
         return new Promise((resolve, reject) => {
-            fetch('http://localhost:3000/selfData').then((response) => {
+            fetch('http://localhost:3000/filtersOptions').then((response) => {
                 response
                     .json()
                     .then((data) => {
-                        resolve(Object.assign([], data.axisFilters));
-                    })
-            })
-        });
-    }
-
-    static getXAxisFilters() {
-        return new Promise((resolve, reject) => {
-            fetch('http://localhost:3000/selfData').then((response) => {
-                response
-                    .json()
-                    .then((data) => {
-                        resolve(Object.assign([], data.xAxisFilters));
+                        resolve(Object.assign([], data.axes));
                     })
             })
         });
@@ -70,29 +45,19 @@ class DataApi {
 
     static getDataFilters() {
         return new Promise((resolve, reject) => {
-            fetch('http://localhost:3000/selfData').then((response) => {
+            fetch('http://localhost:3000/filtersOptions').then((response) => {
                 response
                     .json()
                     .then((data) => {
                         resolve(Object.assign({}, {
                             projects: data.projects,
-                            ads: data.ads
+                            ads: data.ads,
+                            actionTypes: data.actionTypes,
+                            monthes: data.monthes
                         }))
                     })
             })
         });
-    }
-
-    static selectOptions() {
-        return new Promise((resolve, reject) => {
-            fetch('http://localhost:3000/selfData').then((response) => {
-                response
-                    .json()
-                    .then((data) => {
-                        resolve(Object.assign({}, {project: data.projects[0].projId}))
-                    })
-            })
-        })
     }
 }
 
