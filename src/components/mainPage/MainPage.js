@@ -21,7 +21,7 @@ export class MainPage extends React.Component {
       project: "6055151364614",
       ad: "6055151371814",
 
-      month: "2016-11",
+      month: "201605",
       actionType: "post_engagement",
 
       entireData: []
@@ -315,7 +315,7 @@ export class MainPage extends React.Component {
       })
   }
 
-  //=======================todo: axisMapping==============================
+  //=======================todo: Mappings==============================
   AxisMapping(option) {
     if (option === 'CPC_link') 
       return 'CPC(連結)';
@@ -327,6 +327,54 @@ export class MainPage extends React.Component {
       return 'CTR(全部)';
     }
   
+  MonthMapping(option) {
+    if (option === '201605') 
+      return '2016-05';
+    else if (option === '201606') 
+      return '2016-06';
+    else if (option === '201607') 
+      return '2016-07';
+    else if (option === '201608') 
+      return '2016-08';
+    else if (option === '201609') 
+      return '2016-09';
+    else if (option === '201610') 
+      return '2016-10';
+    else if (option === '201611') 
+      return '2016-11';
+    }
+  
+  ActionTypeMapping(option) {
+    if (option === 'post_engagement') 
+      return 'Post Engagement';
+    else if (option === 'link_click') 
+      return 'Link Click';
+    else if (option === 'video_view') 
+      return 'Video View';
+    else if (option === 'offsite_conversion') 
+      return 'Offsite Conversion';
+    }
+  
+  ProjectMapping(option) {
+    if (option === '6055151364614') 
+      return '1107_愛麗絲專案';
+    else if (option === '6055142199014') 
+      return '1107_旗山馬＿最後報名';
+    }
+  
+  AdMapping(option) {
+    if (option === '6055151371814') 
+      return '貼文：「」 - 貼文互動';
+    else if (option === '6055142199014') 
+      return '1107_旗山馬＿最後報名貼文＿嘉義以北';
+    else if (option === '6055142198414') 
+      return '1107_旗山馬＿最後報名貼文＿台南以南';
+    else if (option === '6055142939014') 
+      return '1107_旗山馬＿最後報名貼文＿未繳費名單';
+    }
+  
+  //=======================todo: Mappings==============================
+
   DotChartUpdate() {
     let svg = d3
       .select("#dotChart")
@@ -367,24 +415,35 @@ export class MainPage extends React.Component {
   render() {
     return (
       <div>
-        <div className="topArea">
-        </div>
+        <div className="topArea"></div>
         <div className="row">
           <div className="col-md-3">
             <div className="well">
-              <SelectInput
-                name=""
-                label="月份"
-                value={this.state.month}
-                options={this.props.monthOptions}
-                onChange={this.handleMonthChange}/>
+              <div className="row">
+                <div className="col-md-6">
+                  <SelectInput
+                    name=""
+                    label="起"
+                    value={this.state.month}
+                    options={this.props.monthOptions}
+                    onChange={this.handleMonthChange}/>
+                </div>
+                 <div className="col-md-6">
+                  <SelectInput
+                    name=""
+                    label="迄"
+                    value={this.state.month}
+                    options={this.props.monthOptions}
+                    onChange={this.handleMonthChange}/>
+                </div>
+              </div>
               <SelectInput
                 name=""
                 label="成果類型"
                 value={this.state.actionType}
                 options={this.props.actionTypeOptions}
                 onChange={this.handleActionTypeChange}/>
-                <br/>
+              <br/>
               <SelectInput
                 name=""
                 label="行銷專案"
@@ -397,7 +456,7 @@ export class MainPage extends React.Component {
                 value={this.state.ad}
                 options={this.props.adOptions}
                 onChange={this.handleAdChange}/>
-                <br/>
+              <br/>
               <div className="row">
                 <div className="col-md-6">
                   <SelectInput
@@ -417,6 +476,15 @@ export class MainPage extends React.Component {
             </div>
           </div>
           <div className="col-md-9">
+            <h5>
+              {this.MonthMapping(this.state.month)}</h5>
+            <h5>
+              {this.ActionTypeMapping(this.state.actionType)}</h5>
+            <h5>
+              {this.ProjectMapping(this.state.project)}</h5>
+            <h5>
+              {this.AdMapping(this.state.ad)}
+            </h5>
             <div className="dotChart"></div>
           </div>
         </div>
