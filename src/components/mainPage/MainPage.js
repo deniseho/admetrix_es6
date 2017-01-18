@@ -11,7 +11,6 @@ import * as d3 from 'd3';
 require('d3-extended')(d3);
 import Login from '../login/Login.js'
 
-
 export class MainPage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -99,7 +98,7 @@ export class MainPage extends React.Component {
   }
 
   DotChartGen(data, xOption, yOption, selectedAd) {
-    let h = 700;
+    let h = 600;
     let w = 1100;
     let padding = 70;
 
@@ -228,7 +227,7 @@ export class MainPage extends React.Component {
       .attr("x2", 0)
       .attr("y1", 0)
       .attr("y2", h - padding);
-      
+
     hoverLine.style("opacity", 1e-6);
 
     d3
@@ -300,7 +299,7 @@ export class MainPage extends React.Component {
           .duration(100)
           .style("opacity", .8);
 
-        tooltip.html(d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX-350) + "px").style("top", (d3.event.pageY-160) + "px")
+        tooltip.html(d.adName + "<br/>" + xOption + ": " + d[xOption] + "<br/>" + yOption + ": " + d[yOption]).style("left", (d3.event.pageX - 350) + "px").style("top", (d3.event.pageY - 160) + "px")
       })
       .on("mouseout", function (d) {
 
@@ -316,18 +315,18 @@ export class MainPage extends React.Component {
       })
   }
 
-//=======================todo: axisMapping==============================
-  AxisMapping(option){
-    if(option==='CPC_link')
+  //=======================todo: axisMapping==============================
+  AxisMapping(option) {
+    if (option === 'CPC_link') 
       return 'CPC(連結)';
-    else if(option==='CPC_all')
+    else if (option === 'CPC_all') 
       return 'CPC(全部)';
-    else if(option==='CTR_link')
+    else if (option === 'CTR_link') 
       return 'CTR(連結)';
-    else if(option==='CTR_all')
+    else if (option === 'CTR_all') 
       return 'CTR(全部)';
-  }
-
+    }
+  
   DotChartUpdate() {
     let svg = d3
       .select("#dotChart")
@@ -367,28 +366,25 @@ export class MainPage extends React.Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row filters">
-          <div className="col-md-offset-4 col-md-2">
+      <div>
+        <div className="topArea">
+        </div>
+        <div className="row">
+          <div className="col-md-3">
+            <div className="well">
               <SelectInput
                 name=""
                 label="月份"
                 value={this.state.month}
                 options={this.props.monthOptions}
                 onChange={this.handleMonthChange}/>
-          </div>
-          <div className="col-md-3">
               <SelectInput
                 name=""
                 label="成果類型"
                 value={this.state.actionType}
                 options={this.props.actionTypeOptions}
                 onChange={this.handleActionTypeChange}/>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-3">
-            <div className="well">
+                <br/>
               <SelectInput
                 name=""
                 label="行銷專案"
@@ -401,20 +397,23 @@ export class MainPage extends React.Component {
                 value={this.state.ad}
                 options={this.props.adOptions}
                 onChange={this.handleAdChange}/>
-            </div>
-            <div className="well">
-              <SelectInput
-                name="xOption"
-                label="x軸"
-                value={this.state.xOption}
-                options={this.props.xAxisOptions}
-                onChange={this.handleXChange}/>
-              <SelectInput
-                name="yOption"
-                label="y軸"
-                value={this.state.yOption}
-                options={this.props.yAxisOptions}
-                onChange={this.handleYChange}/>
+                <br/>
+              <div className="row">
+                <div className="col-md-6">
+                  <SelectInput
+                    name="xOption"
+                    label="x軸"
+                    value={this.state.xOption}
+                    options={this.props.xAxisOptions}
+                    onChange={this.handleXChange}/>
+                  <SelectInput
+                    name="yOption"
+                    label="y軸"
+                    value={this.state.yOption}
+                    options={this.props.yAxisOptions}
+                    onChange={this.handleYChange}/>
+                </div>
+              </div>
             </div>
           </div>
           <div className="col-md-9">

@@ -16,28 +16,14 @@ class Login extends React.Component {
     this.loginClick = this
       .loginClick
       .bind(this);
-    this.logoutClick = this
-      .logoutClick
-      .bind(this);
-    this.state = {
-      isLoggedIn: props.fbResponse.accessToken ? true : false
-      // isLoggedIn: false
-    };
   }
 
   loginClick() {
-    this.setState({isLoggedIn: true});
     browserHistory.push('/mainPage');
   }
 
-  logoutClick() {
-    this.setState({isLoggedIn: false});
-    localStorage.removeItem("admatrixAuth");
-    browserHistory.push('/');
-  }
 
   render() {
-    const isLoggedIn = this.state.isLoggedIn;
     const loginName = this.props.fbResponse.name;
     const loginPicture = this.props.fbResponse.picture.data.url;
 
@@ -48,22 +34,11 @@ class Login extends React.Component {
           autoLoad={true}
           fields="name, email, picture"
           scope="public_profile, email, user_birthday"
-          onClick={isLoggedIn
-          ? this.logoutClick
-          : this.loginClick}
+          onClick={this.loginClick}
           callback={responseFacebook}
-          textButton={isLoggedIn
-          ? " 登出"
-          : " 登入"}
-          cssClass={isLoggedIn
-          ? "btn"
-          : "btn primary"}
-           icon="fa-facebook"/>
-        <img src={isLoggedIn
-          ? loginPicture
-          : ""}/> {isLoggedIn
-          ? loginName + " 歡迎!"
-          : "已登出"}
+          textButton={" 登入帳號"}
+          cssClass={"btn btn-primary"}
+          icon="fa-facebook"/>
       </div>
     );
   }

@@ -6,13 +6,18 @@
 }
 
 
-.filters {
+.header {
     border-bottom: 1px solid #cccccc;
-    margin: 0 0 1em 0;
+    height: 60px;
+}
+
+.header > div{
+  float: right;
 }
 
 .dotChart {
-  padding-top: .5em;
+  padding-top: 4em;
+  padding-left: 1em;
 }
 
 div.tooltip {

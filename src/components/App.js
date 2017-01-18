@@ -13,8 +13,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-          App login
-          <Login />
           <Header loading={this.props.loading} />
           {this.props.children}
       </div>
