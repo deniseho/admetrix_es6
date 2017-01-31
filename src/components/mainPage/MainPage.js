@@ -65,7 +65,7 @@ export class MainPage extends React.Component {
       .bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({
       xOption: this.state.xOption,
       yOption: this.state.yOption,
@@ -326,52 +326,7 @@ export class MainPage extends React.Component {
     else if (option === 'CTR_all') 
       return 'CTR(全部)';
     }
-  
-  MonthMapping(option) {
-    if (option === '201605') 
-      return '2016-05';
-    else if (option === '201606') 
-      return '2016-06';
-    else if (option === '201607') 
-      return '2016-07';
-    else if (option === '201608') 
-      return '2016-08';
-    else if (option === '201609') 
-      return '2016-09';
-    else if (option === '201610') 
-      return '2016-10';
-    else if (option === '201611') 
-      return '2016-11';
-    }
-  
-  ActionTypeMapping(option) {
-    if (option === 'post_engagement') 
-      return 'Post Engagement';
-    else if (option === 'link_click') 
-      return 'Link Click';
-    else if (option === 'video_view') 
-      return 'Video View';
-    else if (option === 'offsite_conversion') 
-      return 'Offsite Conversion';
-    }
-  
-  ProjectMapping(option) {
-    if (option === '6055151364614') 
-      return '1107_愛麗絲專案';
-    else if (option === '6055142199014') 
-      return '1107_旗山馬＿最後報名';
-    }
-  
-  AdMapping(option) {
-    if (option === '6055151371814') 
-      return '貼文：「」 - 貼文互動';
-    else if (option === '6055142199014') 
-      return '1107_旗山馬＿最後報名貼文＿嘉義以北';
-    else if (option === '6055142198414') 
-      return '1107_旗山馬＿最後報名貼文＿台南以南';
-    else if (option === '6055142939014') 
-      return '1107_旗山馬＿最後報名貼文＿未繳費名單';
-    }
+
   
   //=======================todo: Mappings==============================
 
@@ -456,6 +411,8 @@ export class MainPage extends React.Component {
                 value={this.state.ad}
                 options={this.props.adOptions}
                 onChange={this.handleAdChange}/>
+              <button className="btn btn-primary">產生圖表</button>
+              <br/>
               <br/>
               <div className="row">
                 <div className="col-md-6">
@@ -465,6 +422,8 @@ export class MainPage extends React.Component {
                     value={this.state.xOption}
                     options={this.props.xAxisOptions}
                     onChange={this.handleXChange}/>
+                </div>
+               <div className="col-md-6">
                   <SelectInput
                     name="yOption"
                     label="y軸"
@@ -476,15 +435,6 @@ export class MainPage extends React.Component {
             </div>
           </div>
           <div className="col-md-9">
-            <h5>
-              {this.MonthMapping(this.state.month)}</h5>
-            <h5>
-              {this.ActionTypeMapping(this.state.actionType)}</h5>
-            <h5>
-              {this.ProjectMapping(this.state.project)}</h5>
-            <h5>
-              {this.AdMapping(this.state.ad)}
-            </h5>
             <div className="dotChart"></div>
           </div>
         </div>
